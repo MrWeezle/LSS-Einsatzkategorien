@@ -5,6 +5,7 @@ var color_rd       = 'pink';
 var color_wasser   = 'blue';
 
 var B1_AAO         = 'aao_1025454';
+var B1_DL_AAO      = 'aao_1029184';
 var B2_AAO         = 'aao_1025456';
 var B2_DL_AAO      = 'aao_1025481';
 var B3_AAO         = 'aao_1025458';
@@ -52,6 +53,7 @@ for (var i = 0, len = elems.length; i < len; i++){
               test.match('Baum auf Radweg') ||
               test.match('Feuerprobealarm an Schule') ||
               test.match('Keller unter Wasser') ||
+              test.match('Baum auf Straße') || 
               {}).input:
 
             B1(elems[i], orig);
@@ -64,6 +66,7 @@ for (var i = 0, len = elems.length; i < len; i++){
               test.match('Feuer auf Balkon') ||
               test.match('Flächenbrand') ||
               test.match('Küchenbrand') ||
+              test.match('Garagenbrand') || 
               {}).input:
 
             B2(elems[i], orig);
@@ -89,12 +92,18 @@ for (var i = 0, len = elems.length; i < len; i++){
             break;
     }
 }
-
 function B1(el, orig) {
     el.innerHTML = '<font color='+color_fw+'><b>B1</b></font>'+orig;
 
     if (veh_driving === null && veh_mission === null) {
         document.getElementById(B1_AAO).click();
+    }
+}
+function B1_DL(el, orig) {
+    el.innerHTML = '<font color='+color_fw+'><b>B1</b></font>'+orig;
+
+    if (veh_driving === null && veh_mission === null) {
+        document.getElementById(B1_DL_AAO).click();
     }
 }
 function B2(el, orig) {
