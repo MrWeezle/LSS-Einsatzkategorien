@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name        Einsatzkategorien
-// @namespace   Leitstellenspiel
-// @include     http*://www.leitstellenspiel.de/*
-// @version     dev
-// @author      FFInningen
-// @grant       none
-// ==/UserScript==
-
 var color_fw       = 'red';
 var color_thw      = 'blue';
 var color_pol      = 'green';
