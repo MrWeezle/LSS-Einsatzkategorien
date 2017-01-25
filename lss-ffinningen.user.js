@@ -172,7 +172,8 @@ for (var i = 0, len = elems.length; i < len; i++){
     orig = elems[i].innerHTML;
 
     //Feuerwehr Einsätze für 3 LF hier eintragen
-    if (keyword.match('Feuer in Schnellrestaurant') ||
+    if (keyword.match('Dachstuhlbrand') ||
+        keyword.match('Feuer in Schnellrestaurant') ||
         keyword.match('Kellerbrand') ||
         keyword.match('Brand im Supermarkt') ||
         keyword.match('Gasgeruch') ||
