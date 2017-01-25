@@ -99,7 +99,8 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Wildunfall') ||
         keyword.match('Auffahrunfall') ||
         keyword.match('Trunkenheitsfahrt') ||
-        keyword.match('Gasgeruch'))
+        keyword.match('Gasgeruch') ||
+        keyword.match('Motorradunfall'))
     {
         POL(elems[i], orig, 1);
     }
