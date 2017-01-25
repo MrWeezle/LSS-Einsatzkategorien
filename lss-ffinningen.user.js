@@ -148,7 +148,8 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Baum auf Straße') ||
         keyword.match('Baum auf PKW') ||
         keyword.match('Tiefgarage unter Wasser') ||
-        keyword.match('Auffahrunfall'))
+        keyword.match('Auffahrunfall') ||
+        keyword.match('Motorradunfall'))
     {
         LF(elems[i], orig, 1);
     }
