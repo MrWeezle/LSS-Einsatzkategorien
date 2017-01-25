@@ -1,147 +1,400 @@
+// ==UserScript==
+// @name        Einsatzkategorien
+// @namespace   Leitstellenspiel
+// @include     http*://www.leitstellenspiel.de/*
+// @version     dev
+// @author      FFInningen
+// @grant       none
+// @run-at      document-idle
+// ==/UserScript==
+
 var color_fw       = 'red';
 var color_thw      = 'blue';
 var color_pol      = 'green';
 var color_rd       = 'pink';
 var color_wasser   = 'blue';
 
-var B1_AAO         = 'aao_1025454';
-var B1_DL_AAO      = 'aao_1029184';
-var B2_AAO         = 'aao_1025456';
-var B2_DL_AAO      = 'aao_1025481';
-var B3_AAO         = 'aao_1025458';
-var B3_DL_AAO      = 'aao_1026046';
+//Feuerwehr-Fahrzeug-AAO - pro AAO nur ein Fahrzeug!!!
+var DL_AAO         = 'aao_1025461';
+var ELW1_AAO       = 'aao_1025469';
+var ELW2_AAO       = 'aao_1030713';
+var LF_AAO         = 'aao_1025454';
+
+var ATEM_AAO       = 'aao_1030717';
+var OEL_AAO        = 'aao_1030716';
+var SCHLAUCH_AAO   = 'aao_1030718';
+var KRAN_AAO       = 'aao_1030721';
+var RUEST_AAO      = 'aao_1025472';
+var DEKONP_AAO     = 'aao_1030720';
+var GWG_AAO        = 'aao_1030715';
+var GWH_AAO        = 'aao_1030719';
+var GWM_AAO        = 'aao_1030714';
+
+//Rettungsdienst-Fahrzeug-AAO - pro AAO nur ein Fahrzeug!!!
+var KTW_AAO        = 'aao_1030722';
+var RTW_AAO        = 'aao_1030515';
+var NEF_AAO        = 'aao_1030723';
+var RTH_AAO        = 'aao_1030724';
+var LNA_AAO        = 'aao_1030725';
+var ORGL_AAO       = 'aao_1030726';
+
+//Polizei-Fahrzeug-AAO - pro AAO nur ein Fahrzeug!!!
+var POL_AAO        = 'aao_1030727';
+
+
+/************************************************************************
+*                                                                       *
+*                     AB HIER NICHTS MEHR ÄNDERN!!!                     *
+*                                                                       *
+************************************************************************/
 
 var veh_driving = document.getElementById('mission_vehicle_driving');
 var veh_mission = document.getElementById('mission_vehicle_at_mission');
 
+//.replace('Zusätzlich benötigte Fahrzeuge: ','')
+
+//alert(additionalfhzInnerText);
+
 var elems = document.querySelectorAll('h3#missionH1');
+
 for (var i = 0, len = elems.length; i < len; i++){
-    var test;
+    var keyword;
     var orig = elems[i].innerHTML;
     elems[i].innerHTML = elems[i].innerHTML.replace(/(<small>[^.]+<\/small>)/ig, '');
-    test = elems[i].innerText;
+    keyword = elems[i].innerText;
 
-    switch(test) {
-        case (test.match('Mülleimerbrand') ||
-              test.match('Containerbrand') ||
-              test.match('Brennender PKW') ||
-              test.match('Motorrad-Brand') ||
-              test.match('Brennendes Gras') ||
-              test.match('Brennendes Laub') ||
-              test.match('Fettbrand in Pommesbude') ||
-              test.match('Sperrmüllbrand') ||
-              test.match('Strohballen Brand') ||
-              test.match('Traktor Brand') ||
-              test.match('Brennende Telefonzelle') ||
-              test.match('Baum auf Straße') ||
-              test.match('Kleiner Waldbrand') ||
-              test.match('Brand in Briefkasten') ||
-              test.match('Brennendes Gebüsch') ||
-              test.match('Brennender Anhänger') ||
-              test.match('Brennendes Bus-Häuschen') ||
-              test.match('Verkehrsunfall') ||
-              test.match('Auslaufende Betriebsstoffe') ||
-              test.match('Brand auf Weihnachtsmarkt') ||
-              test.match('Kleintier in Not') ||
-              test.match('Brennender Bollerwagen') ||
-              test.match('Kleine Ölspur') ||
-              test.match('Brennende Vogelscheuche') ||
-              test.match('Brennende Papiercontainer') ||
-              test.match('Brennende Hecke') ||
-              test.match('Äste auf Fahrbahn') ||
-              test.match('Umherfliegendes Baumaterial') ||
-              test.match('Baum auf Radweg') ||
-              test.match('Feuerprobealarm an Schule') ||
-              test.match('Keller unter Wasser') ||
-              test.match('Baum auf Straße') || 
+    RTW(elems[i], orig);
+    orig = elems[i].innerHTML;
+
+    if (veh_driving !== null || veh_mission !== null) {
+        additionalFHZ();
+    }
+    switch(keyword) {
+        case (keyword.match('Mülleimerbrand') ||
+              keyword.match('Containerbrand') ||
+              keyword.match('Brennender PKW') ||
+              keyword.match('Motorrad-Brand') ||
+              keyword.match('Brennendes Gras') ||
+              keyword.match('Brennendes Laub') ||
+              keyword.match('Fettbrand in Pommesbude') ||
+              keyword.match('Sperrmüllbrand') ||
+              keyword.match('Strohballen Brand') ||
+              keyword.match('Traktor Brand') ||
+              keyword.match('Brennende Telefonzelle') ||
+              keyword.match('Baum auf Straße') ||
+              keyword.match('Kleiner Waldbrand') ||
+              keyword.match('Brand in Briefkasten') ||
+              keyword.match('Brennendes Gebüsch') ||
+              keyword.match('Brennender Anhänger') ||
+              keyword.match('Brennendes Bus-Häuschen') ||
+              keyword.match('Verkehrsunfall') ||
+              keyword.match('Auslaufende Betriebsstoffe') ||
+              keyword.match('Brand auf Weihnachtsmarkt') ||
+              keyword.match('Kleintier in Not') ||
+              keyword.match('Brennender Bollerwagen') ||
+              keyword.match('Kleine Ölspur') ||
+              keyword.match('Brennende Vogelscheuche') ||
+              keyword.match('Brennende Papiercontainer') ||
+              keyword.match('Brennende Hecke') ||
+              keyword.match('Äste auf Fahrbahn') ||
+              keyword.match('Umherfliegendes Baumaterial') ||
+              keyword.match('Baum auf Radweg') ||
+              keyword.match('Feuerprobealarm an Schule') ||
+              keyword.match('Keller unter Wasser') ||
+              keyword.match('Baum auf Straße') ||
+              keyword.match('Baum auf PKW') ||
+              keyword.match('Tiefgarage unter Wasser') ||
               {}).input:
 
-            B1(elems[i], orig);
+            LF(elems[i], orig, 1);
             break;
 
-        case (test.match('Gartenlaubenbrand') ||
-              test.match('Brennender LKW') ||
-              test.match('Wohnwagenbrand') ||
-              test.match('Kleiner Feldbrand') ||
-              test.match('Feuer auf Balkon') ||
-              test.match('Flächenbrand') ||
-              test.match('Küchenbrand') ||
-              test.match('Garagenbrand') || 
+        case (keyword.match('Gartenlaubenbrand') ||
+              keyword.match('Brennender LKW') ||
+              keyword.match('Wohnwagenbrand') ||
+              keyword.match('Kleiner Feldbrand') ||
+              keyword.match('Feuer auf Balkon') ||
+              keyword.match('Flächenbrand') ||
+              keyword.match('Küchenbrand') ||
+              keyword.match('Garagenbrand') ||
+              keyword.match('Brennende Trafostation') ||
               {}).input:
 
-            B2(elems[i], orig);
+            LF(elems[i], orig, 2);
             break;
 
-        case (test.match('Zimmerbrand') ||
-              test.match('Schornsteinbrand') ||
+        case (keyword.match('Zimmerbrand') ||
+              keyword.match('Schornsteinbrand') ||
               {}).input:
 
-            B2_DL(elems[i], orig);
+            DL(elems[i], orig, 1);
+            orig = elems[i].innerHTML;
+            LF(elems[i], orig, 2);
             break;
 
-        case (test.match('Feuer in Schnellrestaurant') ||
-              test.match('Kellerbrand') ||
-              {}).input:
-            B3(elems[i], orig);
-            break;
-
-        case (test.match('Dachstuhlbrand') ||
+        case (keyword.match('Feuer in Schnellrestaurant') ||
+              keyword.match('Kellerbrand') ||
               {}).input:
 
-            B3_DL(elems[i], orig);
+            LF(elems[i], orig, 3);
+            break;
+
+        case (keyword.match('Dachstuhlbrand') ||
+              keyword.match('Feuer in Einfamilienhaus') ||
+              {}).input:
+
+            DL(elems[i], orig, 1);
+            orig = elems[i].innerHTML;
+            LF(elems[i], orig, 3);
+            break;
+
+        case (keyword.match('Brand im Supermarkt') ||
+              {}).input:
+
+            RUEST(elems[i], orig, 1);
+            orig = elems[i].innerHTML;
+            DL(elems[i], orig, 1);
+            orig = elems[i].innerHTML;
+            LF(elems[i], orig, 3);
             break;
     }
 }
-function B1(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B1</b></font>'+orig;
 
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B1_AAO).click();
-    }
-}
-function B1_DL(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B1</b></font>'+orig;
+function DL(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
 
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B1_DL_AAO).click();
+    checkAlertedFhz(DL_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DL </b></font>'+orig;
+}
+
+function ELW1(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(ELW1_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW1 </b></font>'+orig;
+}
+
+function ELW2(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(ELW2_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW2 </b></font>'+orig;
+}
+
+function LF(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(LF_AAO, anzahl);
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'LF </b></font>'+orig;
+}
+
+function ATEM(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(ATEM_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ATEM </b></font>'+orig;
+}
+
+function OEL(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(OEL_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ÖL </b></font>'+orig;
+}
+
+function SCHLAUCH(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(SCHLAUCH_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'SCHLAUCH </b></font>'+orig;
+}
+
+function KRAN(el, orig, anzahl) {
+
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(KRAN_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'KRAN </b></font>'+orig;
+}
+
+function RUEST(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(RUEST_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'RÜST </b></font>'+orig;
+}
+
+function DEKONP(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(DEKONP_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DEKON-P </b></font>'+orig;
+}
+
+function GWG(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(GWG_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-G </b></font>'+orig;
+}
+
+function GWH(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(GWH_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-H </b></font>'+orig;
+}
+
+function GWM(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+
+    checkAlertedFhz(GWM_AAO, anzahl);
+
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-M </b></font>'+orig;
+}
+
+function KTW(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
     }
 }
-function B2(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B2</b></font>'+orig;
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B2_AAO).click();
+
+function RTW(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTW </b></font>'+orig;
     }
 }
-function B2_P(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B2 P</b></font>'+orig;
-}
-function B2_DL(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B2 DL</b></font>'+orig;
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B2_DL_AAO).click();
+
+function NEF(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'NEF </b></font>'+orig;
     }
 }
-function B2_DL_P(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B2_kZug</b></font>'+orig;
-}
-function B3(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B3</b></font>'+orig;
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B3_AAO).click();
+
+function RTH(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTH </b></font>'+orig;
     }
 }
-function B3_P(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B3 P</b></font>'+orig;
-}
-function B3_DL(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B3 DL</b></font>'+orig;
-    if (veh_driving === null && veh_mission === null) {
-        document.getElementById(B3_DL_AAO).click();
+
+function LNA(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'LNA </b></font>'+orig;
     }
 }
-function B3_DL_P(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B3_kZug</b></font>'+orig;
+
+function ORGL(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'ORGL </b></font>'+orig;
+    }
 }
-function B3_DL_ELW_P(el, orig) {
-    el.innerHTML = '<font color='+color_fw+'><b>B3_LZ</b></font>'+orig;
+
+function POL(el, orig) {
+
+    var anzahl = document.getElementsByClassName("patient_progress");
+
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        el.innerHTML = '<font color='+color_pol+'><b>'+anzahl.length+'POL </b></font>'+orig;
+    }
+}
+
+function checkAlertedFhz(aao, anzahl) {
+    if(veh_driving === null && veh_mission === null) {
+        for (var i=0; i < anzahl;i++)
+            document.getElementById(aao).click();
+    }
+}
+
+function additionalFHZ() {
+    var additionalfhz = document.getElementsByClassName('alert alert-danger');
+
+    if (additionalfhz.length > 0 && additionalfhz[0].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
+        var additionalfhzInnerText = additionalfhz[0].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','');
+
+        var fhz = additionalfhzInnerText.split(' ');
+        switch(fhz[1]) {
+            case "Drehleitern":
+                for (var j=0;j<fhz[0];j++) {
+                    document.getElementById(DL_AAO).click();
+                }
+                break;
+            case "Löschfahrzeug":
+                for (var j=0;j<fhz[0];j++) {
+                    document.getElementById(LF_AAO).click();
+                }
+                break;
+            case "Löschfahrzeuge":
+                for (var j=0;j<fhz[0];j++) {
+                    document.getElementById(LF_AAO).click();
+                }
+                break;
+
+            case "Rüstwagen":
+                for (var j=0;j<fhz[0];j++) {
+                    document.getElementById(RUEST_AAO).click();
+                }
+                break;
+        }
+    }
+    else {
+        var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
+
+        if (sprechwunsch.length>0 && sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
+            sprechwunsch[0].click();
+    }
 }
