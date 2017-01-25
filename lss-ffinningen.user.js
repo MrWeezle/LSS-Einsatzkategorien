@@ -98,6 +98,7 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Fahrraddiebstahl') ||
         keyword.match('Wildunfall') ||
         keyword.match('Auffahrunfall') ||
+        keyword.match('Trunkenheitsfahrt') ||
         keyword.match('Gasgeruch'))
     {
         POL(elems[i], orig, 1);
