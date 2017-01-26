@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.3
+// @version     0.1.1.4
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -446,8 +446,15 @@ function POL(el, orig, anzahl) {
 }
 
 function checkAlertedFhz(aao, anzahl) {
+    var i;
+    if (aao == RTW_AAO) {
+        if(veh_driving === null && veh_mission !== null) {
+            for (i=0; i < anzahl;i++)
+                document.getElementById(aao).click();
+        }
+    }
     if(veh_driving === null && veh_mission === null) {
-        for (var i=0; i < anzahl;i++)
+        for (i=0; i < anzahl;i++)
             document.getElementById(aao).click();
     }
 }
