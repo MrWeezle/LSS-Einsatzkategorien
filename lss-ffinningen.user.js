@@ -100,7 +100,8 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Auffahrunfall') ||
         keyword.match('Trunkenheitsfahrt') ||
         keyword.match('Gasgeruch') ||
-        keyword.match('Motorradunfall'))
+        keyword.match('Motorradunfall') ||
+        keyword.match('Brandsicherheitswache bei Volksfest'))
     {
         POL(elems[i], orig, 1);
     }
@@ -181,7 +182,8 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Gasgeruch') ||
         keyword.match('Maschinenbrand') ||
         keyword.match('Feuer in Einfamilienhaus') ||
-        keyword.match('Rauchentwicklung im Museum'))
+        keyword.match('Rauchentwicklung im Museum') ||
+        keyword.match('Brandsicherheitswache bei Volksfest'))
     {
         LF(elems[i], orig, 3);
     }
