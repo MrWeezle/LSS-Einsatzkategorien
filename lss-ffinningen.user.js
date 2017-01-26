@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.4
+// @version     0.1.1.5
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -13,6 +13,8 @@ var color_thw      = 'blue';
 var color_pol      = 'green';
 var color_rd       = 'pink';
 var color_wasser   = 'blue';
+
+var anzahl_fhz     = 0;
 
 //Feuerwehr-Fahrzeug-AAO - pro AAO nur ein Fahrzeug!!!
 var DL_AAO         = 'aao_1025461';
@@ -249,7 +251,10 @@ for (var i = 0, len = elems.length; i < len; i++){
         ELW1(elems[i], orig, 1);
     }
     orig = elems[i].innerHTML;*/
-
+    var fhz_selected = document.getElementsByClassName('badge vehicle_amount_selected');
+    if (fhz_selected.length > 0)
+        fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
+    anzahl_fhz = 0;
 
 }
 
@@ -258,7 +263,7 @@ function DL(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(DL_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DL </b></font>'+orig;
 }
 
@@ -268,7 +273,7 @@ function ELW1(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(ELW1_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW1 </b></font>'+orig;
 }
 
@@ -278,7 +283,7 @@ function ELW2(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(ELW2_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW2 </b></font>'+orig;
 }
 
@@ -288,6 +293,7 @@ function LF(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(LF_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'LF </b></font>'+orig;
 }
 
@@ -297,7 +303,7 @@ function ATEM(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(ATEM_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ATEM </b></font>'+orig;
 }
 
@@ -307,7 +313,7 @@ function OEL(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(OEL_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ÖL </b></font>'+orig;
 }
 
@@ -317,7 +323,7 @@ function SCHLAUCH(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(SCHLAUCH_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'SCHLAUCH </b></font>'+orig;
 }
 
@@ -327,7 +333,7 @@ function KRAN(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(KRAN_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'KRAN </b></font>'+orig;
 }
 
@@ -336,7 +342,7 @@ function RUEST(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(RUEST_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'RÜST </b></font>'+orig;
 }
 
@@ -345,7 +351,7 @@ function DEKONP(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(DEKONP_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DEKON-P </b></font>'+orig;
 }
 
@@ -354,7 +360,7 @@ function GWG(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(GWG_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-G </b></font>'+orig;
 }
 
@@ -363,7 +369,7 @@ function GWH(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(GWH_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-H </b></font>'+orig;
 }
 
@@ -372,7 +378,7 @@ function GWM(el, orig, anzahl) {
         anzahl = 1;
 
     checkAlertedFhz(GWM_AAO, anzahl);
-
+    anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-M </b></font>'+orig;
 }
 
@@ -382,6 +388,7 @@ function KTW(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(KTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
     }
 }
@@ -391,6 +398,7 @@ function RTW(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTW </b></font>'+orig;
     }
 }
@@ -401,6 +409,7 @@ function NEF(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'NEF </b></font>'+orig;
     }
 }
@@ -411,6 +420,7 @@ function RTH(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTH </b></font>'+orig;
     }
 }
@@ -421,6 +431,7 @@ function LNA(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'LNA </b></font>'+orig;
     }
 }
@@ -430,7 +441,8 @@ function ORGL(el, orig) {
     var anzahl = document.getElementsByClassName("patient_progress");
 
     if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
+        checkAlertedFhz(RTW_AAO, anzahl.length);       
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'ORGL </b></font>'+orig;
     }
 }
@@ -441,6 +453,7 @@ function POL(el, orig, anzahl) {
 
     if (anzahl > 0) {
         checkAlertedFhz(POL_AAO, anzahl);
+        anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_pol+'><b>'+anzahl+'POL </b></font>'+orig;
     }
 }
