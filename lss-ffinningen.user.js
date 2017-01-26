@@ -253,7 +253,7 @@ for (var i = 0, len = elems.length; i < len; i++){
     orig = elems[i].innerHTML;*/
     var fhz_selected = document.getElementsByClassName('badge vehicle_amount_selected');
     if (fhz_selected.length > 0) {
-        fhz_selected[0].innerHTML = innerhtml + '/'+anzahl_fhz;
+        fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
     }
     anzahl_fhz = 0;
 
