@@ -252,8 +252,9 @@ for (var i = 0, len = elems.length; i < len; i++){
     }
     orig = elems[i].innerHTML;*/
     var fhz_selected = document.getElementsByClassName('badge vehicle_amount_selected');
-    if (fhz_selected.length > 0)
-        fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
+    if (fhz_selected.length > 0) {
+        fhz_selected[0].innerHTML = innerhtml + '/'+anzahl_fhz;
+    }
     anzahl_fhz = 0;
 
 }
@@ -388,7 +389,7 @@ function KTW(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(KTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl;
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
     }
 }
@@ -398,7 +399,7 @@ function RTW(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl;
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTW </b></font>'+orig;
     }
 }
@@ -409,7 +410,7 @@ function NEF(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl;
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'NEF </b></font>'+orig;
     }
 }
@@ -420,7 +421,7 @@ function RTH(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl;
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTH </b></font>'+orig;
     }
 }
@@ -431,7 +432,7 @@ function LNA(el, orig) {
 
     if (anzahl.length > 0) {
         checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl;
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'LNA </b></font>'+orig;
     }
 }
@@ -441,8 +442,8 @@ function ORGL(el, orig) {
     var anzahl = document.getElementsByClassName("patient_progress");
 
     if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);       
-        anzahl_fhz = anzahl_fhz + anzahl;
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'ORGL </b></font>'+orig;
     }
 }
