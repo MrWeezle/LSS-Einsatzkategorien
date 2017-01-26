@@ -263,9 +263,9 @@ function DL(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DL </b></font>'+orig;
     checkAlertedFhz(DL_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DL </b></font>'+orig;
 }
 
 function ELW1(el, orig, anzahl) {
@@ -273,9 +273,9 @@ function ELW1(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW1 </b></font>'+orig;
     checkAlertedFhz(ELW1_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW1 </b></font>'+orig;
 }
 
 function ELW2(el, orig, anzahl) {
@@ -283,9 +283,9 @@ function ELW2(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW2 </b></font>'+orig;
     checkAlertedFhz(ELW2_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ELW2 </b></font>'+orig;
 }
 
 function LF(el, orig, anzahl) {
@@ -293,9 +293,9 @@ function LF(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'LF </b></font>'+orig;
     checkAlertedFhz(LF_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'LF </b></font>'+orig;
 }
 
 function ATEM(el, orig, anzahl) {
@@ -303,9 +303,9 @@ function ATEM(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ATEM </b></font>'+orig;
     checkAlertedFhz(ATEM_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ATEM </b></font>'+orig;
 }
 
 function OEL(el, orig, anzahl) {
@@ -313,9 +313,9 @@ function OEL(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ÖL </b></font>'+orig;
     checkAlertedFhz(OEL_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ÖL </b></font>'+orig;
 }
 
 function SCHLAUCH(el, orig, anzahl) {
@@ -323,9 +323,9 @@ function SCHLAUCH(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'SCHLAUCH </b></font>'+orig;
     checkAlertedFhz(SCHLAUCH_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'SCHLAUCH </b></font>'+orig;
 }
 
 function KRAN(el, orig, anzahl) {
@@ -333,54 +333,54 @@ function KRAN(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'KRAN </b></font>'+orig;
     checkAlertedFhz(KRAN_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'KRAN </b></font>'+orig;
 }
 
 function RUEST(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'RÜST </b></font>'+orig;
     checkAlertedFhz(RUEST_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'RÜST </b></font>'+orig;
 }
 
 function DEKONP(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DEKON-P </b></font>'+orig;
     checkAlertedFhz(DEKONP_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'DEKON-P </b></font>'+orig;
 }
 
 function GWG(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-G </b></font>'+orig;
     checkAlertedFhz(GWG_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-G </b></font>'+orig;
 }
 
 function GWH(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-H </b></font>'+orig;
     checkAlertedFhz(GWH_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-H </b></font>'+orig;
 }
 
 function GWM(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
 
-    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-M </b></font>'+orig;
     checkAlertedFhz(GWM_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-M </b></font>'+orig;
 }
 
 function KTW(el, orig) {
@@ -388,97 +388,63 @@ function KTW(el, orig) {
     var anzahl = document.getElementsByClassName("patient_progress");
 
     if (anzahl.length > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
         checkAlertedFhz(KTW_AAO, anzahl.length);
         anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
     }
 }
 
 function RTW(el, orig) {
-    var patients = document.getElementsByClassName("patient_progress");
-    var fortschritt = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
-    var anzahl_orig = patients.length;
-    var anzahl = anzahl_orig;
+    var anzahl = document.getElementsByClassName("patient_progress");
 
-    for (var i=0;i<fortschritt.length;i++) {
-        var width = $(fortschritt[i]).width();
-        var parentWidth = $(patients[i]).offsetParent().width();
-        if (width < parentWidth && anzahl > 0) {
-            anzahl = anzahl - 1;
-        }
-    }
-
-    if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
-        checkAlertedFhz(RTW_AAO, anzahl);
-        anzahl_fhz = anzahl_fhz + anzahl;
-    }
-    else if(anzahl_orig > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl_orig+'RTW </b></font>'+orig;
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTW </b></font>'+orig;
     }
 }
 
 function NEF(el, orig) {
 
-    var patients = document.getElementsByClassName("patient_progress");
-    var anzahl_orig = patients.length;
-    var anzahl = anzahl_orig;
+    var anzahl = document.getElementsByClassName("patient_progress");
 
-    if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'NEF </b></font>'+orig;
-        checkAlertedFhz(RTW_AAO, anzahl);
-        anzahl_fhz = anzahl_fhz + anzahl;
-    }
-    else {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl_orig+'RTW </b></font>'+orig;
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'NEF </b></font>'+orig;
     }
 }
 
 function RTH(el, orig) {
 
-    var patients = document.getElementsByClassName("patient_progress");
-    var anzahl_orig = patients.length;
-    var anzahl = anzahl_orig;
+    var anzahl = document.getElementsByClassName("patient_progress");
 
-    if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTH </b></font>'+orig;
-        checkAlertedFhz(RTW_AAO, anzahl);
-        anzahl_fhz = anzahl_fhz + anzahl;
-    }
-    else {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl_orig+'RTW </b></font>'+orig;
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTH </b></font>'+orig;
     }
 }
 
 function LNA(el, orig) {
 
-    var patients = document.getElementsByClassName("patient_progress");
-    var anzahl_orig = patients.length;
-    var anzahl = anzahl_orig;
+    var anzahl = document.getElementsByClassName("patient_progress");
 
-    if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'LNA </b></font>'+orig;
-        checkAlertedFhz(RTW_AAO, anzahl);
-        anzahl_fhz = anzahl_fhz + anzahl;
-    }
-    else {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl_orig+'RTW </b></font>'+orig;
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'LNA </b></font>'+orig;
     }
 }
 
 function ORGL(el, orig) {
 
-    var patients = document.getElementsByClassName("patient_progress");
-    var anzahl_orig = patients.length;
-    var anzahl = anzahl_orig;
+    var anzahl = document.getElementsByClassName("patient_progress");
 
-    if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'ORGL </b></font>'+orig;
-        checkAlertedFhz(RTW_AAO, anzahl);
-        anzahl_fhz = anzahl_fhz + anzahl;
-    }
-    else {
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl_orig+'RTW </b></font>'+orig;
+    if (anzahl.length > 0) {
+        checkAlertedFhz(RTW_AAO, anzahl.length);
+        anzahl_fhz = anzahl_fhz + anzahl.length;
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'ORGL </b></font>'+orig;
     }
 }
 
@@ -487,9 +453,9 @@ function POL(el, orig, anzahl) {
         anzahl = 1;
 
     if (anzahl > 0) {
-        el.innerHTML = '<font color='+color_pol+'><b>'+anzahl+'POL </b></font>'+orig;
         checkAlertedFhz(POL_AAO, anzahl);
         anzahl_fhz = anzahl_fhz + anzahl;
+        el.innerHTML = '<font color='+color_pol+'><b>'+anzahl+'POL </b></font>'+orig;
     }
 }
 
@@ -511,12 +477,13 @@ function additionalFHZ() {
     var additionalfhz = document.getElementsByClassName('alert alert-danger');
 
     if (additionalfhz.length > 0 && additionalfhz[0].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && veh_driving === null) {
-        var additionalfhzInnerText = additionalfhz[0].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','');
+        var additionalfhzInnerText = additionalfhz[0].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
 
         var fhz = additionalfhzInnerText.split(' ');
         for (var ab=0;ab<fhz.length;ab++) {
             if((ab % 2) === 0) {
                 var j;
+                alert(fhz[ab+1]);
                 switch(fhz[ab+1]) {
                     case "Drehleitern":
                         for (j=0;j<fhz[ab];j++) {
