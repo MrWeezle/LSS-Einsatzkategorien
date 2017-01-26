@@ -483,7 +483,6 @@ function additionalFHZ() {
         for (var ab=0;ab<fhz.length;ab++) {
             if((ab % 2) === 0) {
                 var j;
-                alert(fhz[ab+1]);
                 switch(fhz[ab+1]) {
                     case "Drehleitern":
                         for (j=0;j<fhz[ab];j++) {
