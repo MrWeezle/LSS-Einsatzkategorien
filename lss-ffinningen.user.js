@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.7
+// @version     0.1.1.8
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -259,7 +259,7 @@ for (var i = 0, len = elems.length; i < len; i++){
 
     if (addedMissingFhzInformation){
         var h1 = document.getElementById('missionH1');
-        h1.insertAdjacentHTML('afterend', '<div class="clearfix"></div><div class="alert alert-danger">Nicht alle benötigten Fahrzeuge vorhanden!<br>Fehlende Fahrzeuge: '+missingFhzText.substring(0, missingFhzText.length - 2)+'</div>');
+        h1.insertAdjacentHTML('afterend', '<div class="clearfix"></div><div class="alert alert-danger">Nicht alle benötigten Fahrzeuge vorhanden!<br>Fehlende Fahrzeuge: '+missingFhzText.slice(0, -2)+'</div>');
     }
     addedMissingFhzInformation = false;
 
@@ -406,6 +406,8 @@ function KTW(el, orig) {
         checkAlertedFhz(KTW_AAO, anzahl);
         anzahl_fhz = anzahl_fhz + anzahl;
         el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'KTW </b></font>'+orig;
+        if (anzahl > 0)
+            el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'KTW </b></font>'+orig;
     }
 }
 
@@ -425,9 +427,11 @@ function RTW(el, orig) {
         }
         checkAlertedFhz(RTW_AAO, anzahl);
         anzahl_fhz = anzahl_fhz + anzahl;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
+        if (anzahl > 0)
+            el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
     }
 }
+
 function NEF(el, orig, anzahl) {
 
     if (anzahl<1)
@@ -480,7 +484,8 @@ function POL(el, orig, anzahl) {
 }
 
 function checkAlertedFhz(aao, anzahl) {
-    var i, numberMissingFhz;
+    var i;
+    var numberMissingFhz = 0;
     if (aao == RTW_AAO) {
         if(veh_driving === null && veh_mission !== null) {
             for (i=0; i < anzahl;i++)
@@ -546,6 +551,10 @@ function additionalFHZ() {
             }
         }
     }
+    else if (additionalfhz.length > 0 && additionalfhz[0].innerText.search('Wir benötigen einen RTW.')>=0 && veh_driving === null) {
+        document.getElementById(RTW_AAO).click();
+    }
+
     else {
         var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
 
