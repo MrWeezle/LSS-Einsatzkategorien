@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.7
+// @version     0.1.1.8
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -15,6 +15,7 @@ var color_rd       = 'pink';
 var color_wasser   = 'blue';
 
 var anzahl_fhz     = 0;
+var addedMissingFhzInformation = false;
 
 //Feuerwehr-Fahrzeug-AAO - pro AAO nur ein Fahrzeug!!!
 var DL_AAO         = 'aao_1025461';
@@ -253,6 +254,7 @@ for (var i = 0, len = elems.length; i < len; i++){
         fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
     }
     anzahl_fhz = 0;
+    addedMissingFhzInformation = false;
 
 }
 
@@ -381,68 +383,80 @@ function GWM(el, orig, anzahl) {
 }
 
 function KTW(el, orig) {
+    var patients = document.getElementsByClassName("patient_progress");
+    var anzahl = patients.length;
+    var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
 
-    var anzahl = document.getElementsByClassName("patient_progress");
-
-    if (anzahl.length > 0) {
-        checkAlertedFhz(KTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'KTW </b></font>'+orig;
+    if (anzahl > 0) {
+        for (var i = 0;i<anzahl;i++) {
+            var width = $(patient_progress[i]).width();
+            var parentWidth = $(patients).offsetParent().width();
+            alert(width + ' --- ' +parentWidth);
+            if (width == parentWidth) {
+                checkAlertedFhz(KTW_AAO, anzahl);
+                anzahl_fhz = anzahl_fhz + anzahl;
+            }
+        }
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'KTW </b></font>'+orig;
     }
 }
 
 function RTW(el, orig) {
-    var anzahl = document.getElementsByClassName("patient_progress");
+    var patients = document.getElementsByClassName("patient_progress");
+    var anzahl = patients.length;
+    var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
 
-    if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTW </b></font>'+orig;
+    if (anzahl > 0) {
+        for (var i = 0;i<anzahl;i++) {
+            var width = $(patient_progress[i]).width();
+            var parentWidth = $(patients).offsetParent().width();
+            alert(width + ' --- ' +parentWidth);
+            if (width == parentWidth) {
+                checkAlertedFhz(RTW_AAO, anzahl);
+                anzahl_fhz = anzahl_fhz + anzahl;
+            }
+        }
+        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
     }
 }
+function NEF(el, orig, anzahl) {
 
-function NEF(el, orig) {
+    if (anzahl<1)
+        anzahl = 1;
 
-    var anzahl = document.getElementsByClassName("patient_progress");
-
-    if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'NEF </b></font>'+orig;
-    }
+    checkAlertedFhz(NEF_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'NEF </b></font>'+orig;
 }
 
-function RTH(el, orig) {
+function RTH(el, orig, anzahl) {
 
-    var anzahl = document.getElementsByClassName("patient_progress");
+    if (anzahl<1)
+        anzahl = 1;
 
-    if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'RTH </b></font>'+orig;
-    }
+    checkAlertedFhz(RTH_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'RTH </b></font>'+orig;
 }
 
-function LNA(el, orig) {
+function LNA(el, orig, anzahl) {
 
-    var anzahl = document.getElementsByClassName("patient_progress");
+    if (anzahl<1)
+        anzahl = 1;
 
-    if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'LNA </b></font>'+orig;
-    }
+    checkAlertedFhz(LNA_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'LNA </b></font>'+orig;
 }
 
-function ORGL(el, orig) {
+function ORGL(el, orig, anzahl) {
 
-    var anzahl = document.getElementsByClassName("patient_progress");
+    if (anzahl<1)
+        anzahl = 1;
 
-    if (anzahl.length > 0) {
-        checkAlertedFhz(RTW_AAO, anzahl.length);
-        anzahl_fhz = anzahl_fhz + anzahl.length;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl.length+'ORGL </b></font>'+orig;
-    }
+    checkAlertedFhz(ORGL_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'ORGL </b></font>'+orig;
 }
 
 function POL(el, orig, anzahl) {
@@ -465,8 +479,18 @@ function checkAlertedFhz(aao, anzahl) {
         }
     }
     if(veh_driving === null && veh_mission === null) {
-        for (i=0; i < anzahl;i++)
-            document.getElementById(aao).click();
+        for (i=0; i < anzahl;i++) {
+            var fhz_aao = document.getElementById(aao);
+            var fhz_aao_inner = fhz_aao.innerHTML;
+            if(fhz_aao_inner.search('glyphicon-ok')>=0) {
+                document.getElementById(aao).click();
+            }
+            else if (!addedMissingFhzInformation){
+                var h1 = document.getElementById('missionH1');
+                h1.insertAdjacentHTML('afterend', '<div class="clearfix"></div><div class="alert alert-danger">Nicht alle benötigten Fahrzeuge vorhanden!</div>');
+                addedMissingFhzInformation = true;
+            }
+        }
     }
 }
 
