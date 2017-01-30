@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.9
+// @version     0.1.1.10
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -72,7 +72,7 @@ for (var i = 0, len = elems.length; i < len; i++){
         additionalFHZ();
     }
 
-    //RTW und KTW Einsätze hier eintragen
+    //automatische Anzahl RTW und KTW Einsätze
     if (keyword.match('Krankentransport'))
         KTW(elems[i], orig);
     else {
@@ -80,6 +80,11 @@ for (var i = 0, len = elems.length; i < len; i++){
     }
     orig = elems[i].innerHTML;
 
+
+    //Rettungsdienst-Einsätze für ein RTW hier eintragen
+    if (keyword.match('Brandsicherheitswachdienst im Theater')) {
+        RTW_man(elems[i], orig, 1);
+    }
 
     //POL-Einsätze für 1 FuStW hier eintragen
     if (keyword.match('Ladendiebstahl') ||
@@ -155,7 +160,8 @@ for (var i = 0, len = elems.length; i < len; i++){
         keyword.match('Baum auf PKW') ||
         keyword.match('Tiefgarage unter Wasser') ||
         keyword.match('Auffahrunfall') ||
-        keyword.match('Motorradunfall'))
+        keyword.match('Motorradunfall') ||
+        keyword.match('Brandsicherheitswachdienst im Theater'))
     {
         LF(elems[i], orig, 1);
     }
@@ -387,6 +393,15 @@ function GWM(el, orig, anzahl) {
     checkAlertedFhz(GWM_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_fw+'><b>'+anzahl+'GW-M </b></font>'+orig;
+}
+
+function RTW_man(el, orig, anzahl) {
+    if (anzahl<1)
+        anzahl = 1;
+    
+    checkAlertedFhz(RTW_AAO, anzahl);
+    anzahl_fhz = anzahl_fhz + anzahl;
+    el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
 }
 
 function KTW(el, orig) {
