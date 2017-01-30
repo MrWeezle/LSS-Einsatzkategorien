@@ -110,8 +110,7 @@ for (var i = 0, len = elems.length; i < len; i++){
     orig = elems[i].innerHTML;
 
     //POL-Einsätze für 2 FuStW hier eintragen
-    if (keyword.match('Rauchentwicklung im Museum') ||
-        keyword.match('Feuer im Krankenhaus'))
+    if (keyword.match('Rauchentwicklung im Museum'))
     {
         POL(elems[i], orig, 2);
     }
@@ -222,13 +221,12 @@ for (var i = 0, len = elems.length; i < len; i++){
     //Feuerwehr Einsätze für 2 RUEST hier eintragen
     if (keyword.match('Feuer im Krankenhaus'))
     {
-        RUEST(elems[i], orig, 2);
+        //RUEST(elems[i], orig, 2);
     }
     orig = elems[i].innerHTML;
 
     //Feuerwehr Einsätze für 1 ATEM hier eintragen
-    if (keyword.match('Maschinenbrand') ||
-        keyword.match('Rauchentwicklung im Museum'))
+    if (keyword.match('Rauchentwicklung im Museum'))
     {
         ATEM(elems[i], orig, 1);
     }
