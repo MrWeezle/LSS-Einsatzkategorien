@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.8
+// @version     0.1.1.9
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -405,9 +405,10 @@ function KTW(el, orig) {
         }
         checkAlertedFhz(KTW_AAO, anzahl);
         anzahl_fhz = anzahl_fhz + anzahl;
-        el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'KTW </b></font>'+orig;
         if (anzahl > 0)
             el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'KTW </b></font>'+orig;
+        else
+            el.innerHTML = '<font color='+color_rd+'><b>'+patients_anzahl+'KTW </b></font>'+orig;
     }
 }
 
@@ -429,6 +430,8 @@ function RTW(el, orig) {
         anzahl_fhz = anzahl_fhz + anzahl;
         if (anzahl > 0)
             el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
+        else
+            el.innerHTML = '<font color='+color_rd+'><b>'+patients_anzahl+'RTW </b></font>'+orig;
     }
 }
 
@@ -505,8 +508,10 @@ function checkAlertedFhz(aao, anzahl) {
             }
         }
     }
-    var aao_text = document.getElementById(aao).innerText.replace(/[0-9]/g, '');
-    missingFhzText = missingFhzText + numberMissingFhz + aao_text + ", ";
+    if (numberMissingFhz > 0) {
+        var aao_text = document.getElementById(aao).innerText.replace(/[0-9]/g, '');
+        missingFhzText = missingFhzText + numberMissingFhz + aao_text + ", ";
+    }
 }
 
 function additionalFHZ() {
