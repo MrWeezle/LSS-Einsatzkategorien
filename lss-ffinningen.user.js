@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.6
+// @version     0.1.1.7
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -211,8 +211,7 @@ for (var i = 0, len = elems.length; i < len; i++){
     orig = elems[i].innerHTML;
 
     //Feuerwehr Einsätze für 1 RUEST hier eintragen
-    if (keyword.match('Maschinenbrand') ||
-        keyword.match('Brand im Supermarkt'))
+    if (keyword.match('Maschinenbrand'))
     {
         RUEST(elems[i], orig, 1);
     }
