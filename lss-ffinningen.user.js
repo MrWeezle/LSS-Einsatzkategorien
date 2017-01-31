@@ -262,12 +262,14 @@ for (var i = 0, len = elems.length; i < len; i++){
     }
     anzahl_fhz = 0;
 
+    var h1 = document.getElementById('missionH1');
     if (addedMissingFhzInformation){
-        var h1 = document.getElementById('missionH1');
         h1.insertAdjacentHTML('afterend', '<div class="clearfix"></div><div class="alert alert-danger">Nicht alle benötigten Fahrzeuge vorhanden!<br>Fehlende Fahrzeuge: '+missingFhzText.slice(0, -2)+'</div>');
     }
     addedMissingFhzInformation = false;
 
+    var einsatzdate = document.getElementById("missionH1").getAttribute("data-original-title");
+    h1.insertAdjacentHTML('beforeend', '<small class=\'pull-right\'>'+einsatzdate+'</small>');
 }
 
 function DL(el, orig, anzahl) {
