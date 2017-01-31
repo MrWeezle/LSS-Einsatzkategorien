@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.11
+// @version     0.1.1.12
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -64,8 +64,7 @@ var elems = document.querySelectorAll('h3#missionH1');
 for (var i = 0, len = elems.length; i < len; i++){
     var keyword;
     var orig = elems[i].innerHTML;
-    elems[i].innerHTML = elems[i].innerHTML.replace(/(<small>[^.]+<\/small>)/ig, '');
-    keyword = elems[i].innerText;
+    keyword = orig;
 
 
     if (veh_driving !== null || veh_mission !== null) {
