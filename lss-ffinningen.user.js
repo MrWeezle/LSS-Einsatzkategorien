@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
-// @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.14
+// @include     http*://www.leitstellenspiel.de/missions*
+// @version     0.1.1.15
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -534,9 +534,9 @@ function checkAlertedFhz(aao, anzahl) {
 function additionalFHZ() {
     var additionalfhz = document.getElementsByClassName('alert alert-danger');
 
-    for (var j = 0;j<additionalfhz.length;j++) {
-        if (additionalfhz.length > 0 && additionalfhz[j].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && veh_driving === null) {
-            var additionalfhzInnerText = additionalfhz[j].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
+    for (var i = 0;i<additionalfhz.length;i++) {
+        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && veh_driving === null) {
+            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
 
             var fhz = additionalfhzInnerText.split(' ');
             for (var ab=0;ab<fhz.length;ab++) {
@@ -607,12 +607,17 @@ function display_ct(date) {
     var newHour, newMin;
 
     newHour = hour-oldHour;
-    if (newHour <=0)
-        newHour = '';
-    else
-        newHour = newHour + 'h ';
 
-    newMin = min-oldMin;
+    newHour = '';
+
+    if (oldMin < min) {
+        newMin = (60 - min) + oldMin;
+    }
+    else {
+        newHour = newHour + 'h ';
+        newMin = min-oldMin;
+    }
+
     if (newMin < 0)
         newMin = 0;
 
