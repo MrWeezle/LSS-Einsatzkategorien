@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.13
+// @version     0.1.1.14
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -264,7 +264,8 @@ for (var i = 0, len = elems.length; i < len; i++){
 
     var h1 = document.getElementById('missionH1');
     var einsatzdate = document.getElementById("missionH1").getAttribute("data-original-title");
-    h1.insertAdjacentHTML('beforeend', '<br><small>'+einsatzdate+'</small>');
+    h1.insertAdjacentHTML('beforeend', '<br><small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small>');
+    display_ct(einsatzdate);
 
     if (addedMissingFhzInformation){
         h1.insertAdjacentHTML('afterend', '<div class="clearfix"></div><div class="alert alert-danger">Nicht alle benötigten Fahrzeuge vorhanden!<br>Fehlende Fahrzeuge: '+missingFhzText.slice(0, -2)+'</div>');
@@ -399,7 +400,7 @@ function GWM(el, orig, anzahl) {
 function RTW_man(el, orig, anzahl) {
     if (anzahl<1)
         anzahl = 1;
-    
+
     checkAlertedFhz(RTW_AAO, anzahl);
     anzahl_fhz = anzahl_fhz + anzahl;
     el.innerHTML = '<font color='+color_rd+'><b>'+anzahl+'RTW </b></font>'+orig;
@@ -585,4 +586,36 @@ function additionalFHZ() {
             }
         }
     }
+}
+
+function display_c(){
+    var refresh=60000; // Refresh rate in milli seconds
+    mytime=setTimeout(display_ct(),refresh);
+}
+
+function display_ct(date) {
+
+    var a = date.replace(/[a-zA-Z]/ig,'').split(',');
+    var b = a[1].split(':');
+    var oldHour = b[0];
+    var oldMin = b[1];
+
+    var strcount;
+    var x = new Date();
+    var hour = x.getHours();
+    var min = x.getMinutes();
+    var newHour, newMin;
+
+    newHour = hour-oldHour;
+    if (newHour <=0)
+        newHour = '';
+    else
+        newHour = newHour + 'h ';
+
+    newMin = min-oldMin;
+    if (newMin < 0)
+        newMin = 0;
+
+    document.getElementById('einsatzdate').innerHTML = newHour + newMin + 'min';
+    tt=display_c();
 }
