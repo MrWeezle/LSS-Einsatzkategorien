@@ -578,9 +578,10 @@ function additionalFHZ() {
 
         else {
             var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
-
-            if (sprechwunsch.length>0 && sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
-                sprechwunsch[0].click();
+            if (sprechwunsch.length>0) {
+                if (sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
+                    sprechwunsch[0].click();
+            }
         }
     }
 }
