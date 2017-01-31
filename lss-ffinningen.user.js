@@ -532,53 +532,55 @@ function checkAlertedFhz(aao, anzahl) {
 function additionalFHZ() {
     var additionalfhz = document.getElementsByClassName('alert alert-danger');
 
-    if (additionalfhz.length > 0 && additionalfhz[0].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && veh_driving === null) {
-        var additionalfhzInnerText = additionalfhz[0].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
+    for (var j = 0;j<additionalfhz.length;j++) {
+        if (additionalfhz.length > 0 && additionalfhz[j].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && veh_driving === null) {
+            var additionalfhzInnerText = additionalfhz[j].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
 
-        var fhz = additionalfhzInnerText.split(' ');
-        for (var ab=0;ab<fhz.length;ab++) {
-            if((ab % 2) === 0) {
-                var j;
-                switch(fhz[ab+1]) {
-                    case "Drehleitern":
-                        for (j=0;j<fhz[ab];j++) {
-                            document.getElementById(DL_AAO).click();
-                        }
-                        break;
-                    case "Löschfahrzeug":
-                        for (j=0;j<fhz[ab];j++) {
-                            document.getElementById(LF_AAO).click();
-                        }
-                        break;
+            var fhz = additionalfhzInnerText.split(' ');
+            for (var ab=0;ab<fhz.length;ab++) {
+                if((ab % 2) === 0) {
+                    var j;
+                    switch(fhz[ab+1]) {
+                        case "Drehleitern":
+                            for (j=0;j<fhz[ab];j++) {
+                                document.getElementById(DL_AAO).click();
+                            }
+                            break;
+                        case "Löschfahrzeug":
+                            for (j=0;j<fhz[ab];j++) {
+                                document.getElementById(LF_AAO).click();
+                            }
+                            break;
 
-                    case "Löschfahrzeuge":
-                        for (j=0;j<fhz[ab];j++) {
-                            document.getElementById(LF_AAO).click();
-                        }
-                        break;
+                        case "Löschfahrzeuge":
+                            for (j=0;j<fhz[ab];j++) {
+                                document.getElementById(LF_AAO).click();
+                            }
+                            break;
 
-                    case "Rüstwagen":
-                        for (j=0;j<fhz[ab];j++) {
-                            document.getElementById(RUEST_AAO).click();
-                        }
-                        break;
-                    case "FuStW":
-                        for (j=0;j<fhz[ab];j++) {
-                            document.getElementById(POL_AAO).click();
-                        }
-                        break;
+                        case "Rüstwagen":
+                            for (j=0;j<fhz[ab];j++) {
+                                document.getElementById(RUEST_AAO).click();
+                            }
+                            break;
+                        case "FuStW":
+                            for (j=0;j<fhz[ab];j++) {
+                                document.getElementById(POL_AAO).click();
+                            }
+                            break;
+                    }
                 }
             }
         }
-    }
-    else if (additionalfhz.length > 0 && additionalfhz[0].innerText.search('Wir benötigen einen RTW.')>=0 && veh_driving === null) {
-        document.getElementById(RTW_AAO).click();
-    }
+        if (additionalfhz.length > 0 && additionalfhz[j].innerText.search('Wir benötigen einen RTW.')>=0 && veh_driving === null) {
+            document.getElementById(RTW_AAO).click();
+        }
 
-    else {
-        var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
+        else {
+            var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
 
-        if (sprechwunsch.length>0 && sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
-            sprechwunsch[0].click();
+            if (sprechwunsch.length>0 && sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
+                sprechwunsch[0].click();
+        }
     }
 }
