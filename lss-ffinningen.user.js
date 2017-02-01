@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
-// @include     http*://www.leitstellenspiel.de/missions*
-// @version     0.1.1.15
+// @include     http*://www.leitstellenspiel.de/*
+// @version     0.1.1.16
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -574,7 +574,7 @@ function additionalFHZ() {
                 }
             }
         }
-        if (additionalfhz.length > 0 && additionalfhz[j].innerText.search('Wir benötigen einen RTW.')>=0 && veh_driving === null) {
+        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0 && veh_driving === null) {
             document.getElementById(RTW_AAO).click();
         }
 
@@ -594,7 +594,6 @@ function display_c(){
 }
 
 function display_ct(date) {
-
     var a = date.replace(/[a-zA-Z]/ig,'').split(',');
     var b = a[1].split(':');
     var oldHour = b[0];
@@ -610,17 +609,18 @@ function display_ct(date) {
 
     newHour = '';
 
-    if (oldMin < min) {
-        newMin = (60 - min) + oldMin;
+    if (oldMin > min) {
+        newMin = (60 - oldMin) + min;
     }
     else {
-        newHour = newHour + 'h ';
         newMin = min-oldMin;
     }
 
+    if (newHour >= 1)
+        newHour = newHour + 'h ';
+
     if (newMin < 0)
         newMin = 0;
-
-    document.getElementById('einsatzdate').innerHTML = newHour + newMin + 'min';
+    document.getElementById('einsatzdate').innerHTML = newHour + newMin + ' min';
     tt=display_c();
 }
