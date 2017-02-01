@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.1.1.16
+// @version     0.1.1.17
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -609,6 +609,7 @@ function display_ct(date) {
 
     if (oldMin > min) {
         newMin = (60 - oldMin) + min;
+        newHour--;
     }
     else {
         newMin = min-oldMin;
