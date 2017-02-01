@@ -607,8 +607,6 @@ function display_ct(date) {
 
     newHour = hour-oldHour;
 
-    newHour = '';
-
     if (oldMin > min) {
         newMin = (60 - oldMin) + min;
     }
@@ -618,6 +616,8 @@ function display_ct(date) {
 
     if (newHour >= 1)
         newHour = newHour + 'h ';
+    else
+        newHour = '';
 
     if (newMin < 0)
         newMin = 0;
