@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.0.0
+// @version     0.2.0.1
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -339,7 +339,8 @@ setTimeout(function(){
     }
     anzahl_fhz = 0;
     title.scrollIntoView();
-    document.getElementById('amount_of_people').scrollIntoView();
+    if (document.getElementById('amount_of_people') !== null)
+        document.getElementById('amount_of_people').scrollIntoView();
 
     //Feuerwehr Einsätze für 1 ELW1 hier eintragen
     /*if (keyword.match('Brand im Supermarkt') ||
@@ -1304,7 +1305,7 @@ function additionalFHZ() {
     var count_rtw = 0;
     var count_nef = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
-        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0 && (veh_driving !== null || veh_mission !== null)) {
+        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
             var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(',','');
             var fhz = additionalfhzInnerText.split(' ');
             for (var ab=0;ab<fhz.length;ab++) {
