@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.0.2
+// @version     0.2.0.3
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -145,6 +145,7 @@ var missingFhzText = '';
 
 var veh_driving = document.getElementById('mission_vehicle_driving');
 var veh_mission = document.getElementById('mission_vehicle_at_mission');
+var additionalfhz = document.getElementsByClassName('alert alert-danger');
 
 var aao_text = '';
 var title = document.getElementById('missionH1');
@@ -162,172 +163,163 @@ setTimeout(function(){
     checkOnSiteVehicles();
     checkDrivingVehicles();
 
-    additionalFHZ();
+    if (additionalfhz.length > 0)
+        additionalFHZ();
+    else {
+        //Rettungsdienst-Einsätze für ein RTW hier eintragen
+        if (keyword.match('Brandsicherheitswachdienst im Theater')) {
+            alertFhz(rtw, 1, 'rtw');
+        }
 
+        if (keyword.match('akuter Asthma-Anfall')) {
+            alertFhz(nef, 1, 'nef');
+        }
 
-    //Rettungsdienst-Einsätze für ein RTW hier eintragen
-    if (keyword.match('Brandsicherheitswachdienst im Theater')) {
-        alertFhz(rtw, 1, 'rtw');
+        //POL-Einsätze für 1 FuStW hier eintragen
+        if (keyword.match('Ladendiebstahl') ||
+            keyword.match('Taschendiebstahl') ||
+            keyword.match('Metalldiebstahl') ||
+            keyword.match('Person hinter Tür') ||
+            keyword.match('Personalienaufnahme von Schwarzfahrer') ||
+            keyword.match('Parkendes Auto gerammt') ||
+            keyword.match('Notebook aus Schule entwendet') ||
+            keyword.match('Einbruch in Keller') ||
+            keyword.match('Einbruch in Wohnung') ||
+            keyword.match('Sachbeschädigung') ||
+            keyword.match('Ruhestörung') ||
+            keyword.match('Angefahrene Person') ||
+            keyword.match('Ampelausfall') ||
+            keyword.match('Pannenfahrzeug') ||
+            keyword.match('Hausfriedensbruch') ||
+            keyword.match('Hilflose Person') ||
+            keyword.match('Verkehrsbehinderung') ||
+            keyword.match('Diebstahl aus Kfz') ||
+            keyword.match('Fahrraddiebstahl') ||
+            keyword.match('Wildunfall') ||
+            keyword.match('Auffahrunfall') ||
+            keyword.match('Trunkenheitsfahrt') ||
+            keyword.match('Gasgeruch') ||
+            keyword.match('Motorradunfall'))
+        {
+            alertFhz(fustw, 1, 'FuStW',false,'POL');
+        }
+
+        //POL-Einsätze für 2 FuStW hier eintragen
+        if (keyword.match('Rauchentwicklung im Museum'))
+        {
+            alertFhz(fustw, 2, 'FuStW',false,'POL');
+        }
+
+        //Feuerwehr Einsätze für 1 LF hier eintragen
+        if (keyword.match('Mülleimerbrand') ||
+            keyword.match('Containerbrand') ||
+            keyword.match('Brennender PKW') ||
+            keyword.match('Motorrad-Brand') ||
+            keyword.match('Brennendes Gras') ||
+            keyword.match('Brennendes Laub') ||
+            keyword.match('Fettbrand in Pommesbude') ||
+            keyword.match('Sperrmüllbrand') ||
+            keyword.match('Strohballen Brand') ||
+            keyword.match('Traktor Brand') ||
+            keyword.match('Brennende Telefonzelle') ||
+            keyword.match('Kleiner Waldbrand') ||
+            keyword.match('Brand in Briefkasten') ||
+            keyword.match('Brennendes Gebüsch') ||
+            keyword.match('Brennender Anhänger') ||
+            keyword.match('Brennendes Bus-Häuschen') ||
+            keyword.match('Brand auf Weihnachtsmarkt') ||
+            keyword.match('Brennender Bollerwagen') ||
+            keyword.match('Brennende Vogelscheuche') ||
+            keyword.match('Brennende Papiercontainer') ||
+            keyword.match('Brennende Hecke') ||
+            keyword.match('Feuerprobealarm an Schule'))
+        {
+            alertFhz(lf, 1, 'LF', false, 'B');
+        }
+        if (keyword.match('Keller unter Wasser') ||
+            keyword.match('Baum auf Straße') ||
+            keyword.match('Baum auf PKW') ||
+            keyword.match('Tiefgarage unter Wasser') ||
+            keyword.match('Auffahrunfall') ||
+            keyword.match('Baum auf Straße') ||
+            keyword.match('Auslaufende Betriebsstoffe') ||
+            keyword.match('Äste auf Fahrbahn') ||
+            keyword.match('Umherfliegendes Baumaterial') ||
+            keyword.match('Baum auf Radweg') ||
+            keyword.match('Kleine Ölspur') ||
+            keyword.match('Kleintier in Not') ||
+            keyword.match('Verkehrsunfall') ||
+            keyword.match('Motorradunfall'))
+        {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+        }
+
+        //Feuerwehr Einsätze für 2 LF hier eintragen
+        if (keyword.match('Gartenlaubenbrand') ||
+            keyword.match('Brennender LKW') ||
+            keyword.match('Wohnwagenbrand') ||
+            keyword.match('Kleiner Feldbrand') ||
+            keyword.match('Feuer auf Balkon') ||
+            keyword.match('Flächenbrand') ||
+            keyword.match('Küchenbrand') ||
+            keyword.match('Garagenbrand') ||
+            keyword.match('Brennende Trafostation') ||
+            keyword.match('Zimmerbrand') ||
+            keyword.match('Schornsteinbrand'))
+        {
+            alertFhz(lf, 2, 'LF', false, 'B');
+        }
+
+        //Feuerwehr Einsätze für 3 LF hier eintragen
+        if (keyword.match('Dachstuhlbrand') ||
+            keyword.match('Feuer in Schnellrestaurant') ||
+            keyword.match('Kellerbrand') ||
+            keyword.match('Brand im Supermarkt') ||
+            keyword.match('Gasgeruch') ||
+            keyword.match('Maschinenbrand') ||
+            keyword.match('Feuer in Einfamilienhaus') ||
+            keyword.match('Rauchentwicklung im Museum'))
+        {
+            alertFhz(lf, 3, 'LF', false, 'B');
+        }
+
+        //Feuerwehr Einsätze für 4 LF hier eintragen
+        if (keyword.match('Feuer im Krankenhaus'))
+        {
+            alertFhz(lf, 4, 'LF');
+        }
+
+        //Feuerwehr Einsätze für 1 DL hier eintragen
+        if (keyword.match('Dachstuhlbrand') ||
+            keyword.match('Zimmerbrand') ||
+            keyword.match('Schornsteinbrand') ||
+            keyword.match('Brand im Supermarkt') ||
+            keyword.match('Feuer in Einfamilienhaus') ||
+            keyword.match('Rauchentwicklung im Museum') ||
+            keyword.match('Feuer im Krankenhaus'))
+        {
+            alertFhz(dl, 1, 'DL');
+        }
+
+        //Feuerwehr Einsätze für 1 RUEST hier eintragen
+        if (keyword.match('Maschinenbrand'))
+        {
+            alertFhz(ruest, 1, 'RÜST');
+        }
+
+        //Feuerwehr Einsätze für 2 RUEST hier eintragen
+        if (keyword.match('Feuer im Krankenhaus'))
+        {
+            //RUEST(title, orig, 2);
+        }
+
+        //Feuerwehr Einsätze für 1 ATEM hier eintragen
+        if (keyword.match('Rauchentwicklung im Museum'))
+        {
+            alertFhz(atem, 1, 'ATEM');
+        }
+
     }
-
-    if (keyword.match('akuter Asthma-Anfall')) {
-        alertFhz(nef, 1, 'nef');
-    }
-
-    //POL-Einsätze für 1 FuStW hier eintragen
-    if (keyword.match('Ladendiebstahl') ||
-        keyword.match('Taschendiebstahl') ||
-        keyword.match('Metalldiebstahl') ||
-        keyword.match('Person hinter Tür') ||
-        keyword.match('Personalienaufnahme von Schwarzfahrer') ||
-        keyword.match('Parkendes Auto gerammt') ||
-        keyword.match('Notebook aus Schule entwendet') ||
-        keyword.match('Einbruch in Keller') ||
-        keyword.match('Einbruch in Wohnung') ||
-        keyword.match('Sachbeschädigung') ||
-        keyword.match('Ruhestörung') ||
-        keyword.match('Angefahrene Person') ||
-        keyword.match('Ampelausfall') ||
-        keyword.match('Pannenfahrzeug') ||
-        keyword.match('Hausfriedensbruch') ||
-        keyword.match('Hilflose Person') ||
-        keyword.match('Verkehrsbehinderung') ||
-        keyword.match('Diebstahl aus Kfz') ||
-        keyword.match('Fahrraddiebstahl') ||
-        keyword.match('Wildunfall') ||
-        keyword.match('Auffahrunfall') ||
-        keyword.match('Trunkenheitsfahrt') ||
-        keyword.match('Gasgeruch') ||
-        keyword.match('Motorradunfall'))
-    {
-        alertFhz(fustw, 1, 'FuStW',false,'POL');
-    }
-    orig = title.innerHTML;
-
-    //POL-Einsätze für 2 FuStW hier eintragen
-    if (keyword.match('Rauchentwicklung im Museum'))
-    {
-        alertFhz(fustw, 2, 'FuStW',false,'POL');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 1 LF hier eintragen
-    if (keyword.match('Mülleimerbrand') ||
-        keyword.match('Containerbrand') ||
-        keyword.match('Brennender PKW') ||
-        keyword.match('Motorrad-Brand') ||
-        keyword.match('Brennendes Gras') ||
-        keyword.match('Brennendes Laub') ||
-        keyword.match('Fettbrand in Pommesbude') ||
-        keyword.match('Sperrmüllbrand') ||
-        keyword.match('Strohballen Brand') ||
-        keyword.match('Traktor Brand') ||
-        keyword.match('Brennende Telefonzelle') ||
-        keyword.match('Kleiner Waldbrand') ||
-        keyword.match('Brand in Briefkasten') ||
-        keyword.match('Brennendes Gebüsch') ||
-        keyword.match('Brennender Anhänger') ||
-        keyword.match('Brennendes Bus-Häuschen') ||
-        keyword.match('Brand auf Weihnachtsmarkt') ||
-        keyword.match('Brennender Bollerwagen') ||
-        keyword.match('Brennende Vogelscheuche') ||
-        keyword.match('Brennende Papiercontainer') ||
-        keyword.match('Brennende Hecke') ||
-        keyword.match('Feuerprobealarm an Schule'))
-    {
-        alertFhz(lf, 1, 'LF', false, 'B');
-    }
-    if (keyword.match('Keller unter Wasser') ||
-        keyword.match('Baum auf Straße') ||
-        keyword.match('Baum auf PKW') ||
-        keyword.match('Tiefgarage unter Wasser') ||
-        keyword.match('Auffahrunfall') ||
-        keyword.match('Baum auf Straße') ||
-        keyword.match('Auslaufende Betriebsstoffe') ||
-        keyword.match('Äste auf Fahrbahn') ||
-        keyword.match('Umherfliegendes Baumaterial') ||
-        keyword.match('Baum auf Radweg') ||
-        keyword.match('Kleine Ölspur') ||
-        keyword.match('Kleintier in Not') ||
-        keyword.match('Verkehrsunfall') ||
-        keyword.match('Motorradunfall'))
-    {
-        alertFhz(lf, 1, 'LF', false, 'THL');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 2 LF hier eintragen
-    if (keyword.match('Gartenlaubenbrand') ||
-        keyword.match('Brennender LKW') ||
-        keyword.match('Wohnwagenbrand') ||
-        keyword.match('Kleiner Feldbrand') ||
-        keyword.match('Feuer auf Balkon') ||
-        keyword.match('Flächenbrand') ||
-        keyword.match('Küchenbrand') ||
-        keyword.match('Garagenbrand') ||
-        keyword.match('Brennende Trafostation') ||
-        keyword.match('Zimmerbrand') ||
-        keyword.match('Schornsteinbrand'))
-    {
-        alertFhz(lf, 2, 'LF', false, 'B');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 3 LF hier eintragen
-    if (keyword.match('Dachstuhlbrand') ||
-        keyword.match('Feuer in Schnellrestaurant') ||
-        keyword.match('Kellerbrand') ||
-        keyword.match('Brand im Supermarkt') ||
-        keyword.match('Gasgeruch') ||
-        keyword.match('Maschinenbrand') ||
-        keyword.match('Feuer in Einfamilienhaus') ||
-        keyword.match('Rauchentwicklung im Museum'))
-    {
-        alertFhz(lf, 3, 'LF', false, 'B');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 4 LF hier eintragen
-    if (keyword.match('Feuer im Krankenhaus'))
-    {
-        alertFhz(lf, 4, 'LF');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 1 DL hier eintragen
-    if (keyword.match('Dachstuhlbrand') ||
-        keyword.match('Zimmerbrand') ||
-        keyword.match('Schornsteinbrand') ||
-        keyword.match('Brand im Supermarkt') ||
-        keyword.match('Feuer in Einfamilienhaus') ||
-        keyword.match('Rauchentwicklung im Museum') ||
-        keyword.match('Feuer im Krankenhaus'))
-    {
-        alertFhz(dl, 1, 'DL');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 1 RUEST hier eintragen
-    if (keyword.match('Maschinenbrand'))
-    {
-        alertFhz(ruest, 1, 'RÜST');
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 2 RUEST hier eintragen
-    if (keyword.match('Feuer im Krankenhaus'))
-    {
-        //RUEST(title, orig, 2);
-    }
-    orig = title.innerHTML;
-
-    //Feuerwehr Einsätze für 1 ATEM hier eintragen
-    if (keyword.match('Rauchentwicklung im Museum'))
-    {
-        alertFhz(atem, 1, 'ATEM');
-    }
-    orig = title.innerHTML;
-
 
     var h1 = document.getElementById('missionH1');
     var einsatzdate = h1.getAttribute("data-original-title");
@@ -362,8 +354,6 @@ setTimeout(function(){
     {
         ELW1(title, orig, 1);
     }*/
-
-
 }, timeout);
 
 function checkOnSiteVehicles() {
@@ -1292,7 +1282,6 @@ function KTW(el, orig) {
 }
 
 function additionalFHZ() {
-    var additionalfhz = document.getElementsByClassName('alert alert-danger');
     var count_rtw = 0;
     var count_nef = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
