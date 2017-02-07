@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.0.1
+// @version     0.2.0.2
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -168,6 +168,10 @@ setTimeout(function(){
     //Rettungsdienst-Einsätze für ein RTW hier eintragen
     if (keyword.match('Brandsicherheitswachdienst im Theater')) {
         alertFhz(rtw, 1, 'rtw');
+    }
+
+    if (keyword.match('akuter Asthma-Anfall')) {
+        alertFhz(nef, 1, 'nef');
     }
 
     //POL-Einsätze für 1 FuStW hier eintragen
@@ -1077,158 +1081,145 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     if (aao_key === null || typeof aao_key === 'undefined')
         aao_key = '';
 
+    //if (!additional) {
     switch(desc.toLowerCase()) {
         case "lf":
+            anzahl = anzahl - (anz_onSite_lf + anz_Driving_lf);
+            color = color_fw;
+            break;
         case "dl":
+            anzahl = anzahl - (anz_onSite_dl + anz_Driving_dl);
+            color = color_fw;
+            break;
         case "elw1":
+            anzahl = anzahl - (anz_onSite_elw1 + anz_Driving_elw1);
+            color = color_fw;
+            break;
         case "elw2":
+            anzahl = anzahl - (anz_onSite_elw2 + anz_Driving_elw2);
+            color = color_fw;
+            break;
         case "atem":
+            anzahl = anzahl - (anz_onSite_atem + anz_Driving_atem);
+            color = color_fw;
+            break;
         case "rüst":
+            anzahl = anzahl - (anz_onSite_ruest + anz_Driving_ruest);
+            color = color_fw;
+            break;
         case "öl":
+            anzahl = anzahl - (anz_onSite_oel + anz_Driving_oel);
+            color = color_fw;
+            break;
         case "dekon-p":
+            anzahl = anzahl - (anz_onSite_dekonp + anz_Driving_dekonp);
+            color = color_fw;
+            break;
         case "gw-g":
+            anzahl = anzahl - (anz_onSite_gwg + anz_Driving_gwg);
+            color = color_fw;
+            break;
         case "gw-m":
+            anzahl = anzahl - (anz_onSite_gwm + anz_Driving_gwm);
+            color = color_fw;
+            break;
         case "gw-s":
+            anzahl = anzahl - (anz_onSite_gws + anz_Driving_gws);
+            color = color_fw;
+            break;
         case "gw-h":
+            anzahl = anzahl - (anz_onSite_gwh + anz_Driving_gwh);
+            color = color_fw;
+            break;
         case "mtw":
+            anzahl = anzahl - (anz_onSite_mtw + anz_Driving_mtw);
+            color = color_fw;
+            break;
         case "fwk":
+            anzahl = anzahl - (anz_onSite_fwk + anz_Driving_fwk);
             color = color_fw;
             break;
         case "rtw":
+            anzahl = anzahl - (anz_onSite_rtw + anz_Driving_rtw);
+            color = color_rd;
+            break;
         case "ktw":
+            anzahl = anzahl - (anz_onSite_ktw + anz_Driving_ktw);
+            color = color_rd;
+            break;
         case "nef":
+            anzahl = anzahl - (anz_onSite_nef + anz_Driving_nef);
+            color = color_rd;
+            break;
         case "kdow-orgl":
+            anzahl = anzahl - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
+            color = color_rd;
+            break;
         case "kdow-lna":
+            anzahl = anzahl - (anz_onSite_kdowlna + anz_Driving_kdowlna);
             color = color_rd;
             break;
         case "fustw":
+            anzahl = anzahl - (anz_onSite_fustw + anz_Driving_fustw);
+            color = color_pol;
+            break;
         case "lebefkw":
+            anzahl = anzahl - (anz_onSite_lebefkw + anz_Driving_lebefkw);
+            color = color_pol;
+            break;
         case "grukw":
+            anzahl = anzahl - (anz_onSite_grukw + anz_Driving_grukw);
+            color = color_pol;
+            break;
         case "gefkw":
+            anzahl = anzahl - (anz_onSite_gefkw + anz_Driving_gefkw);
+            color = color_pol;
+            break;
         case "ph":
+            anzahl = anzahl - (anz_onSite_ph + anz_Driving_ph);
+            color = color_pol;
+            break;
         case "kuekw":
+            anzahl = anzahl - (anz_onSite_kuekw + anz_Driving_kuekw);
             color = color_pol;
             break;
         case "gkw":
+            anzahl = anzahl - (anz_onSite_gkw + anz_Driving_gkw);
+            color = color_thw;
+            break;
         case "mzkw":
+            anzahl = anzahl - (anz_onSite_mzkw + anz_Driving_mzkw);
+            color = color_thw;
+            break;
         case "mtw-tz":
+            anzahl = anzahl - (anz_onSite_mtwtz + anz_Driving_mtwtz);
+            color = color_thw;
+            break;
         case "lkw-k9":
+            anzahl = anzahl - (anz_onSite_lkwk9 + anz_Driving_lkwk9);
+            color = color_thw;
+            break;
         case "brmgr":
+            anzahl = anzahl - (anz_onSite_brmgr + anz_Driving_brmgr);
+            color = color_thw;
+            break;
         case "anhdle":
+            anzahl = anzahl - (anz_onSite_anhdle + anz_Driving_anhdle);
+            color = color_thw;
+            break;
         case "mlw5":
+            anzahl = anzahl - (anz_onSite_mlw5 + anz_Driving_mlw5);
             color = color_thw;
             break;
         case "gw-san":
+            anzahl = anzahl - (anz_onSite_gwsan + anz_Driving_gwsan);
+            color = color_seg;
+            break;
         case "elw1-seg":
+            anzahl = anzahl - (anz_onSite_elw1seg + anz_Driving_elw1seg);
             color = color_seg;
             break;
     }
-
-    //if (!additional) {
-        switch(desc.toLowerCase()) {
-            case "lf":
-                anzahl = anzahl - (anz_onSite_lf + anz_Driving_lf);
-                break;
-            case "dl":
-                anzahl = anzahl - (anz_onSite_dl + anz_Driving_dl);
-                break;
-            case "elw1":
-                anzahl = anzahl - (anz_onSite_elw1 + anz_Driving_elw1);
-                break;
-            case "elw2":
-                anzahl = anzahl - (anz_onSite_elw2 + anz_Driving_elw2);
-                break;
-            case "atem":
-                anzahl = anzahl - (anz_onSite_atem + anz_Driving_atem);
-                break;
-            case "rüst":
-                anzahl = anzahl - (anz_onSite_ruest + anz_Driving_ruest);
-                break;
-            case "öl":
-                anzahl = anzahl - (anz_onSite_oel + anz_Driving_oel);
-                break;
-            case "dekon-p":
-                anzahl = anzahl - (anz_onSite_dekonp + anz_Driving_dekonp);
-                break;
-            case "gw-g":
-                anzahl = anzahl - (anz_onSite_gwg + anz_Driving_gwg);
-                break;
-            case "gw-m":
-                anzahl = anzahl - (anz_onSite_gwm + anz_Driving_gwm);
-                break;
-            case "gw-s":
-                anzahl = anzahl - (anz_onSite_gws + anz_Driving_gws);
-                break;
-            case "gw-h":
-                anzahl = anzahl - (anz_onSite_gwh + anz_Driving_gwh);
-                break;
-            case "mtw":
-                anzahl = anzahl - (anz_onSite_mtw + anz_Driving_mtw);
-                break;
-            case "fwk":
-                anzahl = anzahl - (anz_onSite_fwk + anz_Driving_fwk);
-                break;
-            case "rtw":
-                anzahl = anzahl - (anz_onSite_rtw + anz_Driving_rtw);
-                break;
-            case "ktw":
-                anzahl = anzahl - (anz_onSite_ktw + anz_Driving_ktw);
-                break;
-            case "nef":
-                anzahl = anzahl - (anz_onSite_nef + anz_Driving_nef);
-                break;
-            case "kdow-orgl":
-                anzahl = anzahl - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
-                break;
-            case "kdow-lna":
-                anzahl = anzahl - (anz_onSite_kdowlna + anz_Driving_kdowlna);
-                break;
-            case "fustw":
-                anzahl = anzahl - (anz_onSite_fustw + anz_Driving_fustw);
-                break;
-            case "lebefkw":
-                anzahl = anzahl - (anz_onSite_lebefkw + anz_Driving_lebefkw);
-                break;
-            case "grukw":
-                anzahl = anzahl - (anz_onSite_grukw + anz_Driving_grukw);
-                break;
-            case "gefkw":
-                anzahl = anzahl - (anz_onSite_gefkw + anz_Driving_gefkw);
-                break;
-            case "ph":
-                anzahl = anzahl - (anz_onSite_ph + anz_Driving_ph);
-                break;
-            case "kuekw":
-                anzahl = anzahl - (anz_onSite_kuekw + anz_Driving_kuekw);
-                break;
-            case "gkw":
-                anzahl = anzahl - (anz_onSite_gkw + anz_Driving_gkw);
-                break;
-            case "mzkw":
-                anzahl = anzahl - (anz_onSite_mzkw + anz_Driving_mzkw);
-                break;
-            case "mtw-tz":
-                anzahl = anzahl - (anz_onSite_mtwtz + anz_Driving_mtwtz);
-                break;
-            case "lkw-k9":
-                anzahl = anzahl - (anz_onSite_lkwk9 + anz_Driving_lkwk9);
-                break;
-            case "brmgr":
-                anzahl = anzahl - (anz_onSite_brmgr + anz_Driving_brmgr);
-                break;
-            case "anhdle":
-                anzahl = anzahl - (anz_onSite_anhdle + anz_Driving_anhdle);
-                break;
-            case "mlw5":
-                anzahl = anzahl - (anz_onSite_mlw5 + anz_Driving_mlw5);
-                break;
-            case "gw-san":
-                anzahl = anzahl - (anz_onSite_gwsan + anz_Driving_gwsan);
-                break;
-            case "elw1-seg":
-                anzahl = anzahl - (anz_onSite_elw1seg + anz_Driving_elw1seg);
-                break;
-        }
     //}
 
     if(veh_driving === null && veh_mission === null || additional) {
