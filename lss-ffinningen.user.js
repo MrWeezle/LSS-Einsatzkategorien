@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.2
+// @version     0.2.1.3
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -73,7 +73,7 @@ var elw1seg  = [59];
 
 var anz_onSite_lf = 0;
 var anz_onSite_dl = 0;
-var anz_onSite_elw = 0;
+var anz_onSite_elw1 = 0;
 var anz_onSite_elw2 = 0;
 var anz_onSite_atem = 0;
 var anz_onSite_ruest = 0;
