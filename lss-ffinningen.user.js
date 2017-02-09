@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.3
+// @version     0.2.1.5
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -107,7 +107,7 @@ var anz_onSite_elw1seg = 0;
 
 var anz_Driving_lf = 0;
 var anz_Driving_dl = 0;
-var anz_Driving_elw = 0;
+var anz_Driving_elw1 = 0;
 var anz_Driving_elw2 = 0;
 var anz_Driving_atem = 0;
 var anz_Driving_ruest = 0;
@@ -166,157 +166,258 @@ if (title !== null) {
 
         //Rettungsdienst-Einsätze für ein RTW hier eintragen
         if (keyword.match('Brandsicherheitswachdienst im Theater')) {
-            alertFhz(rtw, 1, 'rtw');
+            alertFhz(rtw, 1, 'rtw', false);
         }
 
-        if (keyword.match('akuter Asthma-Anfall')) {
-            alertFhz(nef, 1, 'nef');
-        }
-
-        //POL-Einsätze für 1 FuStW hier eintragen
-        if (keyword.match('Ladendiebstahl') ||
-            keyword.match('Taschendiebstahl') ||
-            keyword.match('Metalldiebstahl') ||
-            keyword.match('Person hinter Tür') ||
-            keyword.match('Personalienaufnahme von Schwarzfahrer') ||
-            keyword.match('Parkendes Auto gerammt') ||
-            keyword.match('Notebook aus Schule entwendet') ||
-            keyword.match('Einbruch in Keller') ||
-            keyword.match('Einbruch in Wohnung') ||
-            keyword.match('Sachbeschädigung') ||
-            keyword.match('Ruhestörung') ||
-            keyword.match('Angefahrene Person') ||
-            keyword.match('Ampelausfall') ||
-            keyword.match('Pannenfahrzeug') ||
-            keyword.match('Hausfriedensbruch') ||
-            keyword.match('Hilflose Person') ||
-            keyword.match('Verkehrsbehinderung') ||
-            keyword.match('Diebstahl aus Kfz') ||
-            keyword.match('Fahrraddiebstahl') ||
-            keyword.match('Wildunfall') ||
-            keyword.match('Auffahrunfall') ||
-            keyword.match('Trunkenheitsfahrt') ||
-            keyword.match('Gasgeruch') ||
-            keyword.match('Motorradunfall'))
+        if(keyword.match('Herzinfarkt')||
+           keyword.match('Krampfanfall')||
+           keyword.match('Unfall mit Motorsäge')||
+           keyword.match('Bewusstlose Person')||
+           keyword.match('Schwangere in Notsituation')||
+           keyword.match('Beginnende Geburt')||
+           keyword.match('Schädelverletzung')||
+           keyword.match('akuter Asthma-Anfall'))
         {
-            alertFhz(fustw, 1, 'FuStW',false,'POL');
+            alertFhz(nef, 1, 'NEF', false);
         }
 
-        //POL-Einsätze für 2 FuStW hier eintragen
-        if (keyword.match('Rauchentwicklung in Museum'))
+        if(keyword.match('Ladendiebstahl')||
+           keyword.match('Parkendes Auto gerammt')||
+           keyword.match('Metalldiebstahl')||
+           keyword.match('Taschendiebstahl')||
+           keyword.match('Notebook aus Schule entwendet')||
+           keyword.match('Personalienaufnahme von Schwarzfahrer')||
+           keyword.match('Einbruch in Keller')||
+           keyword.match('Sachbeschädigung')||
+           keyword.match('Angefahrene Person')||
+           keyword.match('Ruhestörung')||
+           keyword.match('Einbruch in Wohnung')||
+           keyword.match('Pannenfahrzeug')||
+           keyword.match('Hausfriedensbruch')||
+           keyword.match('Hilflose Person')||
+           keyword.match('Trunkenheitsfahrt')||
+           keyword.match('Ampelausfall')||
+           keyword.match('Verkehrsbehinderung')||
+           keyword.match('Diebstahl aus Kfz')||
+           keyword.match('Fahrraddiebstahl')||
+           keyword.match('Wildunfall')||
+           keyword.match('Trunkenheitsfahrt nach Silvesterparty'))
         {
-            alertFhz(fustw, 2, 'FuStW',false,'POL');
+            alertFhz(fustw, 1, 'FuStW', false, 'POL');
         }
 
-        //Feuerwehr Einsätze für 1 LF hier eintragen
-        if (keyword.match('Mülleimerbrand') ||
-            keyword.match('Containerbrand') ||
-            keyword.match('Brennender PKW') ||
-            keyword.match('Motorrad-Brand') ||
-            keyword.match('Brennendes Gras') ||
-            keyword.match('Brennendes Laub') ||
-            keyword.match('Fettbrand in Pommesbude') ||
-            keyword.match('Sperrmüllbrand') ||
-            keyword.match('Strohballen Brand') ||
-            keyword.match('Traktor Brand') ||
-            keyword.match('Brennende Telefonzelle') ||
-            keyword.match('Kleiner Waldbrand') ||
-            keyword.match('Brand in Briefkasten') ||
-            keyword.match('Brennendes Gebüsch') ||
-            keyword.match('Brennender Anhänger') ||
-            keyword.match('Brennendes Bus-Häuschen') ||
-            keyword.match('Brand auf Weihnachtsmarkt') ||
-            keyword.match('Brennender Bollerwagen') ||
-            keyword.match('Brennende Vogelscheuche') ||
-            keyword.match('Brennende Papiercontainer') ||
-            keyword.match('Brennende Hecke') ||
-            keyword.match('Feuerprobealarm an Schule'))
+        if(keyword.match('Randalierende Person')||
+           keyword.match('Häusliche Gewalt'))
+        {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
+        }
+
+        if(keyword.match('Suche nach Vermissten'))
+        {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
+            alertFhz(ph, 1, 'PH', false);
+            alertFhz(lf, 1, 'LF', false);
+        }
+
+        if(keyword.match('Kabeldiebstahl'))
+        {
+            alertFhz(fustw, 3, 'FuStW', false, 'POL');
+            alertFhz(ph, 1, 'PH', false);
+        }
+
+        if(keyword.match('Mülleimerbrand')||
+           keyword.match('Containerbrand')||
+           keyword.match('Brennender PKW')||
+           keyword.match('Motorrad-Brand')||
+           keyword.match('Brennendes Gras')||
+           keyword.match('Brennendes Laub')||
+           keyword.match('Sperrmüllbrand')||
+           keyword.match('Strohballen Brand')||
+           keyword.match('Traktor Brand')||
+           keyword.match('Brennende Telefonzelle')||
+           keyword.match('Kleiner Waldbrand')||
+           keyword.match('Brand in Briefkasten')||
+           keyword.match('Brennendes Gebüsch')||
+           keyword.match('Brennender Anhänger')||
+           keyword.match('Fettbrand in Pommesbude')||
+           keyword.match('Brennendes Bus-Häuschen')||
+           keyword.match('Brennender Adventskranz')||
+           keyword.match('Brennende Papiercontainer')||
+           keyword.match('Brennender PKW durch Feuerwerkskörper')||
+           keyword.match('Sperrmüllbrand durch Feuerwerkskörper')||
+           keyword.match('Brennendes Bus-Häuschen durch Feuerwerkskörper')||
+           keyword.match('Brennende Papiercontainer durch Feuerwerkskörper')||
+           keyword.match('Brennende Hecke durch Feuerwerkskörper'))
         {
             alertFhz(lf, 1, 'LF', false, 'B');
         }
-        if (keyword.match('Keller unter Wasser') ||
-            keyword.match('Baum auf Straße') ||
-            keyword.match('Baum auf PKW') ||
-            keyword.match('Tiefgarage unter Wasser') ||
-            keyword.match('Auffahrunfall') ||
-            keyword.match('Baum auf Straße') ||
-            keyword.match('Auslaufende Betriebsstoffe') ||
-            keyword.match('Äste auf Fahrbahn') ||
-            keyword.match('Umherfliegendes Baumaterial') ||
-            keyword.match('Baum auf Radweg') ||
-            keyword.match('Kleine Ölspur') ||
-            keyword.match('Kleintier in Not') ||
-            keyword.match('Verkehrsunfall') ||
-            keyword.match('Motorradunfall'))
+
+        if(keyword.match('Baum auf Straße')||
+           keyword.match('Kleintier in Not')||
+           keyword.match('Keller unter Wasser')||
+           keyword.match('Kleine Ölspur')||
+           keyword.match('Auslaufende Betriebsstoffe')||
+           keyword.match('Tiefgarage unter Wasser')||
+           keyword.match('Äste auf Fahrbahn')||
+           keyword.match('Umherfliegendes Baumaterial')||
+           keyword.match('Baum auf Dach')||
+           keyword.match('Straße unter Wasser')||
+           keyword.match('Baum auf Radweg'))
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
 
-        //Feuerwehr Einsätze für 2 LF hier eintragen
-        if (keyword.match('Gartenlaubenbrand') ||
-            keyword.match('Brennender LKW') ||
-            keyword.match('Wohnwagenbrand') ||
-            keyword.match('Kleiner Feldbrand') ||
-            keyword.match('Feuer auf Balkon') ||
-            keyword.match('Flächenbrand') ||
-            keyword.match('Küchenbrand') ||
-            keyword.match('Garagenbrand') ||
-            keyword.match('Brennende Trafostation') ||
-            keyword.match('Zimmerbrand') ||
-            keyword.match('Schornsteinbrand'))
+        if(keyword.match('Große Ölspur'))
         {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+            alertFhz(oel, 1, 'ÖL', false);
+        }
+
+        if(keyword.match('Person unter Baum eingeklemmt')||
+           keyword.match('Reitunfall mit Pkw'))
+        {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+            alertFhz(fustw, 1, 'FuStW', false);
+            alertFhz(nef, 1, 'NEF', false);
+        }
+
+        if(keyword.match('Verkehrsunfall')||
+           keyword.match('Auffahrunfall')||
+           keyword.match('Motorradunfall'))
+        {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+            alertFhz(fustw, 1, 'FuStW', false);
+        }
+
+        if(keyword.match('Baum auf PKW'))
+        {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+            alertFhz(fustw, 1, 'FuStW', false);
+        }
+
+        if(keyword.match('Gartenlaubenbrand')||
+           keyword.match('Brennender LKW')||
+           keyword.match('Kleiner Feldbrand')||
+           keyword.match('Wohnwagenbrand')||
+           keyword.match('Küchenbrand')||
+           keyword.match('Garagenbrand')||
+           keyword.match('Mähdrescher Brand')||
+           keyword.match('Flächenbrand')||
+           keyword.match('Kleiner Feldbrand durch Feuerwerkskörper')) {
             alertFhz(lf, 2, 'LF', false, 'B');
         }
 
-        //Feuerwehr Einsätze für 3 LF hier eintragen
-        if (keyword.match('Dachstuhlbrand') ||
-            keyword.match('Feuer in Schnellrestaurant') ||
-            keyword.match('Kellerbrand') ||
-            keyword.match('Brand im Supermarkt') ||
-            keyword.match('Gasgeruch') ||
-            keyword.match('Maschinenbrand') ||
-            keyword.match('Feuer in Einfamilienhaus') ||
-            keyword.match('Rauchentwicklung in Museum'))
-        {
+        if(keyword.match('Feuer auf Balkon')||
+           keyword.match('Feuer auf Balkon durch Feuerwerkskörper')||
+           keyword.match('Zimmerbrand')) {
+            alertFhz(lf, 2, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+        }
+
+        if(keyword.match('Schornsteinbrand')||
+           keyword.match('Kaminbrand')) {
+            alertFhz(lf, 2, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Brennende Trafostation')) {
+            alertFhz(lf, 2, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Verkehrsunfall mit Linienbus (klein)')) {
+            alertFhz(lf, 2, 'LF', false, 'THL');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(fustw, 2, 'FuStW', false);
+        }
+
+        if(keyword.match('Pfefferspray in Schule')) {
+            alertFhz(lf, 2, 'LF', false);
+            alertFhz(fustw, 3, 'FuStW', false, 'POL');
+        }
+
+        if(keyword.match('Feuer in Schnellrestaurant')) {
             alertFhz(lf, 3, 'LF', false, 'B');
+
         }
 
-        //Feuerwehr Einsätze für 4 LF hier eintragen
-        if (keyword.match('Feuer im Krankenhaus'))
+        if(keyword.match('Brand im Supermarkt')) {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+
+        }
+
+        if(keyword.match('Kellerbrand')||
+           keyword.match('Kellerbrand durch Feuerwerkskörper')||
+           keyword.match('Maschinenbrand')) {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Dachstuhlbrand')||
+           keyword.match('Feuer in Einfamilienhaus')) {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Rauchentwicklung in Museum')) {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(fustw, 2, 'FuStW', false);
+
+        }
+        if(keyword.match('Gasgeruch')) {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(fustw, 1, 'FuStW', false);
+
+        }
+
+        if(keyword.match('Kleinflugzeug abgestürzt'))
         {
-            alertFhz(lf, 4, 'LF');
+            alertFhz(lf, 3, 'LF', false, 'THL');
+            alertFhz(elw1, 3, 'ELW1', false);
+            alertFhz(fustw, 2, 'FuStW', false);
         }
-
-        //Feuerwehr Einsätze für 1 DL hier eintragen
-        if (keyword.match('Dachstuhlbrand') ||
-            keyword.match('Zimmerbrand') ||
-            keyword.match('Schornsteinbrand') ||
-            keyword.match('Brand im Supermarkt') ||
-            keyword.match('Feuer in Einfamilienhaus') ||
-            keyword.match('Rauchentwicklung in Museum') ||
-            keyword.match('Feuer im Krankenhaus'))
+        if(keyword.match('Aufgerissener Öltank'))
         {
-            alertFhz(dl, 1, 'DL');
+            alertFhz(lf, 3, 'LF', false, 'THL');
+            alertFhz(elw1, 3, 'ELW1', false);
+            alertFhz(oel, 3, 'ÖL', false);
         }
 
-        //Feuerwehr Einsätze für 1 RUEST hier eintragen
-        if (keyword.match('Maschinenbrand'))
+        if(keyword.match('Feuer im Krankenhaus')) {
+            alertFhz(lf, 4, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Verkehrsunfall mit Linienbus (groß)')) {
+            alertFhz(lf, 5, 'LF', false, 'THL');
+            alertFhz(elw1, 2, 'ELW1', false);
+            alertFhz(oel, 1, 'ÖL', false);
+            alertFhz(fustw, 4, 'FuStW', false);
+        }
+
+        if(keyword.match('Bürobrand'))
         {
-            //alertFhz(ruest, 1, 'RÜST');
+            alertFhz(lf, 6, 'LF', false, 'B');
+            alertFhz(dl, 2, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(fustw, 2, 'FuStW', false);
         }
 
-        //Feuerwehr Einsätze für 2 RUEST hier eintragen
-        if (keyword.match('Feuer im Krankenhaus'))
-        {
-            //RUEST(title, orig, 2);
+        if(keyword.match('Chlorgasaustritt')) {
+            alertFhz(lf, 7, 'LF', false, 'THL');
+            alertFhz(atem, 2, 'ATEM', false);
+            alertFhz(elw1, 2, 'ELW1', false);
+            alertFhz(fustw, 2, 'FuStW', false);
         }
-
-        //Feuerwehr Einsätze für 1 ATEM hier eintragen
-        if (keyword.match('Rauchentwicklung in Museum'))
-        {
-            alertFhz(atem, 1, 'ATEM');
-        }
-
 
         additionalFHZ();
 
@@ -333,9 +434,16 @@ if (title !== null) {
             fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
         }
         anzahl_fhz = 0;
+
         title.scrollIntoView();
         if (document.getElementById('amount_of_people') !== null)
             document.getElementById('amount_of_people').scrollIntoView();
+
+        if (addedMissingFhzInformation) {
+            var aao_group = document.getElementById('mission-aao-group');
+            aao_group.insertAdjacentHTML('beforeBegin', '<div class="alert alert-warning">Fehlende Fahrzeuge:<br>'+missingFhzText+'</div>');
+            addedMissingFhzInformation = false;
+        }
     }, timeout);
 }
 
@@ -615,7 +723,6 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
-
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
                     anz_Driving_elw2++;
@@ -845,7 +952,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     var toAlarm = anzahl;
     var checked = 0;
     var anzahl_orig = anzahl;
-
     if (aao_key === null || typeof aao_key === 'undefined')
         aao_key = '';
     if (!additional) {
@@ -857,10 +963,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
                 break;
             case "elw1":
-                toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1);
-                break;
-            case "elw2":
-                toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
+                toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
                 break;
             case "atem":
                 toAlarm = toAlarm - (anz_onSite_atem + anz_Driving_atem);
@@ -954,8 +1057,13 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
         }
     }
+    var desc_orig;
+    if (desc.match('ELW1')) {
+        fhz = elw2;
+        desc_orig = desc;
+        desc = 'ELW2';
+    }
 
-    //if(veh_driving === null && veh_mission === null || additional) {
     var x = document.getElementsByTagName('td');
     if (x !== null) {
         for (var i=0;i<x.length;i++) {
@@ -976,8 +1084,29 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 }
             }
         }
+        if (checked === 0 && desc_orig == 'ELW1'){
+            desc = desc_orig;
+            fhz = elw1;
+            for (var k=0;k<x.length;k++) {
+                //get vehicle_type_id attribute
+                var z = x[k].getAttribute('vehicle_type_id');
+                //check if element has the proper attribute
+                if (z !== null) {
+                    //check the Vehicle array for the vehicle_type_id
+                    for (var l=0;l<fhz.length;l++) {
+                        //if vehice is found
+                        if (z == fhz[l] && checked < toAlarm) {
+                            //click the vehicle
+                            var fahrzeug2 = x[k].children[0];
+                            fahrzeug2.click();
+                            //and count how many are clicked
+                            checked++;
+                        }
+                    }
+                }
+            }
+        }
     }
-    //}
 
     switch(desc.toLowerCase()) {
         case "lf":
@@ -1005,7 +1134,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             color = color_fw;
             break;
         case "öl":
-            anz_Driving_oel = anz_Driving_oe+-checked;
+            anz_Driving_oel = anz_Driving_oel+checked;
             color = color_fw;
             break;
         case "dekon-p":
@@ -1119,6 +1248,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     }
     if (checked < toAlarm) {
         missingFhzText = missingFhzText + ', '+(toAlarm-checked)+' '+desc;
+        addedMissingFhzInformation = true;
     }
 
     anzahl_fhz = anzahl_fhz + checked;
@@ -1142,7 +1272,6 @@ function RTW(el, orig) {
                 anzahl++;
             }
         }
-        patients_anzahl = patients_anzahl - (anz_Driving_rtw + anz_onSite_rtw);
         if (patients_anzahl > 0)
             alertFhz(rtw, patients_anzahl, 'RTW',false,'RD');
     }
@@ -1171,7 +1300,7 @@ function additionalFHZ() {
     var count_nef = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
-            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'');
+            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 1','ELW').replace('ELW 2','ELW');
             var fhz = additionalfhzInnerText.split(' ');
             for (var ab=0;ab<fhz.length;ab++) {
                 if((ab % 2) === 0) {
@@ -1192,13 +1321,16 @@ function additionalFHZ() {
                         case "GW-A":
                             alertFhz(atem, fhz[ab]-anz_Driving_atem, 'ATEM', true);
                             break;
+                        case "ELW":
+                            alertFhz(elw1, fhz[ab]-anz_Driving_elw1-anz_Driving_elw2, 'ELW1', true);
+                            break;
                     }
                 }
             }
         }
-        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0 && (veh_driving !== null || veh_mission !== null)) {
+        /*if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0 && (veh_driving !== null || veh_mission !== null)) {
             count_rtw++;
-        }
+        }*/
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0 && (veh_driving !== null || veh_mission !== null)) {
             count_nef++;
         }
@@ -1214,7 +1346,7 @@ function additionalFHZ() {
     if (count_rtw > 0)
         alertFhz(rtw, count_rtw, 'RTW', true);
     if (count_nef > 0)
-        alertFhz(nef, count_nef, 'NEF', true);
+        alertFhz(nef, count_nef-anz_Driving_nef, 'NEF', true);
 }
 
 function display_ct(date) {
