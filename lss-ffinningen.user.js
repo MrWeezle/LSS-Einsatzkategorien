@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.8
+// @version     0.2.1.9
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
