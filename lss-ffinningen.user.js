@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.6
+// @version     0.2.1.7
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -1077,9 +1077,20 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     if (y == fhz[j] && checked < toAlarm) {
                         //click the vehicle
                         var fahrzeug = x[i].children[0];
-                        fahrzeug.click();
-                        //and count how many are clicked
-                        checked++;
+                        //If AB is needed, check if a WLF is present
+                        if((y >= 47 && y <=49) || y == 54 || y == 62 ||y == 71) {
+                            var noWLF = fahrzeug.children[1];
+                            if (noWLF === null || typeof noWLF === 'undefined') {
+                                fahrzeug.click();
+                                //and count how many are clicked
+                                checked++;
+                            }
+                        }
+                        else {
+                            fahrzeug.click();
+                            //and count how many are clicked
+                            checked++;
+                        }
                     }
                 }
             }
