@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.5
+// @version     0.2.1.6
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -386,8 +386,8 @@ if (title !== null) {
         if(keyword.match('Aufgerissener Öltank'))
         {
             alertFhz(lf, 3, 'LF', false, 'THL');
-            alertFhz(elw1, 3, 'ELW1', false);
-            alertFhz(oel, 3, 'ÖL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(oel, 1, 'ÖL', false);
         }
 
         if(keyword.match('Feuer im Krankenhaus')) {
