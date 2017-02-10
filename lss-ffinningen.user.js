@@ -266,6 +266,11 @@ if (title !== null) {
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
+        
+        if(keyword.match('Person im Aufzug'))
+        {
+            alertFhz(ruest, 1, 'RÜST', false, 'THL');
+        }
 
         if(keyword.match('Große Ölspur'))
         {
@@ -457,7 +462,7 @@ function checkOnSiteVehicles() {
 
             for (var j=0;j<lf.length;j++) {
                 if (fhz_id == lf[j]) {
-                    anz_onSite_lf++;
+                    anz_onSite_lf++;                        
                     break;
                 }
             }
