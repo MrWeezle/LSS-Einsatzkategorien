@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.2.1
+// @version     0.2.2.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -446,6 +446,7 @@ if (title !== null) {
         if(keyword.match('Brand im Supermarkt')) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
 
         }
 
@@ -1097,67 +1098,68 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_lf + anz_Driving_lf);
                 break;
             case "dl":
-                if (GM_getValue(anzahl_fw) >= 3)
+                if (anzahl_fw >= 3)
                     toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
                 else
                     toAlarm = 0;
                 break;
             case "elw1":
-                if (GM_getValue(anzahl_fw) >= 5)
+                alert(anzahl_fw);
+                if (anzahl_fw >= 5)
                     toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
                 else
                     toAlarm = 0;
                 break;
             case "elw2":
-                if (GM_getValue(anzahl_fw) >= 13)
+                if (anzahl_fw >= 13)
                     toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
                 else
                     toAlarm = 0;
                 break;
             case "atem":
-                if (GM_getValue(anzahl_fw) >= 5)
+                if (anzahl_fw >= 5)
                     toAlarm = toAlarm - (anz_onSite_atem + anz_Driving_atem);
                 else
                     toAlarm = 0;
                 break;
             case "rüst":
-                if (GM_getValue(anzahl_fw) >= 4)
+                if (anzahl_fw >= 4)
                     toAlarm = toAlarm - (anz_onSite_ruest + anz_Driving_ruest);
                 else
                     toAlarm = 0;
                 break;
             case "öl":
-                if (GM_getValue(anzahl_fw) >= 6)
+                if (anzahl_fw >= 6)
                     toAlarm = toAlarm - (anz_onSite_oel + anz_Driving_oel);
                 else
                     toAlarm = 0;
                 break;
             case "dekon-p":
-                if (GM_getValue(anzahl_fw) >= 14)
+                if (anzahl_fw >= 14)
                     toAlarm = toAlarm - (anz_onSite_dekonp + anz_Driving_dekonp);
                 else
                     toAlarm = 0;
                 break;
             case "gw-g":
-                if (GM_getValue(anzahl_fw) >= 11)
+                if (anzahl_fw >= 11)
                     toAlarm = toAlarm - (anz_onSite_gwg + anz_Driving_gwg);
                 else
                     toAlarm = 0;
                 break;
             case "gw-m":
-                if (GM_getValue(anzahl_fw) >= 10)
+                if (anzahl_fw >= 10)
                     toAlarm = toAlarm - (anz_onSite_gwm + anz_Driving_gwm);
                 else
                     toAlarm = 0;
                 break;
             case "gw-s":
-                if (GM_getValue(anzahl_fw) >= 7)
+                if (anzahl_fw >= 7)
                     toAlarm = toAlarm - (anz_onSite_gws + anz_Driving_gws);
                 else
                     toAlarm = 0;
                 break;
             case "gw-h":
-                if (GM_getValue(anzahl_fw) >= 12)
+                if (anzahl_fw >= 12)
                     toAlarm = toAlarm - (anz_onSite_gwh + anz_Driving_gwh);
                 else
                     toAlarm = 0;
@@ -1166,7 +1168,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_mtw + anz_Driving_mtw);
                 break;
             case "fwk":
-                if (GM_getValue(anzahl_fw) >= 14)
+                if (anzahl_fw >= 14)
                     toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
                 else
                     toAlarm = 0;
@@ -1178,7 +1180,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_ktw + anz_Driving_ktw);
                 break;
             case "nef":
-                if (GM_getValue(anzahl_rd) >= 3)
+                if (anzahl_rd >= 3)
                     toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
                 else
                     toAlarm = 0;
