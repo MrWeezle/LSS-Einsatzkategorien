@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.9
+// @version     0.2.1.10
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -159,14 +159,14 @@ if (title !== null) {
         checkDrivingVehicles();
 
         if (keyword.match('Krankentransport'))
-            KTW(title, orig);
+            alertFhz(ktw, 1, 'KTW', false, 'RD');
         else
-            RTW(title, orig);
+            RTW();
 
 
         //Rettungsdienst-Einsätze für ein RTW hier eintragen
         if (keyword.match('Brandsicherheitswachdienst im Theater')) {
-            alertFhz(rtw, 1, 'rtw', false);
+            alertFhz(rtw, 1, 'RTW', false);
         }
 
         if(keyword.match('Herzinfarkt')||
@@ -179,6 +179,12 @@ if (title !== null) {
            keyword.match('akuter Asthma-Anfall'))
         {
             alertFhz(nef, 1, 'NEF', false);
+        }
+
+        if(keyword.match('Hilflose Person'))
+        {
+            alertFhz(fustw, 1, 'FuStW', false, 'POL');
+            alertFhz(rtw, 1, 'rtw', false);
         }
 
         if(keyword.match('Ladendiebstahl')||
@@ -194,7 +200,6 @@ if (title !== null) {
            keyword.match('Einbruch in Wohnung')||
            keyword.match('Pannenfahrzeug')||
            keyword.match('Hausfriedensbruch')||
-           keyword.match('Hilflose Person')||
            keyword.match('Trunkenheitsfahrt')||
            keyword.match('Ampelausfall')||
            keyword.match('Verkehrsbehinderung')||
@@ -1274,7 +1279,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         aao_text = '<font color='+color+'><b> '+aao_key+''+anzahl_orig+'</b></font>'+aao_text;
 }
 
-function RTW(el, orig) {
+function RTW() {
     var patients = document.getElementsByClassName("patient_progress");
     var patients_anzahl = patients.length;
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
@@ -1290,24 +1295,6 @@ function RTW(el, orig) {
         }
         if (patients_anzahl > 0)
             alertFhz(rtw, patients_anzahl, 'RTW',false,'RD');
-    }
-}
-
-function KTW(el, orig) {
-    var patients = document.getElementsByClassName("patient_progress");
-    var patients_anzahl = patients.length;
-    var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
-    var anzahl = 0;
-
-    if (patients_anzahl > 0) {
-        for (var i = 0;i<patients_anzahl;i++) {
-            var width = $(patient_progress[i]).width();
-            var parentWidth = $(patients).offsetParent().width();
-            if (width == parentWidth) {
-                anzahl++;
-            }
-        }
-        alertFhz(ktw, anzahl, 'KTW',false,'RD');
     }
 }
 
