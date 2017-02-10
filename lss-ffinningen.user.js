@@ -2,11 +2,14 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.12
+// @version     0.2.2.1
 // @author      FFInningen
-// @grant       none
+// @grant       GM_setValue
+// @grant       GM_getValue
 // @run-at      document-idle
 // ==/UserScript==
+
+
 //Farben für die einzelnen Orgas
 var color_fw       = 'red';
 var color_thw      = 'blue';
@@ -16,6 +19,12 @@ var color_seg      = '#ff90a4';
 
 //Wie lange das Script warten soll, bis es startet (notwendig um die korrekte Reihenfolge der Fahrzeuge zu ermitteln)
 var timeout = 200;
+
+//wie viele Feuerwachen wurden als Rettungswache ausgebaut?
+var anz_rettungswache_ausbau = 1;
+
+//wie viele Feuerwachen wurden als Wasserrettungswache ausgebaut?
+var anz_wasserrettungswache_ausbau = 0;
 
 //FEUERWEHR
 var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37];
@@ -70,6 +79,64 @@ var elw1seg  = [59];
 *                                         AB HIER NICHTS MEHR ÄNDERN!!!                                         *
 *                                                                                                               *
 ****************************************************************************************************************/
+
+var anzahl_fw   = GM_getValue("anzahl_fw", anzahl_fw);
+var anzahl_rd   = GM_getValue("anzahl_rd", anzahl_rd)+anz_rettungswache_ausbau;
+var anzahl_thw  = GM_getValue("anzahl_thw", anzahl_thw);
+var anzahl_pol  = GM_getValue("anzahl_pol", anzahl_pol);
+var anzahl_bepo = GM_getValue("anzahl_bepo", anzahl_bepo);
+var anzahl_seg  = GM_getValue("anzahl_seg", anzahl_seg);
+var anzahl_wr   = GM_getValue("anzahl_wr", anzahl_wr)+anz_wasserrettungswache_ausbau;
+
+var site_location = window.location.href;
+if (site_location.slice(-1) == '#') {
+
+    anzahl_fw   = 0;
+    anzahl_rd   = 0;
+    anzahl_thw  = 0;
+    anzahl_pol  = 0;
+    anzahl_bepo = 0;
+    anzahl_seg  = 0;
+    anzahl_wr   = 0;
+
+    var building_list = document.getElementsByClassName('building_list_li');
+
+    for(var i = 0; i < building_list.length; i++) {
+        var building_id = building_list[i].getAttribute('building_type_id');
+        if (building_id > -1) {
+            switch(building_id) {
+                case '0':
+                    anzahl_fw++;
+                    break;
+                case '2':
+                    anzahl_rd++;
+                    break;
+                case '6':
+                    anzahl_pol++;
+                    break;
+                case '9':
+                    anzahl_thw++;
+                    break;
+                case '11':
+                    anzahl_bepo++;
+                    break;
+                case '12':
+                    anzahl_seg++;
+                    break;
+                case '15':
+                    anzahl_wr++;
+                    break;
+            }
+        }
+    }
+    GM_setValue("anzahl_fw", anzahl_fw);
+    GM_setValue("anzahl_rd", anzahl_rd);
+    GM_setValue("anzahl_thw", anzahl_thw);
+    GM_setValue("anzahl_pol", anzahl_pol);
+    GM_setValue("anzahl_bepo", anzahl_bepo);
+    GM_setValue("anzahl_seg", anzahl_seg);
+    GM_setValue("anzahl_wr", anzahl_wr);
+}
 
 var anz_onSite_lf = 0;
 var anz_onSite_dl = 0;
@@ -1021,6 +1088,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     var toAlarm = anzahl;
     var checked = 0;
     var anzahl_orig = anzahl;
+
     if (aao_key === null || typeof aao_key === 'undefined')
         aao_key = '';
     if (!additional) {
@@ -1029,43 +1097,79 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_lf + anz_Driving_lf);
                 break;
             case "dl":
-                toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
+                if (GM_getValue(anzahl_fw) >= 3)
+                    toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
+                else
+                    toAlarm = 0;
                 break;
             case "elw1":
-                toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
+                if (GM_getValue(anzahl_fw) >= 5)
+                    toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
+                else
+                    toAlarm = 0;
                 break;
             case "elw2":
-                toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
+                if (GM_getValue(anzahl_fw) >= 13)
+                    toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
+                else
+                    toAlarm = 0;
                 break;
             case "atem":
-                toAlarm = toAlarm - (anz_onSite_atem + anz_Driving_atem);
+                if (GM_getValue(anzahl_fw) >= 5)
+                    toAlarm = toAlarm - (anz_onSite_atem + anz_Driving_atem);
+                else
+                    toAlarm = 0;
                 break;
             case "rüst":
-                toAlarm = toAlarm - (anz_onSite_ruest + anz_Driving_ruest);
+                if (GM_getValue(anzahl_fw) >= 4)
+                    toAlarm = toAlarm - (anz_onSite_ruest + anz_Driving_ruest);
+                else
+                    toAlarm = 0;
                 break;
             case "öl":
-                toAlarm = toAlarm - (anz_onSite_oel + anz_Driving_oel);
+                if (GM_getValue(anzahl_fw) >= 6)
+                    toAlarm = toAlarm - (anz_onSite_oel + anz_Driving_oel);
+                else
+                    toAlarm = 0;
                 break;
             case "dekon-p":
-                toAlarm = toAlarm - (anz_onSite_dekonp + anz_Driving_dekonp);
+                if (GM_getValue(anzahl_fw) >= 14)
+                    toAlarm = toAlarm - (anz_onSite_dekonp + anz_Driving_dekonp);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-g":
-                toAlarm = toAlarm - (anz_onSite_gwg + anz_Driving_gwg);
+                if (GM_getValue(anzahl_fw) >= 11)
+                    toAlarm = toAlarm - (anz_onSite_gwg + anz_Driving_gwg);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-m":
-                toAlarm = toAlarm - (anz_onSite_gwm + anz_Driving_gwm);
+                if (GM_getValue(anzahl_fw) >= 10)
+                    toAlarm = toAlarm - (anz_onSite_gwm + anz_Driving_gwm);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-s":
-                toAlarm = toAlarm - (anz_onSite_gws + anz_Driving_gws);
+                if (GM_getValue(anzahl_fw) >= 7)
+                    toAlarm = toAlarm - (anz_onSite_gws + anz_Driving_gws);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-h":
-                toAlarm = toAlarm - (anz_onSite_gwh + anz_Driving_gwh);
+                if (GM_getValue(anzahl_fw) >= 12)
+                    toAlarm = toAlarm - (anz_onSite_gwh + anz_Driving_gwh);
+                else
+                    toAlarm = 0;
                 break;
             case "mtw":
                 toAlarm = toAlarm - (anz_onSite_mtw + anz_Driving_mtw);
                 break;
             case "fwk":
-                toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
+                if (GM_getValue(anzahl_fw) >= 14)
+                    toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
+                else
+                    toAlarm = 0;
                 break;
             case "rtw":
                 toAlarm = toAlarm - (anz_onSite_rtw + anz_Driving_rtw);
@@ -1074,7 +1178,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_ktw + anz_Driving_ktw);
                 break;
             case "nef":
-                toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
+                if (GM_getValue(anzahl_rd) >= 3)
+                    toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
+                else
+                    toAlarm = 0;
                 break;
             case "kdow-orgl":
                 toAlarm = toAlarm - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
