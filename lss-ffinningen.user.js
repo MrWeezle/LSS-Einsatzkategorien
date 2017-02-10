@@ -441,7 +441,7 @@ if (title !== null) {
 
         if (addedMissingFhzInformation) {
             var aao_group = document.getElementById('mission-aao-group');
-            aao_group.insertAdjacentHTML('beforeBegin', '<div class="alert alert-warning">Fehlende Fahrzeuge:<br>'+missingFhzText+'</div>');
+            aao_group.insertAdjacentHTML('beforeBegin', '<div class="alert alert-warning">Fehlende Fahrzeuge:<br>'+missingFhzText.substring(2, missingFhzText.length)+'</div>');
             addedMissingFhzInformation = false;
         }
     }, timeout);
