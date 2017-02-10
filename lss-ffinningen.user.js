@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.1.11
+// @version     0.2.1.12
 // @author      FFInningen
 // @grant       none
 // @run-at      document-idle
@@ -269,6 +269,10 @@ if (title !== null) {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
 
+        if(keyword.match('Straße unter Wasser')) {
+            alertFhz(lf, 1, 'LF', false, 'THL');
+        }
+
         if(keyword.match('Person im Aufzug'))
         {
             alertFhz(ruest, 1, 'RÜST', false, 'THL');
@@ -347,6 +351,13 @@ if (title !== null) {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
+        }
+
+        if(keyword.match('Verkehrsunfall mit Zug')) {
+            alertFhz(lf, 2, 'LF', false, 'THL');
+            alertFhz(ruest, 1, 'RÜST', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(fustw, 2, 'FuStW', false);
         }
 
         if(keyword.match('Pfefferspray in Schule')) {
@@ -435,11 +446,11 @@ if (title !== null) {
             alertFhz(gws, 1, 'GW-S', false);
         }
 
-        if(keyword.match('Flächenbrand')) {
+        /*if(keyword.match('Flächenbrand')) {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gws, 1, 'GW-S', false);
-        }
+        }*/
 
         if(keyword.match('Verkehrsunfall mit Linienbus (groß)')) {
             alertFhz(lf, 5, 'LF', false, 'THL');
@@ -482,6 +493,14 @@ if (title !== null) {
             alertFhz(atem, 2, 'ATEM', false);
             alertFhz(elw1, 2, 'ELW1', false);
             alertFhz(fustw, 2, 'FuStW', false);
+        }
+
+        if(keyword.match('Feuer auf Bauernhof - Mittel')) {
+            alertFhz(lf, 7, 'LF', false, 'B');
+            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(dl, 2, 'FuStW', false);
+            alertFhz(gws, 1, 'GW-S', false);
         }
 
         additionalFHZ();
@@ -1352,12 +1371,12 @@ function additionalFHZ() {
                         case "Drehleitern":
                             alertFhz(dl, fhz[ab]-anz_Driving_dl, 'DL', true);
                             break;
-                        case "Löschfahrzeug":
+                            /*case "Löschfahrzeug":
                             alertFhz(lf, fhz[ab]-anz_Driving_lf, 'LF', true);
                             break;
                         case "Löschfahrzeuge":
                             alertFhz(lf, fhz[ab]-anz_Driving_lf, 'LF', true);
-                            break;
+                            break;*/
                         case "FuStW":
                             alertFhz(fustw, fhz[ab]-anz_Driving_fustw, 'FuStW', true);
                             break;
