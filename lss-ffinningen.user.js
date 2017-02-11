@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.2.2
+// @version     0.2.2.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -221,7 +221,6 @@ if (title !== null) {
     var keyword = orig;
 
     setTimeout(function(){
-
         checkOnSiteVehicles();
         checkDrivingVehicles();
 
@@ -316,7 +315,8 @@ if (title !== null) {
            keyword.match('Brennendes Bus-Häuschen')||
            keyword.match('Brennender Adventskranz')||
            keyword.match('Brennende Papiercontainer')||
-           keyword.match('Person hinter Tür'))
+           keyword.match('Person hinter Tür')||
+           keyword.match('Feuerprobealarm an Schule'))
         {
             alertFhz(lf, 1, 'LF', false, 'B');
         }
@@ -359,8 +359,7 @@ if (title !== null) {
             alertFhz(nef, 1, 'NEF', false);
         }
 
-        if(keyword.match('Verkehrsunfall')||
-           keyword.match('Auffahrunfall')||
+        if(keyword.match('Auffahrunfall')||
            keyword.match('Motorradunfall'))
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
@@ -432,7 +431,8 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
         }
 
-        if(keyword.match('Feuer in Schnellrestaurant')) {
+        if(keyword.match('Feuer in Schnellrestaurant')||
+           keyword.match('Brandsicherheitswache bei Volksfest')) {
             alertFhz(lf, 3, 'LF', false, 'B');
 
         }
@@ -571,6 +571,11 @@ if (title !== null) {
             alertFhz(gws, 1, 'GW-S', false);
         }
 
+        if(keyword.match('Verkehrsunfall')) {
+            //alertFhz(lf, 2, 'LF', false, 'THL');
+            //alertFhz(ruest, 1, 'RÜST', false);
+        }
+
         additionalFHZ();
         displayAlertDate();
         displayNumAlertFhz();
@@ -592,6 +597,8 @@ function checkOnSiteVehicles() {
 
             for (var j=0;j<lf.length;j++) {
                 if (fhz_id == lf[j]) {
+                    if (fhz_id == 30)
+                        anz_Driving_ruest++;
                     anz_onSite_lf++;
                     break;
                 }
@@ -1104,7 +1111,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "elw1":
-                alert(anzahl_fw);
                 if (anzahl_fw >= 5)
                     toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
                 else
