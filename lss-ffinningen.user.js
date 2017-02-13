@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.2.4
+// @version     0.2.2.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -31,7 +31,7 @@ var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37
 var dl       = [2];
 var elw1     = [3];
 var elw2     = [34];
-var atem     = [5, 48];
+var gwa     = [5, 48];
 var ruest    = [4, 30, 47];
 var oel      = [10, 49];
 var dekonp   = [53, 54];
@@ -142,7 +142,7 @@ var anz_onSite_lf = 0;
 var anz_onSite_dl = 0;
 var anz_onSite_elw1 = 0;
 var anz_onSite_elw2 = 0;
-var anz_onSite_atem = 0;
+var anz_onSite_gwa = 0;
 var anz_onSite_ruest = 0;
 var anz_onSite_oel = 0;
 var anz_onSite_dekonp = 0;
@@ -176,7 +176,7 @@ var anz_Driving_lf = 0;
 var anz_Driving_dl = 0;
 var anz_Driving_elw1 = 0;
 var anz_Driving_elw2 = 0;
-var anz_Driving_atem = 0;
+var anz_Driving_gwa = 0;
 var anz_Driving_ruest = 0;
 var anz_Driving_oel = 0;
 var anz_Driving_dekonp = 0;
@@ -217,7 +217,10 @@ var additionalfhz = document.getElementsByClassName('alert alert-danger');
 var aao_text = '';
 var title = document.getElementById('missionH1');
 if (title !== null) {
-    var orig = title.innerHTML;
+    origInner = title.innerHTML;
+    title.innerHTML = title.innerHTML.replace(/(<small>[^.]+<\/small>)/ig, '');
+    var orig = title.innerText;
+    title.innerHTML = origInner;
     var keyword = orig;
 
     setTimeout(function(){
@@ -315,7 +318,6 @@ if (title !== null) {
            keyword.match('Brennendes Bus-Häuschen')||
            keyword.match('Brennender Adventskranz')||
            keyword.match('Brennende Papiercontainer')||
-           keyword.match('Person hinter Tür')||
            keyword.match('Feuerprobealarm an Schule'))
         {
             alertFhz(lf, 1, 'LF', false, 'B');
@@ -360,6 +362,7 @@ if (title !== null) {
         }
 
         if(keyword.match('Auffahrunfall')||
+           keyword.match('Person hinter Tür')||
            keyword.match('Motorradunfall'))
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
@@ -433,7 +436,11 @@ if (title !== null) {
         if(keyword.match('Feuer in Schnellrestaurant')||
            keyword.match('Brandsicherheitswache bei Volksfest')) {
             alertFhz(lf, 3, 'LF', false, 'B');
+        }
 
+        if (keyword.match('Brandsicherheitswache bei Volksfest')) {
+            alertFhz(lf, 3, 'LF', false);
+            alertFhz(fustw, 1, 'FuStW', false, 'POL');
         }
 
         if(keyword.match('Großer Waldbrand ')) {
@@ -468,7 +475,7 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(gwa, 1, 'GW-A', false);
 
         }
         if(keyword.match('Gasgeruch')) {
@@ -506,20 +513,18 @@ if (title !== null) {
 
         if(keyword.match('Brennende Lok')) {
             alertFhz(lf, 4, 'LF', false, 'B');
-            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
 
         if(keyword.match('Flächenbrand')) {
-            if (anzahl_fw < 7) {
+            var help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 139)
                 alertFhz(lf, 4, 'LF', false, 'B');
-            }
             else
-            {
                 alertFhz(lf, 2, 'LF', false, 'B');
-            }
         }
 
         if(keyword.match('Verkehrsunfall mit Linienbus (groß)')) {
@@ -543,12 +548,21 @@ if (title !== null) {
             alertFhz(ruest, 1, 'RÜST', false);
         }
 
+        if(keyword.match('Großbrand')) {
+            alertFhz(lf, 6, 'LF', false, 'B');
+            alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(elw1, 2, 'ELW1', false);
+            alertFhz(dl, 2, 'DL', false);
+            alertFhz(gws, 1, 'GW-S', false);
+            alertFhz(gwa, 1, 'GW-A', false);
+        }
+
         if(keyword.match('Bürobrand')) {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 6, 'LF', false, 'B');
             alertFhz(dl, 2, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(gwa, 1, 'GW-A', false);
         }
 
         if(keyword.match('Ausgedehnte Ölspur ')) {
@@ -560,13 +574,13 @@ if (title !== null) {
         if(keyword.match('Chlorgasaustritt')) {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 7, 'LF', false, 'THL');
-            alertFhz(atem, 2, 'ATEM', false);
+            alertFhz(gwa, 2, 'GW-A', false);
             alertFhz(elw1, 2, 'ELW1', false);
         }
 
         if(keyword.match('Feuer auf Bauernhof - Mittel')) {
             alertFhz(lf, 7, 'LF', false, 'B');
-            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(dl, 2, 'DL', false);
             alertFhz(gws, 1, 'GW-S', false);
@@ -588,7 +602,7 @@ if (title !== null) {
         if(keyword.match('Großfeuer im Wald')) {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
             alertFhz(lf, 10, 'LF', false, 'B');
-            alertFhz(atem, 1, 'ATEM', false);
+            alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 2, 'ELW1', false);
             alertFhz(dl, 2, 'DL', false);
@@ -596,8 +610,8 @@ if (title !== null) {
         }
 
         if(keyword.match('Verkehrsunfall')) {
-            //alertFhz(lf, 2, 'LF', false, 'THL');
-            //alertFhz(ruest, 1, 'RÜST', false);
+            alertFhz(lf, 2, 'LF', false, 'THL');
+            alertFhz(ruest, 1, 'RÜST', false);
         }
 
         additionalFHZ();
@@ -650,9 +664,9 @@ function checkOnSiteVehicles() {
                 }
             }
 
-            for (j=0;j<atem.length;j++) {
-                if (fhz_id == atem[j]) {
-                    anz_onSite_atem++;
+            for (j=0;j<gwa.length;j++) {
+                if (fhz_id == gwa[j]) {
+                    anz_onSite_gwa++;
                     break;
                 }
             }
@@ -898,9 +912,9 @@ function checkDrivingVehicles() {
                 }
             }
 
-            for (j=0;j<atem.length;j++) {
-                if (fhz_id == atem[j]) {
-                    anz_Driving_atem++;
+            for (j=0;j<gwa.length;j++) {
+                if (fhz_id == gwa[j]) {
+                    anz_Driving_gwa++;
                     break;
                 }
             }
@@ -1121,6 +1135,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     var checked = 0;
     var anzahl_orig = anzahl;
 
+
     if (aao_key === null || typeof aao_key === 'undefined')
         aao_key = '';
     if (!additional) {
@@ -1130,67 +1145,67 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "dl":
                 //if (anzahl_fw >= 3)
-                    toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
+                toAlarm = toAlarm - (anz_onSite_dl + anz_Driving_dl);
                 //else
                 //    toAlarm = 0;
                 break;
             case "elw1":
                 //if (anzahl_fw >= 5)
-                    toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
+                toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
                 //else
                 //    toAlarm = 0;
                 break;
             case "elw2":
                 //if (anzahl_fw >= 13)
-                    toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
+                toAlarm = toAlarm - (anz_onSite_elw2 + anz_Driving_elw2);
                 //else
                 //    toAlarm = 0;
                 break;
-            case "atem":
+            case "gw-a":
                 //if (anzahl_fw >= 5)
-                    toAlarm = toAlarm - (anz_onSite_atem + anz_Driving_atem);
+                toAlarm = toAlarm - (anz_onSite_gwa + anz_Driving_gwa);
                 //else
                 //    toAlarm = 0;
                 break;
             case "rüst":
                 //if (anzahl_fw >= 4)
-                    toAlarm = toAlarm - (anz_onSite_ruest + anz_Driving_ruest);
+                toAlarm = toAlarm - (anz_onSite_ruest + anz_Driving_ruest);
                 //else
                 //    toAlarm = 0;
                 break;
             case "öl":
                 //if (anzahl_fw >= 6)
-                    toAlarm = toAlarm - (anz_onSite_oel + anz_Driving_oel);
+                toAlarm = toAlarm - (anz_onSite_oel + anz_Driving_oel);
                 //else
                 //    toAlarm = 0;
                 break;
             case "dekon-p":
                 //if (anzahl_fw >= 14)
-                    toAlarm = toAlarm - (anz_onSite_dekonp + anz_Driving_dekonp);
+                toAlarm = toAlarm - (anz_onSite_dekonp + anz_Driving_dekonp);
                 //else
                 //    toAlarm = 0;
                 break;
             case "gw-g":
                 //if (anzahl_fw >= 11)
-                    toAlarm = toAlarm - (anz_onSite_gwg + anz_Driving_gwg);
+                toAlarm = toAlarm - (anz_onSite_gwg + anz_Driving_gwg);
                 //else
                 //    toAlarm = 0;
                 break;
             case "gw-m":
                 //if (anzahl_fw >= 10)
-                    toAlarm = toAlarm - (anz_onSite_gwm + anz_Driving_gwm);
+                toAlarm = toAlarm - (anz_onSite_gwm + anz_Driving_gwm);
                 //else
                 //    toAlarm = 0;
                 break;
             case "gw-s":
                 //if (anzahl_fw >= 7)
-                    toAlarm = toAlarm - (anz_onSite_gws + anz_Driving_gws);
+                toAlarm = toAlarm - (anz_onSite_gws + anz_Driving_gws);
                 //else
                 //    toAlarm = 0;
                 break;
             case "gw-h":
                 //if (anzahl_fw >= 12)
-                    toAlarm = toAlarm - (anz_onSite_gwh + anz_Driving_gwh);
+                toAlarm = toAlarm - (anz_onSite_gwh + anz_Driving_gwh);
                 //else
                 //    toAlarm = 0;
                 break;
@@ -1199,7 +1214,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "fwk":
                 //if (anzahl_fw >= 14)
-                    toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
+                toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
                 //else
                 //    toAlarm = 0;
                 break;
@@ -1211,7 +1226,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "nef":
                 //if (anzahl_rd >= 3)
-                    toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
+                toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
                 //else
                 //    toAlarm = 0;
                 break;
@@ -1344,8 +1359,8 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             anz_Driving_elw1 = anz_Driving_elw1+checked;
             color = color_fw;
             break;
-        case "atem":
-            anz_Driving_atem = anz_Driving_atem+checked;
+        case "gw-a":
+            anz_Driving_gwa = anz_Driving_gwa+checked;
             color = color_fw;
             break;
         case "rüst":
@@ -1520,7 +1535,7 @@ function additionalFHZ() {
                             alertFhz(fustw, fhz[ab]-anz_Driving_fustw, 'FuStW', true);
                             break;
                         case "GW-A":
-                            alertFhz(atem, fhz[ab]-anz_Driving_atem, 'ATEM', true);
+                            alertFhz(gwa, fhz[ab]-anz_Driving_gwa, 'GW-A', true);
                             break;
                         case "ELW1":
                             alertFhz(elw1, fhz[ab]-anz_Driving_elw1, 'ELW1', true);
