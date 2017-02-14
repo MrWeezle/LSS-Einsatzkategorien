@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.2.6
+// @version     0.2.2.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -281,7 +281,8 @@ if (title !== null) {
         }
 
         if(keyword.match('Randalierende Person')||
-           keyword.match('Häusliche Gewalt'))
+           keyword.match('Häusliche Gewalt')||
+           keyword.match('Absicherung Musikumzug'))
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
