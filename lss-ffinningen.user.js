@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.1
+// @version     0.2.3.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -235,6 +235,7 @@ if (title !== null) {
 
         //Rettungsdienst-Einsätze für ein RTW hier eintragen
         if (keyword.match('Brandsicherheitswachdienst im Theater')) {
+            alertFhz(lf, 1, 'LF', false);
             alertFhz(rtw, 1, 'RTW', false);
         }
 
@@ -489,7 +490,7 @@ if (title !== null) {
         if(keyword.match('Kleinflugzeug abgestürzt')) {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 3, 'LF', false, 'THL');
-            alertFhz(elw1, 3, 'ELW1', false);
+            alertFhz(elw1, 1, 'ELW1', false);
         }
 
         if(keyword.match('Aufgerissener Öltank'))
@@ -613,10 +614,12 @@ if (title !== null) {
 
         if(keyword.match('Verkehrsunfall')) {
             var help = document.getElementById('mission_help').href;
-            alertFhz(lf, 1, 'LF', false, 'THL');
             if(help.slice(-3) == 124) {                
-                alertFhz(lf, 1, 'LF', false);
+                alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
+            }
+            else {
+                alertFhz(lf, 1, 'LF', false, 'THL');
             }
         }
 
