@@ -539,6 +539,7 @@ if (title !== null) {
             alertFhz(dl, 1, 'DL', false);
             alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
 
         if(keyword.match('Brennender Bus')) {
