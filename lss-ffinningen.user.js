@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.2.5
+// @version     0.2.2.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -433,8 +433,7 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
         }
 
-        if(keyword.match('Feuer in Schnellrestaurant')||
-           keyword.match('Brandsicherheitswache bei Volksfest')) {
+        if(keyword.match('Feuer in Schnellrestaurant')) {
             alertFhz(lf, 3, 'LF', false, 'B');
         }
 
@@ -610,8 +609,10 @@ if (title !== null) {
         }
 
         if(keyword.match('Verkehrsunfall')) {
-            alertFhz(lf, 2, 'LF', false, 'THL');
-            alertFhz(ruest, 1, 'RÜST', false);
+            var help = document.getElementById('mission_help').href;
+            alertFhz(lf, 1, 'LF', false, 'THL');
+            if(help.slice(-3) == 124)
+                alertFhz(ruest, 1, 'RÜST', false);
         }
 
         additionalFHZ();
@@ -1284,6 +1285,8 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         }
     }
     var desc_orig;
+    var hlf_ruest = 0;
+    var ruest_hlf = 0;
 
     var x = document.getElementsByTagName('td');
     if (x !== null) {
@@ -1308,6 +1311,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                             }
                         }
                         else {
+                            if(y == 30) {
+                                hlf_ruest++;
+                                ruest_hlf++;
+                            }
                             fahrzeug.click();
                             //and count how many are clicked
                             checked++;
@@ -1344,6 +1351,8 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     switch(desc.toLowerCase()) {
         case "lf":
             anz_Driving_lf = anz_Driving_lf+checked;
+            if (hlf_ruest>0)
+                anz_Driving_ruest = anz_Driving_ruest+hlf_ruest;
             color = color_fw;
             break;
         case "dl":
@@ -1365,6 +1374,8 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "rüst":
             anz_Driving_ruest = anz_Driving_ruest+checked;
+            if (ruest_hlf>0)
+                anz_Driving_lf = anz_Driving_lf+ruest_hlf;
             color = color_fw;
             break;
         case "öl":
