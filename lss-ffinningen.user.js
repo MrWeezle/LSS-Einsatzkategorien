@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.2
+// @version     0.2.3.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -614,7 +614,7 @@ if (title !== null) {
 
         if(keyword.match('Verkehrsunfall')) {
             var help = document.getElementById('mission_help').href;
-            if(help.slice(-3) == 124) {                
+            if(help.slice(-3) == 124 || help.slice(-3) == 126) {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
             }
