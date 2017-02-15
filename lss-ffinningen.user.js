@@ -301,6 +301,16 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
         }
+        
+        if(keyword.match('LKW in Hauswand'))
+        {
+            alertFhz(gkw, 1, 'GKW', false, 'THW');  
+            alertFhz(lf, 2, 'LF', false);
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(mtwtz, 1, 'MTW-TZ', false);
+            alertFhz(mzkw, 1, 'MzKW', false);
+        }
 
         if(keyword.match('Mülleimerbrand')||
            keyword.match('Containerbrand')||
