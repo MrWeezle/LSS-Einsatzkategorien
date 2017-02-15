@@ -568,7 +568,7 @@ if (title !== null) {
             alertFhz(gwa, 1, 'GW-A', false);
         }
 
-        if(keyword.match('Ausgedehnte Ölspur ')) {
+        if(keyword.match('Ausgedehnte Ölspur')) {
             alertFhz(lf, 6, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(oel, 1, 'ÖL', false);
