@@ -311,6 +311,15 @@ if (title !== null) {
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
+        
+        if(keyword.match('Erdrutsch'))
+        {            
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');  
+            alertFhz(gkw, 1, 'GKW', false, 'THW');  
+            alertFhz(mtwtz, 1, 'MTW-TZ', false);
+            alertFhz(brmgr, 1, 'BRmG R', false);  
+            alertFhz(lkwk9, 1, 'LKW K 9', false);  
+        }
 
         if(keyword.match('Mülleimerbrand')||
            keyword.match('Containerbrand')||
