@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.5
+// @version     0.2.3.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -319,6 +319,36 @@ if (title !== null) {
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(brmgr, 1, 'BRmG R', false);  
             alertFhz(lkwk9, 1, 'LKW K 9', false);  
+        }
+        
+        if(keyword.match('Gefahrgut-LKW verunglückt'))
+        {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL'); 
+            var help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 178)
+            {
+                alertFhz(gkw, 1, 'GKW', false, 'THW');  
+                alertFhz(lkwk9, 1, 'LKW K 9', false);  
+                alertFhz(brmgr, 1, 'BRmG R', false);
+            }
+            alertFhz(lf, 3, 'LF', false, 'THL');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(ruest, 1, 'RÜST', false);
+            alertFhz(gwg, 1, 'GW-G', false);
+        }
+        
+        if(keyword.match('Eingestürztes Wohnhaus'))
+        {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL'); 
+            alertFhz(gkw, 2, 'GKW', false, 'THW');  
+            alertFhz(mtwtz, 1, 'MTW-TZ', false);
+            alertFhz(brmgr, 2, 'BRmG R', false);  
+            alertFhz(mzkw, 1, 'MzKW', false); 
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(lf, 3, 'LF', false);
+            alertFhz(fwk, 1, 'KRAN', false);
+            alertFhz(ruest, 1, 'RÜST', false);
         }
 
         if(keyword.match('Mülleimerbrand')||
