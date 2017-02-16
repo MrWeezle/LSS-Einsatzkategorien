@@ -301,34 +301,34 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
         }
-        
+
         if(keyword.match('LKW in Hauswand'))
         {
-            alertFhz(gkw, 1, 'GKW', false, 'THW');  
+            alertFhz(gkw, 1, 'GKW', false, 'THW');
             alertFhz(lf, 2, 'LF', false);
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
-        
+
         if(keyword.match('Erdrutsch'))
-        {            
-            alertFhz(fustw, 2, 'FuStW', false, 'POL');  
-            alertFhz(gkw, 1, 'GKW', false, 'THW');  
+        {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
+            alertFhz(gkw, 1, 'GKW', false, 'THW');
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
-            alertFhz(brmgr, 1, 'BRmG R', false);  
-            alertFhz(lkwk9, 1, 'LKW K 9', false);  
+            alertFhz(brmgr, 1, 'BRmG R', false);
+            alertFhz(lkwk9, 1, 'LKW K 9', false);
         }
-        
+
         if(keyword.match('Gefahrgut-LKW verunglückt'))
         {
-            alertFhz(fustw, 2, 'FuStW', false, 'POL'); 
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
             var help = document.getElementById('mission_help').href;
             if(help.slice(-3) == 178)
             {
-                alertFhz(gkw, 1, 'GKW', false, 'THW');  
-                alertFhz(lkwk9, 1, 'LKW K 9', false);  
+                alertFhz(gkw, 1, 'GKW', false, 'THW');
+                alertFhz(lkwk9, 1, 'LKW K 9', false);
                 alertFhz(brmgr, 1, 'BRmG R', false);
             }
             alertFhz(lf, 3, 'LF', false, 'THL');
@@ -337,14 +337,14 @@ if (title !== null) {
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
         }
-        
+
         if(keyword.match('Eingestürztes Wohnhaus'))
         {
-            alertFhz(fustw, 2, 'FuStW', false, 'POL'); 
-            alertFhz(gkw, 2, 'GKW', false, 'THW');  
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
+            alertFhz(gkw, 2, 'GKW', false, 'THW');
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
-            alertFhz(brmgr, 2, 'BRmG R', false);  
-            alertFhz(mzkw, 1, 'MzKW', false); 
+            alertFhz(brmgr, 2, 'BRmG R', false);
+            alertFhz(mzkw, 1, 'MzKW', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(lf, 3, 'LF', false);
             alertFhz(fwk, 1, 'KRAN', false);
@@ -1321,10 +1321,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "mtw-tz":
                 toAlarm = toAlarm - (anz_onSite_mtwtz + anz_Driving_mtwtz);
                 break;
-            case "lkw-k9":
+            case "lkw k 9":
                 toAlarm = toAlarm - (anz_onSite_lkwk9 + anz_Driving_lkwk9);
                 break;
-            case "brmgr":
+            case "brmg r":
                 toAlarm = toAlarm - (anz_onSite_brmgr + anz_Driving_brmgr);
                 break;
             case "anhdle":
