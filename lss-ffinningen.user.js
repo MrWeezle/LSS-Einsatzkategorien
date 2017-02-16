@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.6
+// @version     0.2.3.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -304,7 +304,7 @@ if (title !== null) {
 
         if(keyword.match('LKW in Hauswand'))
         {
-            alertFhz(gkw, 1, 'GKW', false, 'THW');
+            alertFhz(gkw, 1, 'GKW', false, 'KatS');
             alertFhz(lf, 2, 'LF', false);
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
@@ -348,7 +348,6 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(lf, 3, 'LF', false);
             alertFhz(fwk, 1, 'KRAN', false);
-            alertFhz(ruest, 1, 'RÜST', false);
         }
 
         if(keyword.match('Mülleimerbrand')||
@@ -1610,6 +1609,9 @@ function additionalFHZ() {
                             break;
                         case "ELW2":
                             alertFhz(elw2, fhz[ab]-anz_Driving_elw2, 'ELW2', true);
+                            break;
+                        case "Schlauchwagen":
+                            alertFhz(gws, fhz[ab]-anz_Driving_gws, 'GW-S', true);
                             break;
                     }
                 }
