@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.9
+// @version     0.2.4.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -221,7 +221,8 @@ if (title !== null) {
     title.innerHTML = title.innerHTML.replace(/(<small>[^.]+<\/small>)/ig, '');
     var orig = title.innerText;
     title.innerHTML = origInner;
-    var keyword = orig.trim();
+    var keyword = orig;
+    keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
 
     setTimeout(function(){
         var help;
