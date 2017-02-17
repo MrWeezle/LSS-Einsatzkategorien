@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.3.7
+// @version     0.2.3.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -304,7 +304,7 @@ if (title !== null) {
 
         if(keyword.match('LKW in Hauswand'))
         {
-            alertFhz(gkw, 1, 'GKW', false, 'KatS');
+            alertFhz(gkw, 1, 'GKW', false, 'THW');
             alertFhz(lf, 2, 'LF', false);
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
@@ -347,7 +347,8 @@ if (title !== null) {
             alertFhz(mzkw, 1, 'MzKW', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(lf, 3, 'LF', false);
-            alertFhz(fwk, 1, 'KRAN', false);
+            alertFhz(fwk, 1, 'FWK', false);
+            alertFhz(ruest, 1, 'RÜST', false);
         }
 
         if(keyword.match('Mülleimerbrand')||
@@ -460,10 +461,24 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
         }
 
-        if(keyword.match('Verkehrsunfall mit Linienbus (klein)')) {
-            alertFhz(fustw, 2, 'FuStW', false, 'POL');
-            alertFhz(lf, 2, 'LF', false, 'THL');
-            alertFhz(elw1, 1, 'ELW1', false);
+        if(keyword.match('Verkehrsunfall mit Linienbus')) {
+            var help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 238)
+            {
+                alertFhz(fustw, 2, 'FuStW', false, 'POL');
+                alertFhz(lf, 2, 'LF', false, 'THL');
+                alertFhz(ruest, 1, 'ruest', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+            }
+            else if(help.slice(-3) == 239)
+            {
+                alertFhz(fustw, 4, 'FuStW', false, 'POL');
+                alertFhz(lf, 5, 'LF', false, 'THL');
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false);
+                alertFhz(oel, 1, 'ÖL', false);
+                alertFhz(fwk, 1, 'FWK', false);
+            }
         }
 
         if(keyword.match('LKW umgestürzt')) {
@@ -575,13 +590,6 @@ if (title !== null) {
                 alertFhz(lf, 4, 'LF', false, 'B');
             else
                 alertFhz(lf, 2, 'LF', false, 'B');
-        }
-
-        if(keyword.match('Verkehrsunfall mit Linienbus (groß)')) {
-            alertFhz(fustw, 4, 'FuStW', false, 'POL');
-            alertFhz(lf, 5, 'LF', false, 'THL');
-            alertFhz(elw1, 2, 'ELW1', false);
-            alertFhz(oel, 1, 'ÖL', false);
         }
 
         if(keyword.match('Brennendes Reetdachhaus')) {
@@ -1609,9 +1617,6 @@ function additionalFHZ() {
                             break;
                         case "ELW2":
                             alertFhz(elw2, fhz[ab]-anz_Driving_elw2, 'ELW2', true);
-                            break;
-                        case "Schlauchwagen":
-                            alertFhz(gws, fhz[ab]-anz_Driving_gws, 'GW-S', true);
                             break;
                     }
                 }
