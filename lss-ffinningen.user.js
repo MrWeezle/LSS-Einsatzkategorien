@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.0
+// @version     0.2.4.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -218,7 +218,7 @@ var aao_text = '';
 var title = document.getElementById('missionH1');
 if (title !== null) {
     origInner = title.innerHTML;
-    title.innerHTML = title.innerHTML.replace(/(<small>[^.]+<\/small>)/ig, '');
+    title.innerHTML = title.innerHTML.replace(/(<small>\s*.+\s*.+\s.+\s.+\s*<\/small>)/ig, '').replace(/(<small>\s*.+\s*<\/small>)/ig, '');
     var orig = title.innerText;
     title.innerHTML = origInner;
     var keyword = orig;
@@ -229,82 +229,80 @@ if (title !== null) {
         checkOnSiteVehicles();
         checkDrivingVehicles();
 
-        if (keyword == 'Krankentransport')
-            alertFhz(ktw, 1, 'KTW', false, 'RD');
-        else
+        if (keyword != 'Krankentransport')
+        {
             RTW();
+        }
 
-
+        if (keyword == 'Krankentransport')
+        {
+            alertFhz(ktw, 1, 'KTW', false, 'RD');
+        }
         //Rettungsdienst-Einsätze für ein RTW hier eintragen
-        if (keyword == 'Brandsicherheitswachdienst im Theater') {
+        else if (keyword == 'Brandsicherheitswachdienst im Theater')
+        {
             alertFhz(lf, 1, 'LF', false);
             alertFhz(rtw, 1, 'RTW', false);
         }
-
-        if(keyword == 'Herzinfarkt' ||
-           keyword == 'Krampfanfall' ||
-           keyword == 'Unfall mit Motorsäge' ||
-           keyword == 'Bewusstlose Person' ||
-           keyword == 'Schwangere in Notsituation' ||
-           keyword == 'Beginnende Geburt' ||
-           keyword == 'Schädelverletzung' ||
-           keyword == 'akuter Asthma-Anfall')
+        else if(keyword == 'Herzinfarkt' ||
+                keyword == 'Krampfanfall' ||
+                keyword == 'Unfall mit Motorsäge' ||
+                keyword == 'Bewusstlose Person' ||
+                keyword == 'Schwangere in Notsituation' ||
+                keyword == 'Beginnende Geburt' ||
+                keyword == 'Schädelverletzung' ||
+                keyword == 'akuter Asthma-Anfall')
         {
             alertFhz(nef, 1, 'NEF', false);
         }
-
-        if(keyword == 'Hilflose Person')
+        else if(keyword == 'Hilflose Person')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
             alertFhz(rtw, 1, 'rtw', false);
         }
-
-        if(keyword == 'Ladendiebstahl' ||
-           keyword == 'Parkendes Auto gerammt' ||
-           keyword == 'Metalldiebstahl' ||
-           keyword == 'Taschendiebstahl' ||
-           keyword == 'Notebook aus Schule entwendet' ||
-           keyword == 'Personalienaufnahme von Schwarzfahrer' ||
-           keyword == 'Einbruch in Keller' ||
-           keyword == 'Sachbeschädigung' ||
-           keyword == 'Angefahrene Person' ||
-           keyword == 'Ruhestörung' ||
-           keyword == 'Einbruch in Wohnung' ||
-           keyword == 'Pannenfahrzeug' ||
-           keyword == 'Hausfriedensbruch' ||
-           keyword == 'Trunkenheitsfahrt' ||
-           keyword == 'Ampelausfall' ||
-           keyword == 'Verkehrsbehinderung' ||
-           keyword == 'Diebstahl aus Kfz' ||
-           keyword == 'Fahrraddiebstahl' ||
-           keyword == 'Wildunfall' ||
-           keyword == 'Trunkenheitsfahrt nach Silvesterparty')
+        else if(keyword == 'Ladendiebstahl' ||
+                keyword == 'Parkendes Auto gerammt' ||
+                keyword == 'Metalldiebstahl' ||
+                keyword == 'Taschendiebstahl' ||
+                keyword == 'Notebook aus Schule entwendet' ||
+                keyword == 'Personalienaufnahme von Schwarzfahrer' ||
+                keyword == 'Einbruch in Keller' ||
+                keyword == 'Sachbeschädigung' ||
+                keyword == 'Angefahrene Person' ||
+                keyword == 'Ruhestörung' ||
+                keyword == 'Einbruch in Wohnung' ||
+                keyword == 'Pannenfahrzeug' ||
+                keyword == 'Hausfriedensbruch' ||
+                keyword == 'Trunkenheitsfahrt' ||
+                keyword == 'Ampelausfall' ||
+                keyword == 'Verkehrsbehinderung' ||
+                keyword == 'Diebstahl aus Kfz' ||
+                keyword == 'Fahrraddiebstahl' ||
+                keyword == 'Wildunfall' ||
+                keyword == 'Trunkenheitsfahrt nach Silvesterparty')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
         }
-
-        if(keyword == 'Randalierende Person' ||
-           keyword == 'Häusliche Gewalt' ||
-           keyword == 'Absicherung Musikumzug' ||
-           keyword == 'Verkehrsüberwachung')
+        else if(keyword == 'Randalierende Person' ||
+                keyword == 'Häusliche Gewalt' ||
+                keyword == 'Absicherung Musikumzug' ||
+                keyword == 'Verkehrsüberwachung')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
-
-        if(keyword == 'Suche nach Vermissten')
+        else if(keyword == 'Suche nach Vermissten')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
             alertFhz(lf, 1, 'LF', false);
         }
 
-        if(keyword == 'Kabeldiebstahl')
+        else if(keyword == 'Kabeldiebstahl')
         {
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
         }
-
-        if(keyword == 'LKW in Hauswand')
+        else if(keyword == 'LKW in Hauswand')
         {
             alertFhz(gkw, 1, 'GKW', false, 'THW');
             alertFhz(lf, 2, 'LF', false);
@@ -313,8 +311,7 @@ if (title !== null) {
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
-
-        if(keyword == 'Erdrutsch')
+        else if(keyword == 'Erdrutsch')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(gkw, 1, 'GKW', false, 'THW');
@@ -322,8 +319,7 @@ if (title !== null) {
             alertFhz(brmgr, 1, 'BRmG R', false);
             alertFhz(lkwk9, 1, 'LKW K 9', false);
         }
-
-        if(keyword == 'Gefahrgut-LKW verunglückt')
+        else if(keyword == 'Gefahrgut-LKW verunglückt')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             help = document.getElementById('mission_help').href;
@@ -339,8 +335,7 @@ if (title !== null) {
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
         }
-
-        if(keyword == 'Eingestürztes Wohnhaus')
+        else if(keyword == 'Eingestürztes Wohnhaus')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(gkw, 2, 'GKW', false, 'THW');
@@ -352,123 +347,109 @@ if (title !== null) {
             alertFhz(fwk, 1, 'FWK', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
-
-        if(keyword == 'Mülleimerbrand' ||
-           keyword == 'Containerbrand' ||
-           keyword == 'Brennender PKW' ||
-           keyword == 'Motorrad-Brand' ||
-           keyword == 'Brennendes Gras' ||
-           keyword == 'Brennendes Laub' ||
-           keyword == 'Brennende Hecke' ||
-           keyword == 'Sperrmüllbrand' ||
-           keyword == 'Strohballen Brand' ||
-           keyword == 'Traktor Brand' ||
-           keyword == 'Brennende Telefonzelle' ||
-           keyword == 'Kleiner Waldbrand' ||
-           keyword == 'Brand in Briefkasten' ||
-           keyword == 'Brennendes Gebüsch' ||
-           keyword == 'Brennender Anhänger' ||
-           keyword == 'Fettbrand in Pommesbude' ||
-           keyword == 'Brennendes Bus-Häuschen' ||
-           keyword == 'Brennender Adventskranz' ||
-           keyword == 'Brennende Papiercontainer' ||
-           keyword == 'Feuerprobealarm an Schule')
+        else if(keyword == 'Mülleimerbrand' ||
+                keyword == 'Containerbrand' ||
+                keyword == 'Brennender PKW' ||
+                keyword == 'Motorrad-Brand' ||
+                keyword == 'Brennendes Gras' ||
+                keyword == 'Brennendes Laub' ||
+                keyword == 'Brennende Hecke' ||
+                keyword == 'Sperrmüllbrand' ||
+                keyword == 'Strohballen Brand' ||
+                keyword == 'Traktor Brand' ||
+                keyword == 'Brennende Telefonzelle' ||
+                keyword == 'Kleiner Waldbrand' ||
+                keyword == 'Brand in Briefkasten' ||
+                keyword == 'Brennendes Gebüsch' ||
+                keyword == 'Brennender Anhänger' ||
+                keyword == 'Fettbrand in Pommesbude' ||
+                keyword == 'Brennendes Bus-Häuschen' ||
+                keyword == 'Brennender Adventskranz' ||
+                keyword == 'Brennende Papiercontainer' ||
+                keyword == 'Feuerprobealarm an Schule')
         {
             alertFhz(lf, 1, 'LF', false, 'B');
         }
-
-        if(keyword == 'Baum auf Straße' ||
-           keyword == 'Kleintier in Not' ||
-           keyword == 'Keller unter Wasser' ||
-           keyword == 'Kleine Ölspur' ||
-           keyword == 'Auslaufende Betriebsstoffe' ||
-           keyword == 'Tiefgarage unter Wasser' ||
-           keyword == 'Äste auf Fahrbahn' ||
-           keyword == 'Umherfliegendes Baumaterial' ||
-           keyword == 'Baum auf Dach' ||
-           keyword == 'Straße unter Wasser' ||
-           keyword == 'Baum auf Radweg')
+        else if(keyword == 'Baum auf Straße' ||
+                keyword == 'Kleintier in Not' ||
+                keyword == 'Keller unter Wasser' ||
+                keyword == 'Kleine Ölspur' ||
+                keyword == 'Auslaufende Betriebsstoffe' ||
+                keyword == 'Tiefgarage unter Wasser' ||
+                keyword == 'Äste auf Fahrbahn' ||
+                keyword == 'Umherfliegendes Baumaterial' ||
+                keyword == 'Baum auf Dach' ||
+                keyword == 'Straße unter Wasser' ||
+                keyword == 'Baum auf Radweg')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
-
-        if(keyword == 'Straße unter Wasser') {
+        else if(keyword == 'Straße unter Wasser') {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
-
-        if(keyword == 'Person im Aufzug')
+        else if(keyword == 'Person im Aufzug')
         {
             alertFhz(ruest, 1, 'RÜST', false, 'THL');
         }
-
-        if(keyword == 'Große Ölspur')
+        else if(keyword == 'Große Ölspur')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
             alertFhz(oel, 1, 'ÖL', false);
         }
-
-        if(keyword == 'Person unter Baum eingeklemmt' ||
-           keyword == 'Reitunfall mit Pkw')
+        else if(keyword == 'Person unter Baum eingeklemmt' ||
+                keyword == 'Reitunfall mit Pkw')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
             alertFhz(fustw, 1, 'FuStW', false);
             alertFhz(nef, 1, 'NEF', false);
         }
-
-        if(keyword == 'Auffahrunfall' ||
-           keyword == 'Person hinter Tür' ||
-           keyword == 'Motorradunfall')
+        else if(keyword == 'Auffahrunfall' ||
+                keyword == 'Person hinter Tür' ||
+                keyword == 'Motorradunfall')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
             alertFhz(fustw, 1, 'FuStW', false);
         }
-
-        if(keyword == 'Baum auf Gleisen')
+        else if(keyword == 'Baum auf Gleisen')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
-
-        if(keyword == 'Baum auf PKW')
+        else if(keyword == 'Baum auf PKW')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
-
-        if(keyword == 'Gartenlaubenbrand' ||
-           keyword == 'Brennender LKW' ||
-           keyword == 'Kleiner Feldbrand' ||
-           keyword == 'Wohnwagenbrand' ||
-           keyword == 'Küchenbrand' ||
-           keyword == 'Garagenbrand' ||
-           keyword == 'Mähdrescher Brand' ||
-           keyword == 'Kleiner Feldbrand durch Feuerwerkskörper')
+        else if(keyword == 'Gartenlaubenbrand' ||
+                keyword == 'Brennender LKW' ||
+                keyword == 'Kleiner Feldbrand' ||
+                keyword == 'Wohnwagenbrand' ||
+                keyword == 'Küchenbrand' ||
+                keyword == 'Garagenbrand' ||
+                keyword == 'Mähdrescher Brand' ||
+                keyword == 'Kleiner Feldbrand durch Feuerwerkskörper')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
         }
-
-        if(keyword == 'Feuer auf Balkon' ||
-           keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
-           keyword == 'Zimmerbrand')
+        else if(keyword == 'Feuer auf Balkon' ||
+                keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
+                keyword == 'Zimmerbrand')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
         }
-
-        if(keyword == 'Schornsteinbrand' ||
-           keyword == 'Kaminbrand')
+        else if(keyword == 'Schornsteinbrand' ||
+                keyword == 'Kaminbrand')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Brennende Trafostation')
+        else if(keyword == 'Brennende Trafostation')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'LKW in Supermarkt')
+        else if(keyword == 'LKW in Supermarkt')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 2, 'LF', false, 'THL');
@@ -479,15 +460,14 @@ if (title !== null) {
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
-
-        if(keyword == 'Verkehrsunfall mit Linienbus')
+        else if(keyword == 'Verkehrsunfall mit Linienbus')
         {
             help = document.getElementById('mission_help').href;
             if(help.slice(-3) == 238)
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
-                alertFhz(lf, 2, 'LF', false, 'THL');
-                alertFhz(ruest, 1, 'ruest', false);
+                alertFhz(lf, 2, 'LF', false, 'THLa');
+                alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
             else if(help.slice(-3) == 239)
@@ -500,71 +480,62 @@ if (title !== null) {
                 alertFhz(fwk, 1, 'FWK', false);
             }
         }
-
-        if(keyword == 'LKW umgestürzt')
+        else if(keyword == 'LKW umgestürzt')
         {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Verkehrsunfall mit Zug')
+        else if(keyword == 'Verkehrsunfall mit Zug')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Pfefferspray in Schule')
+        else if(keyword == 'Pfefferspray in Schule')
         {
             alertFhz(lf, 2, 'LF', false);
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
         }
-
-        if(keyword == 'Feuer in Schnellrestaurant')
+        else if(keyword == 'Feuer in Schnellrestaurant')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
         }
-
-        if (keyword == 'Brandsicherheitswache bei Volksfest')
+        else if (keyword == 'Brandsicherheitswache bei Volksfest')
         {
             alertFhz(lf, 3, 'LF', false);
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
         }
-
-        if(keyword == 'Großer Waldbrand ')
+        else if(keyword == 'Großer Waldbrand ')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Brand im Supermarkt')
+        else if(keyword == 'Brand im Supermarkt')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
 
         }
-
-        if(keyword == 'Kellerbrand' ||
-           keyword == 'Kellerbrand durch Feuerwerkskörper' ||
-           keyword == 'Maschinenbrand')
+        else if(keyword == 'Kellerbrand' ||
+                keyword == 'Kellerbrand durch Feuerwerkskörper' ||
+                keyword == 'Maschinenbrand')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Dachstuhlbrand' ||
-           keyword == 'Feuer in Einfamilienhaus')
+        else if(keyword == 'Dachstuhlbrand' ||
+                keyword == 'Feuer in Einfamilienhaus')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Rauchentwicklung in Museum') {
+        else if(keyword == 'Rauchentwicklung in Museum')
+        {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
@@ -572,43 +543,39 @@ if (title !== null) {
             alertFhz(gwa, 1, 'GW-A', false);
 
         }
-        if(keyword == 'Gasgeruch') {
+        else if(keyword == 'Gasgeruch')
+        {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
 
         }
-
-        if(keyword == 'Kleinflugzeug abgestürzt')
+        else if(keyword == 'Kleinflugzeug abgestürzt')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 3, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Aufgerissener Öltank')
+        else if(keyword == 'Aufgerissener Öltank')
         {
             alertFhz(lf, 3, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(oel, 1, 'ÖL', false);
         }
-
-        if(keyword == 'Mittlerer Feldbrand')
+        else if(keyword == 'Mittlerer Feldbrand')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
-
-        if(keyword == 'Feuer im Krankenhaus' ||
-           keyword == 'Scheunenbrand')
+        else if(keyword == 'Feuer im Krankenhaus' ||
+                keyword == 'Scheunenbrand')
         {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Brennende Lok')
+        else if(keyword == 'Brennende Lok')
         {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(gwa, 1, 'GW-A', false);
@@ -616,8 +583,7 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
-
-        if(keyword == 'Flächenbrand')
+        else if(keyword == 'Flächenbrand')
         {
             help = document.getElementById('mission_help').href;
             if(help.slice(-3) == 139)
@@ -625,8 +591,7 @@ if (title !== null) {
             else
                 alertFhz(lf, 2, 'LF', false, 'B');
         }
-
-        if(keyword == 'Brennendes Reetdachhaus')
+        else if(keyword == 'Brennendes Reetdachhaus')
         {
             alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
@@ -634,16 +599,14 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
-
-        if(keyword == 'Brennender Bus')
+        else if(keyword == 'Brennender Bus')
         {
             alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
-
-        if(keyword == 'Großbrand')
+        else if(keyword == 'Großbrand')
         {
             alertFhz(lf, 6, 'LF', false, 'B');
             alertFhz(elw2, 1, 'ELW2', false);
@@ -652,8 +615,7 @@ if (title !== null) {
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(gwa, 1, 'GW-A', false);
         }
-
-        if(keyword == 'Bürobrand')
+        else if(keyword == 'Bürobrand')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 6, 'LF', false, 'B');
@@ -661,23 +623,20 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gwa, 1, 'GW-A', false);
         }
-
-        if(keyword == 'Ausgedehnte Ölspur')
+        else if(keyword == 'Ausgedehnte Ölspur')
         {
             alertFhz(lf, 6, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(oel, 1, 'ÖL', false);
         }
-
-        if(keyword == 'Chlorgasaustritt')
+        else if(keyword == 'Chlorgasaustritt')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 7, 'LF', false, 'THL');
             alertFhz(gwa, 2, 'GW-A', false);
             alertFhz(elw1, 2, 'ELW1', false);
         }
-
-        if(keyword == 'Feuer auf Bauernhof - Mittel')
+        else if(keyword == 'Feuer auf Bauernhof - Mittel')
         {
             alertFhz(lf, 7, 'LF', false, 'B');
             alertFhz(gwa, 1, 'GW-A', false);
@@ -685,23 +644,20 @@ if (title !== null) {
             alertFhz(dl, 2, 'DL', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
-
-        if(keyword == 'Brennender Güterwaggon')
+        else if(keyword == 'Brennender Güterwaggon')
         {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(dl, 2, 'DL', false);
             alertFhz(ruest, 2, 'RÜST', false);
         }
-
-        if(keyword == 'Großer Waldbrand')
+        else if(keyword == 'Großer Waldbrand')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-
-        if(keyword == 'Großfeuer im Wald')
+        else if(keyword == 'Großfeuer im Wald')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
             alertFhz(lf, 10, 'LF', false, 'B');
@@ -711,8 +667,7 @@ if (title !== null) {
             alertFhz(dl, 2, 'DL', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
-
-        if(keyword == 'Verkehrsunfall')
+        else if(keyword == 'Verkehrsunfall')
         {
             help = document.getElementById('mission_help').href;
             if(help.slice(-3) == 124 || help.slice(-3) == 126)
@@ -722,9 +677,10 @@ if (title !== null) {
             }
             else
             {
-                alertFhz(lf, 1, 'LF', false, 'THL');
             }
         }
+        else
+        {}
 
         additionalFHZ();
         displayAlertDate();
@@ -740,15 +696,14 @@ if (title !== null) {
 function checkOnSiteVehicles() {
     var matches = [];
     var searchEles = document.querySelectorAll("#mission_vehicle_at_mission > tbody > tr > td > a");
+
     for(var i = 0; i < searchEles.length; i++) {
         var found = false;
         var fhz_id = searchEles[i].getAttribute('vehicle_type_id');
-        if (fhz_id > -1) {
+        if (fhz_id > -1 && fhz_id !== null) {
 
             for (var j=0;j<lf.length;j++) {
                 if (fhz_id == lf[j]) {
-                    if (fhz_id == 30)
-                        anz_onSite_ruest++;
                     anz_onSite_lf++;
                     break;
                 }
@@ -785,8 +740,6 @@ function checkOnSiteVehicles() {
 
             for (j=0;j<ruest.length;j++) {
                 if (fhz_id == ruest[j]) {
-                    if (fhz_id == 30)
-                        anz_onSite_lf++;
                     anz_onSite_ruest++;
                     break;
                 }
@@ -1398,7 +1351,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     }
     var desc_orig;
     var hlf_ruest = 0;
-    var ruest_hlf = 0;
 
     var x = document.getElementsByTagName('td');
     if (x !== null) {
@@ -1414,22 +1366,31 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //click the vehicle
                         var fahrzeug = x[i].children[0];
                         //If AB is needed, check if a WLF is present
-                        if((y >= 47 && y <=49) || y == 54 || y == 62 ||y == 71) {
+                        if((y >= 47 && y <=49) || y == 54 || y == 62 ||y == 71)
+                        {
                             var noWLF = fahrzeug.children[1];
-                            if (noWLF.style.display == 'none') {
-                                fahrzeug.click();
-                                //and count how many are clicked
-                                checked++;
+                            if (noWLF.style.display == 'none')
+                            {
+                                if (fahrzeug.getAttribute("clicked") != 'yes')
+                                {
+                                    fahrzeug.click();
+                                    fahrzeug.setAttribute("clicked", "yes");
+                                    //and count how many are clicked
+                                    checked++;
+                                }
                             }
                         }
                         else {
-                            if(y == 30) {
-                                hlf_ruest++;
-                                ruest_hlf++;
+                            if (fahrzeug.getAttribute("clicked") != 'yes')
+                            {
+                                if(y == 30) {
+                                    hlf_ruest++;
+                                }
+                                fahrzeug.click();
+                                fahrzeug.setAttribute("clicked", "yes");
+                                //and count how many are clicked
+                                checked++;
                             }
-                            fahrzeug.click();
-                            //and count how many are clicked
-                            checked++;
                         }
                     }
                 }
@@ -1450,9 +1411,14 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         if (z == fhz[l] && checked < toAlarm) {
                             //click the vehicle
                             var fahrzeug2 = x[k].children[0];
-                            fahrzeug2.click();
-                            //and count how many are clicked
-                            checked++;
+
+                            if (fahrzeug2.getAttribute("clicked") != 'yes')
+                            {
+                                fahrzeug2.click();
+                                fahrzeug2.setAttribute("clicked", "yes");
+                                //and count how many are clicked
+                                checked++;
+                            }
                         }
                     }
                 }
@@ -1486,8 +1452,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "rüst":
             anz_Driving_ruest = anz_Driving_ruest+checked;
-            if (ruest_hlf>0)
-                anz_Driving_lf = anz_Driving_lf+ruest_hlf;
             color = color_fw;
             break;
         case "öl":
@@ -1665,6 +1629,9 @@ function additionalFHZ() {
                             break;
                         case "ELW2":
                             alertFhz(elw2, fhz[ab]-anz_Driving_elw2, 'ELW2', true);
+                            break;
+                        case "Schlauchwagen":
+                            alertFhz(gws, fhz[ab]-anz_Driving_gws, 'GW-S', true);
                             break;
                     }
                 }
