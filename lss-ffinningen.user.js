@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.1
+// @version     0.2.4.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -677,10 +677,12 @@ if (title !== null) {
             }
             else
             {
+                alertFhz(lf, 1, 'LF', false, 'THL');
             }
         }
         else
-        {}
+        {
+        }
 
         additionalFHZ();
         displayAlertDate();
@@ -1366,10 +1368,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //click the vehicle
                         var fahrzeug = x[i].children[0];
                         //If AB is needed, check if a WLF is present
-                        if((y >= 47 && y <=49) || y == 54 || y == 62 ||y == 71)
+                        if((y >= 43 && y <=44) || (y >= 47 && y <=49) || y == 54 || y == 62 || y == 71)
                         {
-                            var noWLF = fahrzeug.children[1];
-                            if (noWLF.style.display == 'none')
+                            var noZugfahrzeug = fahrzeug.children[1];
+                            if (noZugfahrzeug.style.display == 'none')
                             {
                                 if (fahrzeug.getAttribute("clicked") != 'yes')
                                 {
