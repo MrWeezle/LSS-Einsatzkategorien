@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.2
+// @version     0.2.4.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -309,6 +309,7 @@ if (title !== null) {
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
+            alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
         else if(keyword == 'Erdrutsch')
@@ -317,6 +318,7 @@ if (title !== null) {
             alertFhz(gkw, 1, 'GKW', false, 'THW');
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(brmgr, 1, 'BRmG R', false);
+            alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(lkwk9, 1, 'LKW K 9', false);
         }
         else if(keyword == 'Gefahrgut-LKW verunglückt')
@@ -327,6 +329,7 @@ if (title !== null) {
             {
                 alertFhz(gkw, 1, 'GKW', false, 'THW');
                 alertFhz(lkwk9, 1, 'LKW K 9', false);
+            alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(brmgr, 1, 'BRmG R', false);
             }
             alertFhz(lf, 3, 'LF', false, 'THL');
@@ -343,6 +346,7 @@ if (title !== null) {
             alertFhz(brmgr, 2, 'BRmG R', false);
             alertFhz(mzkw, 1, 'MzKW', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(lf, 3, 'LF', false);
             alertFhz(fwk, 1, 'FWK', false);
             alertFhz(ruest, 1, 'RÜST', false);
@@ -458,6 +462,7 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gkw, 1, 'GKW', false);
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
+            alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
         else if(keyword == 'Verkehrsunfall mit Linienbus')
@@ -1340,7 +1345,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "anhdle":
                 toAlarm = toAlarm - (anz_onSite_anhdle + anz_Driving_anhdle);
                 break;
-            case "mlw5":
+            case "mlw-5":
                 toAlarm = toAlarm - (anz_onSite_mlw5 + anz_Driving_mlw5);
                 break;
             case "gw-san":
@@ -1556,7 +1561,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             anz_Driving_anhdle = anz_Driving_anhdle+checked;
             color = color_thw;
             break;
-        case "mlw5":
+        case "mlw-5":
             anz_Driving_mlw5 = anz_Driving_mlw5+checked;
             color = color_thw;
             break;
