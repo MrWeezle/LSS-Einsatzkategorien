@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.5
+// @version     0.2.4.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -348,7 +348,8 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(lf, 3, 'LF', false);
-            alertFhz(fwk, 1, 'FWK', false);
+            if (anzahl_fw >= 14)
+                alertFhz(fwk, 1, 'FWK', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
         else if(keyword == 'Mülleimerbrand' ||
@@ -458,7 +459,8 @@ if (title !== null) {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(dl, 1, 'DL', false);
-            alertFhz(fwk, 1, 'FWK', false);
+            if (anzahl_fw >= 14)
+                alertFhz(fwk, 1, 'FWK', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gkw, 1, 'GKW', false);
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
@@ -471,7 +473,7 @@ if (title !== null) {
             if(help.slice(-3) == 238)
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
-                alertFhz(lf, 2, 'LF', false, 'THLa');
+                alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
@@ -482,7 +484,8 @@ if (title !== null) {
                 alertFhz(elw2, 1, 'ELW2', false);
                 alertFhz(elw1, 2, 'ELW1', false);
                 alertFhz(oel, 1, 'ÖL', false);
-                alertFhz(fwk, 1, 'FWK', false);
+                if (anzahl_fw >= 14)
+                    alertFhz(fwk, 1, 'FWK', false);
             }
         }
         else if(keyword == 'LKW umgestürzt')
@@ -523,7 +526,14 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
-
+            alertFhz(ruest, 1, 'RÜST', false);
+        }
+        else if(keyword == 'Baum auf Oberleitung')
+        {
+            alertFhz(lf, 3, 'LF', false, 'THL');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(ruest, 1, 'RÜST', false);
         }
         else if(keyword == 'Kellerbrand' ||
                 keyword == 'Kellerbrand durch Feuerwerkskörper' ||
@@ -572,6 +582,12 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
         }
+        else if(keyword == 'Großer Feldbrand')
+        {
+            alertFhz(lf, 5, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(gws, 1, 'GW-S', false);
+        }
         else if(keyword == 'Feuer im Krankenhaus' ||
                 keyword == 'Scheunenbrand')
         {
@@ -597,11 +613,11 @@ if (title !== null) {
         }
         else if(keyword == 'Brennendes Reetdachhaus')
         {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
         else if(keyword == 'Brennender Bus')
         {
@@ -633,6 +649,18 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(oel, 1, 'ÖL', false);
         }
+        else if(keyword == 'Baumaschine umgestürzt')
+        {
+            if (anzahl_pol >= 3)
+                alertFhz(fustw, 3, 'FuStW', false, 'POL');
+            alertFhz(lf, 4, 'LF', false, 'THL');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(ruest, 2, 'RÜST', false);
+            alertFhz(oel, 1, 'ÖL', false);
+            if (anzahl_fw >= 14)
+                alertFhz(fwk, 1, 'FWK', false);
+        }
         else if(keyword == 'Chlorgasaustritt')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
@@ -642,6 +670,7 @@ if (title !== null) {
         }
         else if(keyword == 'Feuer auf Bauernhof - Mittel')
         {
+            alertFhz(fustw, 3, 'FuStW', false, 'POL');
             alertFhz(lf, 7, 'LF', false, 'B');
             alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw1, 1, 'ELW1', false);
@@ -1638,6 +1667,9 @@ function additionalFHZ() {
                             break;
                         case "Schlauchwagen":
                             alertFhz(gws, fhz[ab]-anz_Driving_gws, 'GW-S', true);
+                            break;
+                        case "GW-Messtechnik":
+                            alertFhz(gwm, fhz[ab]-anz_Driving_gws, 'GW-M', true);
                             break;
                     }
                 }
