@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.8
+// @version     0.2.4.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -52,6 +52,7 @@ var ktw      = [38, 58];
 var nef      = [29, 31];
 var kdoworgl = [56];
 var kdowlna  = [55];
+var rth      = [31];
 
 //POLIZEI
 var fustw    = [32];
@@ -156,6 +157,7 @@ var anz_onSite_fwk = 0;
 var anz_onSite_rtw = 0;
 var anz_onSite_ktw = 0;
 var anz_onSite_nef = 0;
+var anz_onSite_rth = 0;
 var anz_onSite_kdoworgl = 0;
 var anz_onSite_kdowlna = 0;
 var anz_onSite_fustw = 0;
@@ -190,6 +192,7 @@ var anz_Driving_fwk = 0;
 var anz_Driving_rtw = 0;
 var anz_Driving_ktw = 0;
 var anz_Driving_nef = 0;
+var anz_Driving_rth = 0;
 var anz_Driving_kdoworgl = 0;
 var anz_Driving_kdowlna = 0;
 var anz_Driving_fustw = 0;
@@ -261,12 +264,12 @@ if (title !== null) {
                 keyword == 'Sturz aus Höhe' ||
                 keyword == 'Verletzte Person auf Hochspannungsmast')
         {
-            alertFhz(nef, 1, 'NEF', false);
             help = document.getElementById('mission_help').href;
             if(help.slice(-3) == 181)
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
+            alertFhz(nef, 1, 'NEF', false);
         }
         else if(keyword == 'Hilflose Person')
         {
@@ -516,12 +519,6 @@ if (title !== null) {
             alertFhz(gwh, 1, 'GW-H', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(fustw, 1, 'FuStW', false);
-
-            help = document.getElementById('mission_help').href;
-            if(help.slice(-3) == 236)
-            {
-                alertFhz(rth, 1, 'RTH', false);
-            }
         }
         else if(keyword == 'Brennende Trafostation')
         {
@@ -1058,6 +1055,13 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
+            
+            for (j=0;j<rth.length;j++) {
+                if (fhz_id == rth[j]) {
+                    anz_onSite_rth++;
+                    break;
+                }
+            }
 
             for (j=0;j<kdoworgl.length;j++) {
                 if (fhz_id == kdoworgl[j]) {
@@ -1308,6 +1312,14 @@ function checkDrivingVehicles() {
                 }
             }
 
+            for (j=0;j<rth.length;j++) {
+                if (fhz_id == rth[j]) {
+                    anz_Driving_rth++;
+                    break;
+                }
+            }
+            
+
             for (j=0;j<kdoworgl.length;j++) {
                 if (fhz_id == kdoworgl[j]) {
                     anz_Driving_kdoworgl++;
@@ -1529,9 +1541,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "nef":
                 if (anzahl_rd >= 3)
-                    toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef);
+                    toAlarm = toAlarm - (anz_onSite_nef + anz_Driving_nef) - (anz_onSite_rth + anz_Driving_rth);
                 else
                     toAlarm = 0;
+                break;
+            case "rth":
+                toAlarm = toAlarm - (anz_onSite_rth + anz_Driving_rth);
                 break;
             case "kdow-orgl":
                 toAlarm = toAlarm - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
@@ -1588,6 +1603,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     }
     var desc_orig;
     var hlf_ruest = 0;
+    var nef_rth = 0;
 
     var x = document.getElementsByTagName('td');
     if (x !== null) {
@@ -1617,11 +1633,17 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                                 }
                             }
                         }
-                        else {
+                        else 
+                        {
                             if (fahrzeug.getAttribute("clicked") != 'yes')
                             {
-                                if(y == 30) {
+                                if(y == 30) 
+                                {
                                     hlf_ruest++;
+                                }
+                                if(y == 31) 
+                                {
+                                    nef_rth++;
                                 }
                                 fahrzeug.click();
                                 fahrzeug.setAttribute("clicked", "yes");
@@ -1734,6 +1756,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "nef":
             anz_Driving_nef = anz_Driving_nef+checked;
+            color = color_rd;
+            break;
+        case "rth":
+            anz_Driving_rth = anz_Driving_rth+checked;
+            if (nef_rth > 0)
+                anz_Driving_nef = anz_Driving_nef+nef_rth;
             color = color_rd;
             break;
         case "kdow-orgl":
