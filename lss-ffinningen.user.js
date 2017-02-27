@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.9
+// @version     0.2.5.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1838,7 +1838,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         addedMissingFhzInformation = true;
     }
 
-    anzahl_fhz = anzahl_fhz + checked;
+    anzahl_fhz = anzahl_fhz + toAlarm;
     checked = 0;
 
     if (anzahl_orig > 0 && !additional && aao_key !== '')
