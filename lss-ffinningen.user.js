@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.4.7
+// @version     0.2.4.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -17,7 +17,8 @@ var color_pol      = 'green';
 var color_rd       = '#ff90a4';
 var color_seg      = '#ff90a4';
 
-//Wie lange das Script warten soll, bis es startet (notwendig um die korrekte Reihenfolge der Fahrzeuge zu ermitteln)
+//Wie lange das Script warten soll, bis es startet (notwendig um die korrekte Reihenfolge der Fahrzeuge zu ermitteln).
+//Kann bei Bedarf erhöht werden, falls die falschen Fahrzeuge angeklickt werden
 var timeout = 250;
 
 //wie viele Feuerwachen wurden als Rettungswache ausgebaut?
@@ -31,7 +32,7 @@ var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37
 var dl       = [2];
 var elw1     = [3];
 var elw2     = [34];
-var gwa     = [5, 48];
+var gwa      = [5, 48];
 var ruest    = [4, 30, 47];
 var oel      = [10, 49];
 var dekonp   = [53, 54];
@@ -746,6 +747,7 @@ if (title !== null) {
         }
         else if(keyword == 'Ausgedehnte Ölspur')
         {
+            alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(lf, 6, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(oel, 1, 'GW-ÖL', false);
