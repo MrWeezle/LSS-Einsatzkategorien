@@ -22,7 +22,7 @@ var color_seg      = '#ff90a4';
 var timeout = 250;
 
 //wie viele Feuerwachen wurden als Rettungswache ausgebaut?
-var anz_rettungswache_ausbau = 1;
+var anz_rettungswache_ausbau = 3;
 
 //wie viele Feuerwachen wurden als Wasserrettungswache ausgebaut?
 var anz_wasserrettungswache_ausbau = 0;
@@ -227,7 +227,7 @@ if (title !== null) {
     title.innerHTML = origInner;
     var keyword = orig;
 
-    if (keyword.match('Brandmeldeanlage'))
+    if (keyword.match('Brandmeldeanlage') && veh_mission === null && veh_driving === null)
     {
         alertFhz(rtw, 2, 'RTW', false, 'RD');
     }
