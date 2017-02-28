@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.0
+// @version     0.2.5.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -698,7 +698,7 @@ if (title !== null) {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(ruest, 1, 'RÜST', false);
-            alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gws, 1, 'GW-S', false);
         }
         else if(keyword == 'Flächenbrand')
@@ -1838,7 +1838,8 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         addedMissingFhzInformation = true;
     }
 
-    anzahl_fhz = anzahl_fhz + toAlarm;
+    if (toAlarm > 0)
+        anzahl_fhz = anzahl_fhz + toAlarm;
     checked = 0;
 
     if (anzahl_orig > 0 && !additional && aao_key !== '')
