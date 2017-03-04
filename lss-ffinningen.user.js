@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.2
+// @version     0.2.5.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -102,7 +102,6 @@ if (site_location.slice(-1) == '#') {
     anzahl_wr   = 0;
 
     var building_list = document.getElementsByClassName('building_list_li');
-
     for(var i = 0; i < building_list.length; i++) {
         var building_id = building_list[i].getAttribute('building_type_id');
         if (building_id > -1) {
@@ -367,8 +366,8 @@ if (title !== null) {
                 alertFhz(brmgr, 1, 'BRmG R', false);
             }
             alertFhz(lf, 3, 'LF', false, 'THL');
-            alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
         }
@@ -1449,6 +1448,7 @@ function checkDrivingVehicles() {
 }
 
 function alertFhz(fhz, anzahl, desc, additional, aao_key) {
+
     var color;
     if (anzahl < 1)
         anzahl = 0;
@@ -1908,7 +1908,10 @@ function additionalFHZ() {
                             alertFhz(gws, fhz[ab]-anz_Driving_gws, 'GW-S', true);
                             break;
                         case "GW-Messtechnik":
-                            alertFhz(gwm, fhz[ab]-anz_Driving_gws, 'GW-M', true);
+                            alertFhz(gwm, fhz[ab]-anz_Driving_gwm, 'GW-M', true);
+                            break;
+                        case "GW-Gefahrgut":
+                            alertFhz(gwg, fhz[ab]-anz_Driving_gwg, 'GW-G', true);
                             break;
                     }
                 }
