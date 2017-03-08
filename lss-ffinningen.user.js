@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.5
+// @version     0.2.5.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -246,8 +246,7 @@ if (title !== null) {
         if (keyword != 'Krankentransport')
         {
             if(keyword == 'Alkoholintoxikation' ||
-               keyword == 'Nasenbluten unstillbar' ||
-               keyword == 'Kopfplatzwunde')
+               keyword == 'Nasenbluten unstillbar')
             {
                 RTW(true);
             }
