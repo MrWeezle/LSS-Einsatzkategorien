@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.3
+// @version     0.2.5.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -19,7 +19,7 @@ var color_seg      = '#ff90a4';
 
 //Wie lange das Script warten soll, bis es startet (notwendig um die korrekte Reihenfolge der Fahrzeuge zu ermitteln).
 //Kann bei Bedarf erhöht werden, falls die falschen Fahrzeuge angeklickt werden
-var timeout = 250;
+var timeout = 500;
 
 //wie viele Feuerwachen wurden als Rettungswache ausgebaut?
 var anz_rettungswache_ausbau = 3;
@@ -1218,6 +1218,7 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
+
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
                     anz_Driving_elw2++;
