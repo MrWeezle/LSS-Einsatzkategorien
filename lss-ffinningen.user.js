@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.6
+// @version     0.2.5.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -245,20 +245,25 @@ if (title !== null) {
 
         if (keyword != 'Krankentransport')
         {
-            if(keyword == 'Alkoholintoxikation' ||
-               keyword == 'Nasenbluten unstillbar')
-            {
-                RTW(true);
-            }
-            else
-            {
-                RTW();
-            }
+            RTW();
         }
 
         if (keyword == 'Krankentransport')
         {
             alertFhz(ktw, 1, 'KTW', false, 'RD');
+        }
+        else if (keyword == 'Dorf/Stadtfest')
+        {
+            alertFhz(lf, 3, 'LF', false);
+            alertFhz(gwsan, 1, 'GW-SAN', false);
+            alertFhz(ktwb, 3, 'KTW-B', false);
+        }
+        else if (keyword == 'Entschärfung von Weltkriegsbombe')
+        {
+            alertFhz(lf, 10, 'LF', false);
+            alertFhz(fustw, 5, 'FuStW', false);
+            alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(elw1, 1, 'ELW1', false);
         }
         else if (keyword == 'Schwerpunkteinsatz Tageswohnungseinbrüche')
         {
@@ -884,7 +889,6 @@ if (title !== null) {
         {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(dl, 2, 'DL', false);
             alertFhz(ruest, 2, 'RÜST', false);
         }
         else if(keyword == 'Großer Waldbrand')
@@ -1692,7 +1696,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     var desc_orig;
     var hlf_ruest = 0;
     var nef_rth = 0;
-    var rtw_ktwb = 0;
 
     var x = document.getElementsByTagName('td');
     if (x !== null) {
@@ -1726,10 +1729,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         {
                             if (fahrzeug.getAttribute("clicked") != 'yes')
                             {
-                                if(y == 28)
-                                {
-                                    rtw_ktwb++;
-                                }
                                 if(y == 30)
                                 {
                                     hlf_ruest++;
@@ -1927,8 +1926,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "ktw-b":
             anz_Driving_ktwb = anz_Driving_ktwb+checked;
-            if (rtw_ktwb > 0)
-                anz_Driving_rtw = anz_Driving_rtw+rtw_ktwb;
             color = color_seg;
             break;
     }
@@ -1945,11 +1942,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         aao_text = '<font color='+color+'><b> '+aao_key+''+anzahl_orig+'</b></font>'+aao_text;
 }
 
-function RTW(use_ktwb) {
+function RTW() {
     var patients = document.getElementsByClassName("patient_progress");
     var patients_anzahl = patients.length;
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
     var anzahl = 0;
+    var seg_alerted = false;
 
     if (patients_anzahl > 0) {
         for (var i = 0;i<patients_anzahl;i++) {
@@ -1959,9 +1957,17 @@ function RTW(use_ktwb) {
                 anzahl++;
             }
         }
-        if (patients_anzahl > 0)
+
+        /*if(patients_anzahl >= 4)
         {
-            if(use_ktwb)
+            alertFhz(elw1seg, 1, 'ELW1-SEG', false);
+            alertFhz(gwsan, 1, 'GW-SAN', false);
+            seg_alerted = true;
+        }*/
+
+        if (anzahl > 0)
+        {
+            if(seg_alerted)
             {
                 alertFhz(ktwb, patients_anzahl, 'KTW-B', false, 'RD');
             }
