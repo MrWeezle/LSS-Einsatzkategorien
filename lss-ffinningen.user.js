@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.7
+// @version     0.2.5.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1965,7 +1965,7 @@ function RTW() {
             seg_alerted = true;
         }*/
 
-        if (anzahl > 0)
+        if (patients_anzahl > 0)
         {
             if(seg_alerted)
             {
@@ -2027,10 +2027,10 @@ function additionalFHZ() {
                 }
             }
         }
-        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen LNA.')>=0 && (veh_driving !== null || veh_mission !== null)) {
-            count_lna++;
+        if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen LNA.')>=0 && anz_Driving_kdowlna < 1) {
+            count_lna = 1;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0 && (veh_driving !== null || veh_mission !== null)) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0 && anz_Driving_nef < 1) {
             count_nef++;
         }
 
@@ -2044,7 +2044,7 @@ function additionalFHZ() {
     }
     if (count_lna > 0)
     {
-        alertFhz(kdowlna, 1-anz_Driving_kdowlna, 'LNA', true);
+        alertFhz(kdowlna, count_lna, 'LNA', true);
         alertFhz(nef, 1-anz_Driving_nef, 'NEF', true);
     }
     if (count_nef > 0)
