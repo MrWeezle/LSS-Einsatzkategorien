@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.5.9
+// @version     0.2.6.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -532,13 +532,17 @@ if (title !== null) {
                 keyword == 'Äste auf Fahrbahn' ||
                 keyword == 'Umherfliegendes Baumaterial' ||
                 keyword == 'Baum auf Dach' ||
-                keyword == 'Straße unter Wasser' ||
                 keyword == 'Baum auf Radweg')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
         else if(keyword == 'Straße unter Wasser') {
             alertFhz(lf, 1, 'LF', false, 'THL');
+            help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 171)
+            {
+                alertFhz(fustw, 2, 'FuStW', false);
+            }
         }
         else if(keyword == 'Verletzte Person auf Baugerüst')
         {
@@ -572,6 +576,11 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(fustw, 2, 'FuStW', false);
+            help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 171)
+            {
+                alertFhz(fustw, 2, 'FuStW', false);
+            }
         }
         else if(keyword == 'Person unter Baum eingeklemmt' ||
                 keyword == 'Reitunfall mit Pkw')
@@ -675,6 +684,11 @@ if (title !== null) {
         }
         else if(keyword == 'LKW umgestürzt')
         {
+            help = document.getElementById('mission_help').href;
+            if(help.slice(-3) == 121)
+            {
+                alertFhz(fustw, 2, 'FuStW', false);
+            }
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
@@ -685,6 +699,30 @@ if (title !== null) {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
+        }
+        else if(keyword == 'Verkehrsunfall mit Linienbus')
+        {
+            if(help.slice(-3) == 238)
+            {
+                alertFhz(fustw, 2, 'FuStW', false);
+                alertFhz(lf, 2, 'LF', false, 'THL');
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+            }
+            else if(help.slice(-3) == 239)
+            {
+                alertFhz(fustw, 4, 'FuStW', false);
+                alertFhz(lf, 5, 'LF', false, 'THL');
+                alertFhz(ruest, 2, 'RÜST', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false);
+                alertFhz(oel, 1, 'GW-ÖL', false);
+                alertFhz(fwk, 1, 'FWK', false);
+            }
+        }
+        else if(keyword = 'Schwertransport')
+        {
+            alertFhz(fustw, 4, 'FuStW', false);
         }
         else if(keyword == 'Pfefferspray in Schule')
         {
@@ -881,10 +919,13 @@ if (title !== null) {
         }
         else if(keyword == 'Chlorgasaustritt')
         {
-            alertFhz(fustw, 2, 'FuStW', false);
+            alertFhz(fustw, 4, 'FuStW', false);
             alertFhz(lf, 7, 'LF', false, 'THL');
             alertFhz(gwa, 2, 'GW-A', false);
+            alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 2, 'ELW1', false);
+            alertFhz(gwm, 2, 'GW-M', false);
+            alertFhz(gwg, 2, 'GW-G', false);
         }
         else if(keyword == 'Sporthallenbrand')
         {
@@ -1025,9 +1066,15 @@ if (title !== null) {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else
+            else if(help.slice(-3) == 123)
             {
-                alertFhz(lf, 1, 'LF', false, 'THL');
+                alertFhz(fustw, 1, 'FuStW', false);
+            }
+            else if(help.slice(-3) == 127)
+            {
+                alertFhz(lf, 2, 'LF', false, 'THL');
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(fustw, 2, 'FuStW', false);
             }
         }
         else if(keyword == 'Person in Wasser')
