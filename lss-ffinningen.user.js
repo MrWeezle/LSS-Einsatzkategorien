@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.6.4
+// @version     0.2.6.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -30,6 +30,7 @@ var anz_wasserrettungswache_ausbau = 0;
 
 var alertNef = true;
 var addedRTW = false;
+var seg_alerted = false;
 
 //FEUERWEHR
 var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37];
@@ -100,6 +101,11 @@ var anzahl_ph   = GM_getValue("anzahl_ph", anzahl_ph);
 var anzahl_bepo = GM_getValue("anzahl_bepo", anzahl_bepo);
 var anzahl_seg  = GM_getValue("anzahl_seg", anzahl_seg);
 var anzahl_wr   = GM_getValue("anzahl_wr", anzahl_wr)+anz_wasserrettungswache_ausbau;
+
+var easteregg = document.querySelectorAll('a[href*=easteregg]');
+if (easteregg.length == 1){
+    easteregg[0].click();
+}
 
 var site_location = window.location.href;
 if (site_location.slice(-1) == '#' || site_location.slice(-3) == '.de') {
@@ -256,6 +262,7 @@ var additionalfhz = document.getElementsByClassName('alert alert-danger');
 var aao_text = '';
 var keyword = '';
 var title = document.getElementById('missionH1');
+
 if (title !== null) {
     origInner = title.innerHTML;
     title.innerHTML = title.innerHTML.replace(/(<small>\s*.+\s*.+\s.+\s.+\s*<\/small>)/ig, '').replace(/(<small>\s*.+\s*<\/small>)/ig, '');
@@ -370,7 +377,8 @@ if (title !== null) {
                 keyword == 'Herzrhythmusstörungen' ||
                 keyword == 'Wirbelsäulenverletzung' ||
                 keyword == 'akuter Asthma-Anfall' ||
-                keyword == 'Fieber')
+                keyword == 'Fieber' ||
+                keyword == 'Schlaganfall')
         {
             alertFhz(nef, 1, 'NEF', false);
         }
@@ -594,6 +602,7 @@ if (title !== null) {
         else if(keyword == 'Person im Aufzug')
         {
             alertFhz(ruest, 1, 'RÜST', false, 'THL');
+            alertFhz(rtw, 1, 'RTW', false);
         }
         else if(keyword == 'Große Ölspur')
         {
@@ -767,6 +776,7 @@ if (title !== null) {
         {
             alertFhz(lf, 2, 'LF', false);
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
+            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*20), 'NEF', false);
         }
         else if(keyword == 'Feuer in Schnellrestaurant')
         {
@@ -817,7 +827,7 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(gwa, 1, 'GW-A', false);
+            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*75), 'NEF', false);
         }
         else if(keyword == 'Gasgeruch')
         {
@@ -1135,6 +1145,10 @@ if (title !== null) {
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(fustw, 2, 'FuStW', false);
             }
+            if(help.slice(-3) != 123 && help.slice(-2) != 25)
+            {
+                alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*50), 'NEF', false);
+            }
         }
         else if(keyword == 'Person in Wasser')
         {
@@ -1450,6 +1464,8 @@ function checkOnSiteVehicles() {
             for (j=0;j<ktwb.length;j++) {
                 if (fhz_id == ktwb[j]) {
                     anz_onSite_ktwb++;
+                    if(seg_alerted)
+                        anz_onSite_rtw++;
                     break;
                 }
             }
@@ -1742,6 +1758,8 @@ function checkDrivingVehicles() {
             for (j=0;j<ktwb.length;j++) {
                 if (fhz_id == ktwb[j]) {
                     anz_Driving_ktwb++;
+                    if(seg_alerted)
+                        anz_Driving_rtw++;
                     break;
                 }
             }
@@ -2226,7 +2244,6 @@ function RTW() {
     var patients_anzahl = patients.length;
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
     var anzahl = 0;
-    var seg_alerted = false;
 
     if (patients_anzahl > 0) {
         /*for (var i = 0;i<patients_anzahl;i++) {
@@ -2238,11 +2255,11 @@ function RTW() {
         }*/
         if (patients_anzahl > 0 && (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw)) > 0)
         {
-            anzahl_fhz = anzahl_fhz + (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw));
+            anzahl_fhz = anzahl_fhz + (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw+anz_Driving_ktwb+anz_onSite_ktwb));
             addedRTW = true;
         }
 
-        if(patients_anzahl >= 10)
+        if(patients_anzahl >= 10 && anzahl_seg > 0)
         {
             alertFhz(elw1seg, 1, 'ELW1-SEG', false, 'SEG');
             alertFhz(gwsan, 1, 'GW-SAN', false);
@@ -2296,9 +2313,6 @@ function additionalFHZ() {
                         case "FuStW":
                             alertFhz(fustw, fhz[ab]-anz_Driving_fustw, 'FuStW', true);
                             break;
-                        case "FuStW":
-                            alertFhz(fustw, fhz[ab]-anz_Driving_fustw, 'FuStW', true);
-                            break;
                         case "GW-A":
                             alertFhz(gwa, fhz[ab]-anz_Driving_gwa, 'GW-A', true);
                             break;
@@ -2339,7 +2353,6 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0) {
             count_nef++;
         }
-
         else {
             var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
             if (sprechwunsch.length>0) {
