@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.6.5
+// @version     0.2.6.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -344,13 +344,20 @@ if (title !== null) {
             alertFhz(gefkw, 1, 'GefKW', false);
             alertFhz(fustw, 2, 'FuStW', false);
         }
-        else if(keyword == 'Fußball Bundesliga-Spiel')
+        else if(keyword == 'Fußball Bundesliga-Spiel' ||
+                keyword == 'Hasentreffen in Ostereistedt')
         {
             alertFhz(lebefkw, 3, 'leBefKw', false, 'BePo');
             alertFhz(grukw, 9, 'GruKW', false);
             alertFhz(gefkw, 1, 'GefKW', false);
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(fustw, 2, 'FuStW', false);
+            if(help.slice(-3) == 291)
+            {
+                alertFhz(rtw, 4, 'RTW', false);
+                alertFhz(fustw, 2, 'FuStW', false);
+                alertFhz(lf, 2, 'LF', false);
+            }
         }
         else if(keyword == 'Angemeldete Demonstration')
         {
@@ -449,9 +456,17 @@ if (title !== null) {
                 keyword == 'Süßigkeitendiebstahl' ||
                 keyword == 'Fahrraddiebstahl' ||
                 keyword == 'Personenkontrolle' ||
-                keyword == 'Wildunfall')
+                keyword == 'Wildunfall' ||
+                keyword == 'Ostereier-Dieb' ||
+                keyword == 'Pinsel aus Werkstatt entwendet' ||
+                keyword == 'Angefahrener Osterhase')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
+        }
+        else if(keyword == 'Angefahrender Osterhase')
+        {
+            alertFhz(fustw, 1, 'FuStW', false, 'POL');
+            alertFhz(rtw, 1, 'RTW', false);
         }
         else if(keyword == 'Randalierende Person' ||
                 keyword == 'Häusliche Gewalt' ||
@@ -490,7 +505,8 @@ if (title !== null) {
             alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(mzkw, 1, 'MzKW', false);
         }
-        else if(keyword == 'Erdrutsch')
+        else if(keyword == 'Erdrutsch' ||
+                keyword == 'Eingestürzter Hasenbau')
         {
             alertFhz(fustw, 2, 'FuStW', false);
             alertFhz(gkw, 1, 'GKW', false, 'THW');
@@ -553,7 +569,8 @@ if (title !== null) {
                 keyword == 'Brennende Papiercontainer' ||
                 keyword == 'Brennende Papiercontainer durch Feuerwerkskörper' ||
                 keyword == 'Feuerprobealarm an Schule' ||
-                keyword == 'Brennender Bollerwagen')
+                keyword == 'Brennender Bollerwagen' ||
+                keyword == 'Brennendes Osternest')
         {
             alertFhz(lf, 1, 'LF', false, 'B');
         }
@@ -566,7 +583,8 @@ if (title !== null) {
                 keyword == 'Äste auf Fahrbahn' ||
                 keyword == 'Umherfliegendes Baumaterial' ||
                 keyword == 'Baum auf Dach' ||
-                keyword == 'Baum auf Radweg')
+                keyword == 'Baum auf Radweg' ||
+                keyword == 'Schokoladenspur auf Strasse')
         {
             alertFhz(lf, 1, 'LF', false, 'THL');
         }
@@ -658,7 +676,8 @@ if (title !== null) {
                 keyword == 'Wohnwagenbrand' ||
                 keyword == 'Küchenbrand' ||
                 keyword == 'Garagenbrand' ||
-                keyword == 'Mähdrescher Brand')
+                keyword == 'Mähdrescher Brand' ||
+                keyword == 'Eierkocherbrand')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
         }
