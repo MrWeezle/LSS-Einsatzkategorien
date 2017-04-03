@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.6.7
+// @version     0.2.6.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -105,6 +105,20 @@ var anzahl_wr   = GM_getValue("anzahl_wr", anzahl_wr)+anz_wasserrettungswache_au
 var easteregg = document.querySelectorAll('a[href*=easteregg]');
 if (easteregg.length == 1){
     easteregg[0].click();
+}
+
+var next_sprechwunsch = document.getElementsByClassName('btn btn-success');
+for (var i = 0;i<next_sprechwunsch.length;i++)
+{
+    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.search('Zum nächsten Fahrzeug im Status 5')>=0) {
+        next_sprechwunsch[i].click();
+    }
+}
+for (var i = 0;i<next_sprechwunsch.length;i++)
+{
+    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.search('Zurück zum Einsatz')>=0) {
+        next_sprechwunsch[i].click();
+    }
 }
 
 var site_location = window.location.href;
@@ -261,7 +275,9 @@ var additionalfhz = document.getElementsByClassName('alert alert-danger');
 
 var aao_text = '';
 var keyword = '';
-var title = document.getElementById('missionH1');
+var title_orig = document.getElementById('missionH1');
+
+var title = title_orig;
 
 if (title !== null) {
     origInner = title.innerHTML;
@@ -930,7 +946,7 @@ if (title !== null) {
         }
         else if(keyword == 'Flächenbrand')
         {
-            if(help.slice(-3) == 139)
+            if(help.slice(-3) == 139 || help.slice(-3) == 141)
                 alertFhz(lf, 4, 'LF', false, 'B');
             else
                 alertFhz(lf, 2, 'LF', false, 'B');
