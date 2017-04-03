@@ -107,6 +107,12 @@ if (easteregg.length == 1){
     easteregg[0].click();
 }
 
+var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
+if (sprechwunsch.length>0) {
+    if (sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
+        sprechwunsch[0].click();
+}
+
 var next_sprechwunsch = document.getElementsByClassName('btn btn-success');
 for (var i = 0;i<next_sprechwunsch.length;i++)
 {
@@ -2398,13 +2404,6 @@ function additionalFHZ() {
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0) {
             count_nef++;
-        }
-        else {
-            var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
-            if (sprechwunsch.length>0) {
-                if (sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
-                    sprechwunsch[0].click();
-            }
         }
     }
     if (count_lna > 0)
