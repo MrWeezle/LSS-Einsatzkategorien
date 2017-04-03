@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.6.6
+// @version     0.2.6.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -717,6 +717,8 @@ if (title !== null) {
         {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
+            if(help.slice(-3) == 193)
+                alertFhz(fustw, 1, 'FuStW', false);
         }
         else if(keyword == 'LKW in Supermarkt')
         {
@@ -893,6 +895,8 @@ if (title !== null) {
             alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(gws, 1, 'GW-S', false);
+            if(help.slice(-3) == 133)
+                alertFhz(fustw, 1, 'FuStW', false);
         }
         else if(keyword == 'Tankstellenbrand')
         {
@@ -930,6 +934,8 @@ if (title !== null) {
                 alertFhz(lf, 4, 'LF', false, 'B');
             else
                 alertFhz(lf, 2, 'LF', false, 'B');
+            if(help.slice(-3) == 140 || help.slice(-3) == 141)
+                alertFhz(fustw, 2, 'FuStW', false);
         }
         else if(keyword == 'Brennendes Reetdachhaus' ||
                 keyword == 'Brennendes Reetdachhaus durch Feuerwerkskörper')
@@ -1071,6 +1077,8 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            if(help.slice(-3) == 135)
+                alertFhz(fustw, 1, 'FuStW', false);
         }
         else if(keyword == 'Großfeuer im Wald')
         {
@@ -2324,6 +2332,9 @@ function additionalFHZ() {
                             alertFhz(dl, fhz[ab]-anz_Driving_dl, 'DL', true);
                             break;
                         case "Löschfahrzeug":
+                            alertFhz(lf, fhz[ab]-anz_Driving_lf, 'LF', true);
+                            break;
+                        case "Löschfahrzeuge":
                             alertFhz(lf, fhz[ab]-anz_Driving_lf, 'LF', true);
                             break;
                         case "Rüstwagen":
