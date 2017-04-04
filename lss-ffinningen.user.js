@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.6.8
+// @version     0.2.6.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -109,20 +109,22 @@ if (easteregg.length == 1){
 
 var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
 if (sprechwunsch.length>0) {
-    if (sprechwunsch[0].innerText.search('Ein Fahrzeug hat einen Sprechwunsch!'))
+    if (sprechwunsch[0].innerText.match('Sprechwunsch bearbeiten'))
         sprechwunsch[0].click();
 }
 
 var next_sprechwunsch = document.getElementsByClassName('btn btn-success');
+var next_clicked = false;
 for (var i = 0;i<next_sprechwunsch.length;i++)
 {
-    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.search('Zum nächsten Fahrzeug im Status 5')>=0) {
+    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.match('Zum nächsten Fahrzeug im Status 5')) {
         next_sprechwunsch[i].click();
+        next_clicked = true;
     }
 }
 for (var i = 0;i<next_sprechwunsch.length;i++)
 {
-    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.search('Zurück zum Einsatz')>=0) {
+    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.match('Zurück zum Einsatz') && !next_clicked) {
         next_sprechwunsch[i].click();
     }
 }
@@ -1202,6 +1204,8 @@ if (title !== null) {
         else if(keyword == 'Person in Wasser')
         {
             alertFhz(boot, 1, 'Boot', false, 'RD');
+            alertFhz(rtw, 1, 'RTW', false);
+            alertFhz(nef, 1, 'NEF', false);
             if(help.slice(-3) == 246)
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
@@ -1222,7 +1226,7 @@ if (title !== null) {
             alertFhz(boot, 2, 'Boot', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(fustw, 2, 'FuStW', false);
-            alertFhz(gwt, 2, 'GW-Taucher', false);
+            alertFhz(gwt, 2, 'GW-T', false);
         }
         else if(keyword == 'LKW in Wasser' ||
                 keyword == 'Bus in Wasser')
@@ -1231,7 +1235,7 @@ if (title !== null) {
             alertFhz(boot, 3, 'Boot', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(fustw, 3, 'FuStW', false);
-            alertFhz(gwt, 3, 'GW-Taucher', false);
+            alertFhz(gwt, 3, 'GW-T', false);
         }
         else
         {
@@ -2002,13 +2006,13 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "ktw-b":
                 toAlarm = toAlarm - (anz_onSite_ktwb + anz_Driving_ktwb);
                 break;
-            case "GW-T":
+            case "gw-t":
                 toAlarm = toAlarm - (anz_onSite_gwt + anz_Driving_gwt);
                 break;
-            case "GW-W":
+            case "gw-w":
                 toAlarm = toAlarm - (anz_onSite_gww + anz_Driving_gww);
                 break;
-            case "Boot":
+            case "boot":
                 toAlarm = toAlarm - (anz_onSite_boot + anz_Driving_boot);
                 break;
         }
@@ -2256,11 +2260,11 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             anz_Driving_gwt = anz_Driving_gwt+checked;
             color = color_wr;
             break;
-        case "GW-W":
+        case "gw-w":
             anz_Driving_gww = anz_Driving_gww+checked;
             color = color_wr;
             break;
-        case "Boot":
+        case "boot":
             anz_Driving_boot = anz_Driving_boot+checked;
             color = color_wr;
             break;
