@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.0
+// @version     0.2.7.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -483,7 +483,8 @@ if (title !== null) {
                 keyword == 'Wildunfall' ||
                 keyword == 'Ostereier-Dieb' ||
                 keyword == 'Pinsel aus Werkstatt entwendet' ||
-                keyword == 'Angefahrener Osterhase')
+                keyword == 'Angefahrener Osterhase' ||
+                keyword == 'Tankbetrug')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
         }
