@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.1
+// @version     0.2.7.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -52,7 +52,7 @@ var fwk      = [57];
 //RETTUNGSDIENST
 var rtw      = [28];
 var ktw      = [38];
-var nef      = [29, 31];
+var nef      = [29];
 var kdoworgl = [56];
 var kdowlna  = [55];
 var rth      = [31];
@@ -294,11 +294,6 @@ if (title !== null) {
     title.innerHTML = origInner;
     keyword = orig;
 
-    if (keyword.match('Brandmeldeanlage') && veh_mission === null && veh_driving === null)
-    {
-        alertFhz(rtw, 2, 'RTW', false, 'RD');
-    }
-
     keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
 
     setTimeout(function(){
@@ -406,20 +401,22 @@ if (title !== null) {
                 keyword == 'Beginnende Geburt' ||
                 keyword == 'Schädelverletzung' ||
                 keyword == 'Herzrhythmusstörungen' ||
-                keyword == 'Wirbelsäulenverletzung' ||
                 keyword == 'akuter Asthma-Anfall' ||
                 keyword == 'Fieber' ||
                 keyword == 'Schlaganfall')
         {
             alertFhz(nef, 1, 'NEF', false);
         }
-        else if(keyword == 'Sturz aus Höhe')
+        else if(keyword == 'Sturz aus Höhe' ||
+                keyword == 'Wirbelsäulenverletzung')
         {
-            if(help.slice(-3) == 181)
+            if((help.slice(-3) == 180 || help.slice(-3) == 181)
+                && anzahl_rth > 0)
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
-            alertFhz(nef, 1, 'NEF', false);
+            else
+                alertFhz(nef, 1, 'NEF', false);
         }
         else if(keyword == 'Verletzte Person auf Hochspannungsmast')
         {
@@ -2300,14 +2297,14 @@ function RTW() {
     var anzahl = 0;
 
     if (patients_anzahl > 0) {
-        /*for (var i = 0;i<patients_anzahl;i++) {
+        for (var i = 0;i<patients_anzahl;i++) {
             var width = $(patient_progress[i]).width();
             var parentWidth = $(patients).offsetParent().width();
             if (width == parentWidth) {
                 anzahl++;
             }
-        }*/
-        if (patients_anzahl > 0 && (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw)) > 0)
+        }
+        if (patients_anzahl > 0 && (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw+anz_Driving_ktwb+anz_onSite_ktwb)) > 0)
         {
             anzahl_fhz = anzahl_fhz + (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw+anz_Driving_ktwb+anz_onSite_ktwb));
             addedRTW = true;
@@ -2347,6 +2344,7 @@ function RTW() {
 function additionalFHZ() {
     var count_lna = 0;
     var count_nef = 0;
+    var count_rtw = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
             var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2');
@@ -2410,6 +2408,9 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0) {
             count_nef++;
         }
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0) {
+            count_rtw++;
+        }
     }
     if (count_lna > 0)
     {
@@ -2418,7 +2419,11 @@ function additionalFHZ() {
     }
     if (count_nef > 0)
     {
-        alertFhz(nef, count_nef-anz_Driving_nef, 'NEF', true);
+        alertFhz(nef, count_nef-anz_Driving_nef-anz_onSite_nef, 'NEF', true);
+    }
+    if (count_rtw > 0)
+    {
+        alertFhz(rtw, count_rtw-anz_Driving_rtw-anz_onSite_rtw, 'RTW', true);
     }
 }
 
