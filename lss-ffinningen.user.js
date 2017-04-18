@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.2
+// @version     0.2.7.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -571,7 +571,6 @@ if (title !== null) {
                 keyword == 'Brennender PKW' ||
                 keyword == 'Brennender PKW durch Feuerwerkskörper' ||
                 keyword == 'Motorrad-Brand' ||
-                keyword == 'Brennendes Gras' ||
                 keyword == 'Brennendes Laub' ||
                 keyword == 'Brennende Hecke' ||
                 keyword == 'Brennende Hecke durch Feuerwerkskörper' ||
@@ -699,6 +698,7 @@ if (title !== null) {
                 keyword == 'Küchenbrand' ||
                 keyword == 'Garagenbrand' ||
                 keyword == 'Mähdrescher Brand' ||
+                keyword == 'Brennendes Gras' ||
                 keyword == 'Eierkocherbrand')
         {
             alertFhz(lf, 2, 'LF', false, 'B');
@@ -789,7 +789,6 @@ if (title !== null) {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*80), 'NEF', false);
         }
         else if(keyword == 'Verkehrsunfall mit Linienbus')
         {
@@ -819,7 +818,6 @@ if (title !== null) {
         {
             alertFhz(lf, 2, 'LF', false);
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*20), 'NEF', false);
         }
         else if(keyword == 'Feuer in Schnellrestaurant')
         {
@@ -870,7 +868,6 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*75), 'NEF', false);
         }
         else if(keyword == 'Gasgeruch')
         {
@@ -883,7 +880,6 @@ if (title !== null) {
             alertFhz(fustw, 2, 'FuStW', false);
             alertFhz(lf, 3, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*80), 'NEF', false);
         }
         else if(keyword == 'Aufgerissener Öltank')
         {
@@ -975,7 +971,6 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*30), 'NEF', false);
         }
         else if(keyword == 'Großbrand')
         {
@@ -1000,7 +995,6 @@ if (title !== null) {
                 alertFhz(elw2, 1, 'ELW2', false);
                 alertFhz(elw1, 2, 'ELW1', false);
             }
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*40), 'NEF', false);
         }
         else if(keyword == 'Bürobrand (Groß)')
         {
@@ -1010,7 +1004,6 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 3, 'ELW1', false);
             alertFhz(gwa, 1, 'GW-A', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*40), 'NEF', false);
         }
         else if(keyword == 'Ausgedehnte Ölspur')
         {
@@ -1038,7 +1031,6 @@ if (title !== null) {
             alertFhz(elw1, 2, 'ELW1', false);
             alertFhz(gwm, 1, 'GW-M', false);
             alertFhz(gwg, 1, 'GW-G', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*60), 'NEF', false);
         }
         else if(keyword == 'Sporthallenbrand')
         {
@@ -1059,7 +1051,6 @@ if (title !== null) {
             alertFhz(dekonp, 1, 'Dekon-P', false);
             alertFhz(oel, 1, 'GW-ÖL', false);
             alertFhz(ruest, 2, 'RÜST', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*15), 'NEF', false);
         }
         else if(keyword == 'Feuer auf Bauernhof - Mittel')
         {
@@ -1069,7 +1060,6 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(dl, 2, 'DL', false);
             alertFhz(gws, 1, 'GW-S', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*33), 'NEF', false);
         }
         else if(keyword == 'Feuer auf Bauernhof - Groß')
         {
@@ -1085,7 +1075,6 @@ if (title !== null) {
             alertFhz(brmgr, 1, 'BRmG R', false);
             alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(mzkw, 1, 'MzKW', false);
-            alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*50), 'NEF', false);
         }
         else if(keyword == 'Brennender Güterwaggon')
         {
@@ -1193,10 +1182,6 @@ if (title !== null) {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(fustw, 2, 'FuStW', false);
-            }
-            if(help.slice(-3) != 123 && help.slice(-2) != 25)
-            {
-                alertFhz(nef, Math.round(((anz_Driving_rtw+anz_onSite_rtw)/100)*50), 'NEF', false);
             }
         }
         else if(keyword == 'Person in Wasser')
