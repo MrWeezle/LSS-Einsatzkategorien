@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.3
+// @version     0.2.7.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1189,7 +1189,7 @@ if (title !== null) {
             alertFhz(boot, 1, 'Boot', false, 'RD');
             alertFhz(rtw, 1, 'RTW', false);
             alertFhz(nef, 1, 'NEF', false);
-            if(help.slice(-3) == 246)
+            if(help.slice(-3) == 246 || help.slice(-3) == 252)
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -1932,11 +1932,17 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "rth":
                 toAlarm = toAlarm - (anz_onSite_rth + anz_Driving_rth);
                 break;
-            case "kdow-orgl":
-                toAlarm = toAlarm - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
+            case "orgl":
+                if (anzahl_rd >= 10)
+                    toAlarm = toAlarm - (anz_onSite_kdoworgl + anz_Driving_kdoworgl);
+                else
+                    toAlarm = 0;
                 break;
             case "lna":
-                toAlarm = toAlarm - (anz_onSite_kdowlna + anz_Driving_kdowlna);
+                if (anzahl_rd >= 5)
+                    toAlarm = toAlarm - (anz_onSite_kdowlna + anz_Driving_kdowlna);
+                else
+                    toAlarm = 0;
                 break;
             case "fustw":
                 toAlarm = toAlarm - (anz_onSite_fustw + anz_Driving_fustw);
@@ -1981,13 +1987,22 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 toAlarm = toAlarm - (anz_onSite_mlw5 + anz_Driving_mlw5);
                 break;
             case "gw-san":
-                toAlarm = toAlarm - (anz_onSite_gwsan + anz_Driving_gwsan);
+                if (anzahl_seg >= 1)
+                    toAlarm = toAlarm - (anz_onSite_gwsan + anz_Driving_gwsan);
+                else
+                    toAlarm = 0;
                 break;
             case "elw1-seg":
-                toAlarm = toAlarm - (anz_onSite_elw1seg + anz_Driving_elw1seg);
+                if (anzahl_seg >= 1)
+                    toAlarm = toAlarm - (anz_onSite_elw1seg + anz_Driving_elw1seg);
+                else
+                    toAlarm = 0;
                 break;
             case "ktw-b":
-                toAlarm = toAlarm - (anz_onSite_ktwb + anz_Driving_ktwb);
+                if (anzahl_seg >= 1)
+                    toAlarm = toAlarm - (anz_onSite_ktwb + anz_Driving_ktwb);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-t":
                 toAlarm = toAlarm - (anz_onSite_gwt + anz_Driving_gwt);
@@ -2163,7 +2178,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 anz_Driving_nef = anz_Driving_nef+nef_rth;
             color = color_rd;
             break;
-        case "kdow-orgl":
+        case "orgl":
             anz_Driving_kdoworgl = anz_Driving_kdoworgl+checked;
             color = color_rd;
             break;
@@ -2330,6 +2345,8 @@ function additionalFHZ() {
     var count_lna = 0;
     var count_nef = 0;
     var count_rtw = 0;
+    var count_orgl = 0;
+    var count_rth = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
             var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2');
@@ -2396,6 +2413,12 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0) {
             count_rtw++;
         }
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen OrgL.')>=0) {
+            count_orgl++;
+        }
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigten einen RTH.')>=0) {
+            count_rth++;
+        }
     }
     if (count_lna > 0)
     {
@@ -2409,6 +2432,14 @@ function additionalFHZ() {
     if (count_rtw > 0)
     {
         alertFhz(rtw, count_rtw-anz_Driving_rtw-anz_onSite_rtw, 'RTW', true);
+    }
+    if (count_orgl > 0)
+    {
+        alertFhz(kdoworgl, 1-anz_Driving_kdoworgl-anz_onSite_kdoworgl, 'OrgL', true);
+    }
+    if (count_rth > 0)
+    {
+        alertFhz(rth, 1-anz_Driving_rth-anz_onSite_rth, 'RTH', true);
     }
 }
 
