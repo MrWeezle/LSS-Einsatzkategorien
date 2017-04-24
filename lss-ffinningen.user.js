@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.4
+// @version     0.2.7.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -305,7 +305,7 @@ if (title !== null) {
         {
             RTW();
         }
-
+        
         if (keyword == 'Krankentransport')
         {
             alertFhz(ktw, 1, 'KTW', false, 'RD');
@@ -411,7 +411,7 @@ if (title !== null) {
                 keyword == 'Wirbelsäulenverletzung')
         {
             if((help.slice(-3) == 180 || help.slice(-3) == 181)
-                && anzahl_rth > 0)
+               && anzahl_rth > 0)
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
@@ -771,6 +771,7 @@ if (title !== null) {
                 alertFhz(elw1, 2, 'ELW1', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
                 alertFhz(fwk, 1, 'FwK', false);
+                alertFhz(kdowlna, 1, 'LNA', false);
             }
         }
         else if(keyword == 'LKW umgestürzt')
@@ -868,6 +869,7 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(gwa, 1, 'GW-A', false);
         }
         else if(keyword == 'Gasgeruch')
         {
@@ -1226,7 +1228,6 @@ if (title !== null) {
 
         additionalFHZ();
         displayAlertDate();
-        displayNumAlertFhz();
         title.scrollIntoView();
         if (document.getElementById('amount_of_people') !== null)
             document.getElementById('amount_of_people').scrollIntoView();
@@ -2278,12 +2279,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         addedMissingFhzInformation = true;
         toAlarm = toAlarm - matches;
     }
-
-    if (toAlarm > 0 && (desc.toLowerCase() != 'ktw-b' || keyword == 'Volkslauf') && (desc.toLowerCase() != 'rtw' || !addedRTW))
-    {
-        anzahl_fhz = anzahl_fhz + toAlarm;
-    }
-
     checked = 0;
 
     if (anzahl_orig > 0 && !additional && aao_key !== '')
@@ -2304,32 +2299,54 @@ function RTW() {
                 anzahl++;
             }
         }
-        if (patients_anzahl > 0 && (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw+anz_Driving_ktwb+anz_onSite_ktwb)) > 0)
-        {
-            anzahl_fhz = anzahl_fhz + (patients_anzahl-(anz_Driving_rtw+anz_onSite_rtw+anz_Driving_ktwb+anz_onSite_ktwb));
-            addedRTW = true;
-        }
 
-        if(patients_anzahl >= 10 && anzahl_seg > 0)
-        {
-            alertFhz(gwsan, 1, 'GW-SAN', false);
-            seg_alerted = true;
-        }
+        //if(patients_anzahl >= 10 && anzahl_seg > 0)
+        //{
+        //    alertFhz(gwsan, 1, 'GW-SAN', false);
+        //    seg_alerted = true;
+        //}
+
         if(patients_anzahl >= 5)
         {
-            alertFhz(elw1seg, 1, 'ELW1-SEG', false, 'SEG');
+            if (anzahl_seg > 0) {
+                alertFhz(elw1seg, 1, 'ELW1-SEG', false, 'SEG');
+                alertFhz(gwsan, 1, 'GW-SAN', false);
+                seg_alerted = true;
+            }
             alertFhz(kdowlna, 1, 'LNA', false, 'LNA');
-            alertFhz(nef, 1-anz_Driving_nef, 'NEF', true);
+            alertFhz(kdoworgl, 1, 'OrgL', false, 'OrgL');
+            //alertFhz(nef, 1-anz_Driving_nef, 'NEF', true);
         }
 
         if (patients_anzahl > 0)
         {
-            if(seg_alerted)
+            var anz_transport = 0;
+            if(anz_onSite_kdoworgl > 0 && anz_onSite_kdowlna > 0)
             {
-                alertFhz(ktwb, patients_anzahl, 'KTW-B', false, 'RD');
-                alertFhz(rtw, patients_anzahl-(anz_Driving_ktwb+anz_onSite_ktwb), 'RTW', false);
+                var needsTransport;
+                for(var z = 1;z<=patients_anzahl;z++)
+                {
+                    var xpath = '//*[@id="col_left"]/small['+z+']/span[1]'
+                    needsTransport = getElementByXpath(xpath);
+                    if (needsTransport !== null)
+                    {
+                        if(needsTransport.className != 'label label-success')
+                        {
+                            anz_transport++;
+                        }
+                    }
+                }
             }
-            else
+            if(seg_alerted && anz_onSite_gwsan > 0 && anz_transport > 0)
+            {
+                alertFhz(ktwb, anz_transport, 'KTW-B', false, 'RD');
+                alertFhz(rtw, anz_transport-(anz_Driving_ktwb+anz_onSite_ktwb), 'RTW', false);
+            }
+            else if (anz_transport > 0)
+            {
+                alertFhz(rtw, anz_transport+1, 'RTW', false, 'RD');
+            }
+            else if (patients_anzahl < 5 && anz_onSite_gwsan < 1)
             {
                 alertFhz(rtw, patients_anzahl, 'RTW', false, 'RD');
             }
@@ -2339,6 +2356,10 @@ function RTW() {
     {
         alertNef = false;
     }
+}
+
+function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
 function additionalFHZ() {
@@ -2400,6 +2421,9 @@ function additionalFHZ() {
                         case "Dekon-P":
                             alertFhz(dekonp, fhz[ab]-anz_Driving_dekonp, 'Dekon-P', true);
                             break;
+                        case "RTW":
+                            alertFhz(rtw, fhz[ab]-anz_Driving_rtw, 'RTW', true);
+                            break;
                     }
                 }
             }
@@ -2410,7 +2434,7 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0) {
             count_nef++;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0 && !seg_alerted) {
             count_rtw++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen OrgL.')>=0) {
@@ -2451,14 +2475,6 @@ function displayAlertDate() {
     //bar[0].insertAdjacentHTML('beforebegin', aao_text);
     title.insertAdjacentHTML('afterbegin', aao_text);
     display_ct(einsatzdate);
-}
-
-function displayNumAlertFhz() {
-    var fhz_selected = document.getElementsByClassName('badge vehicle_amount_selected');
-    if (fhz_selected.length > 0) {
-        fhz_selected[0].innerHTML = fhz_selected[0].innerHTML + '/'+anzahl_fhz;
-    }
-    anzahl_fhz = 0;
 }
 
 function addMissingFhzInfo() {
