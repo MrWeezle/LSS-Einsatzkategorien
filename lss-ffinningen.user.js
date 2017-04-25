@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.6
+// @version     0.2.7.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -525,6 +525,7 @@ if (title !== null) {
             alertFhz(mtwtz, 1, 'MTW-TZ', false);
             alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(mzkw, 1, 'MzKW', false);
+            alertFhz(fwk, 1, 'FwK', false);
         }
         else if(keyword == 'Erdrutsch' ||
                 keyword == 'Eingestürzter Hasenbau')
@@ -636,6 +637,8 @@ if (title !== null) {
             alertFhz(lf, 1, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(fustw, 1, 'FuStW', false);
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(gwh, 1, 'GW-H', false);
         }
         else if(keyword == 'Person im Aufzug')
         {
@@ -713,13 +716,6 @@ if (title !== null) {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
         }
-        else if(keyword == 'Schornsteinbrand' ||
-                keyword == 'Kaminbrand')
-        {
-            alertFhz(lf, 2, 'LF', false, 'B');
-            alertFhz(dl, 1, 'DL', false);
-            alertFhz(elw1, 1, 'ELW1', false);
-        }
         else if(keyword == 'Beschädigter Dachbereich')
         {
             alertFhz(lf, 2, 'LF', false, 'THL');
@@ -760,6 +756,7 @@ if (title !== null) {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(elw2, 1, 'ELW2', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
             else if(help.slice(-3) == 239)
@@ -856,7 +853,9 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
         }
         else if(keyword == 'Dachstuhlbrand' ||
-                keyword == 'Feuer in Einfamilienhaus')
+                keyword == 'Feuer in Einfamilienhaus' ||
+                keyword == 'Schornsteinbrand' ||
+                keyword == 'Kaminbrand')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
@@ -903,13 +902,9 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
-        }
-        else if(keyword == 'Mittlerer Feldbrand')
-        {
-            alertFhz(lf, 3, 'LF', false, 'B');
-            alertFhz(elw1, 1, 'ELW1', false);
-        }
-        else if(keyword == 'Großer Feldbrand')
+        }s 
+        else if(keyword == 'Mittlerer Feldbrand' ||
+                keyword == 'Großer Feldbrand')
         {
             alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
@@ -1123,6 +1118,8 @@ if (title !== null) {
             alertFhz(elw1, 2, 'ELW1', false, 'THL');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(gws, 1, 'GW-S', false);
+            alertFhz(gwm, 1, 'GW-M', false);
+            alertFhz(gwg, 1, 'GW-G', false);
             alertFhz(gkw, 1, 'GKW', false);
         }
         else if(keyword == 'Gasexplosion')
