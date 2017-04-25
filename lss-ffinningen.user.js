@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.5
+// @version     0.2.7.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -155,7 +155,7 @@ if (site_location.slice(-1) == '#' || site_location.slice(-3) == '.de') {
                     break;
                 case '2':
                     anzahl_rd++;
-                    break;;
+                    break;
                 case '5':
                     anzahl_rth++;
                     break;
@@ -305,7 +305,7 @@ if (title !== null) {
         {
             RTW();
         }
-        
+
         if (keyword == 'Krankentransport')
         {
             alertFhz(ktw, 1, 'KTW', false, 'RD');
@@ -410,8 +410,7 @@ if (title !== null) {
         else if(keyword == 'Sturz aus Höhe' ||
                 keyword == 'Wirbelsäulenverletzung')
         {
-            if((help.slice(-3) == 180 || help.slice(-3) == 181)
-               && anzahl_rth > 0)
+            if((help.slice(-3) == 180 || help.slice(-3) == 181) && anzahl_rth > 0)
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
@@ -1006,6 +1005,9 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 3, 'ELW1', false);
             alertFhz(gwa, 1, 'GW-A', false);
+            alertFhz(kdowlna, 1, 'LNA', false);
+            alertFhz(kdoworgl, 1, 'OrgL', false);
+            alertFhz(elw1seg, 1, 'ELW1-SEG', false);
         }
         else if(keyword == 'Ausgedehnte Ölspur')
         {
@@ -2291,6 +2293,11 @@ function RTW() {
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
     var anzahl = 0;
 
+    if(anz_onSite_gwsan > 0 || anz_Driving_gwsan > 0 || anz_onSite_elw1seg > 0 || anz_Driving_elw1seg > 0)
+    {
+        seg_alerted = true;
+    }
+
     if (patients_anzahl > 0) {
         for (var i = 0;i<patients_anzahl;i++) {
             var width = $(patient_progress[i]).width();
@@ -2340,7 +2347,7 @@ function RTW() {
             if(seg_alerted && anz_onSite_gwsan > 0 && anz_transport > 0)
             {
                 alertFhz(ktwb, anz_transport, 'KTW-B', false, 'RD');
-                alertFhz(rtw, anz_transport-(anz_Driving_ktwb+anz_onSite_ktwb), 'RTW', false);
+                alertFhz(rtw, anz_transport-anz_Driving_ktwb-anz_onSite_ktwb, 'RTW', false);
             }
             else if (anz_transport > 0)
             {
