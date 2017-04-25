@@ -902,7 +902,7 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
-        }s 
+        }
         else if(keyword == 'Mittlerer Feldbrand' ||
                 keyword == 'Großer Feldbrand')
         {
