@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.7
+// @version     0.2.7.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -403,7 +403,10 @@ if (title !== null) {
                 keyword == 'Herzrhythmusstörungen' ||
                 keyword == 'akuter Asthma-Anfall' ||
                 keyword == 'Fieber' ||
-                keyword == 'Schlaganfall')
+                keyword == 'Schlaganfall' ||
+                keyword == 'Bluthockdruck' ||
+                keyword == 'Motorradunfall' ||
+                keyword == 'Vaginale Blutung')
         {
             alertFhz(nef, 1, 'NEF', false);
         }
@@ -2450,24 +2453,23 @@ function additionalFHZ() {
     }
     if (count_lna > 0)
     {
-        alertFhz(kdowlna, 1-anz_Driving_kdowlna-anz_onSite_kdowlna, 'LNA', true);
-        alertFhz(nef, 1-anz_Driving_nef-anz_onSite_nef, 'NEF', true);
+        alertFhz(kdowlna, 1-anz_Driving_kdowlna, 'LNA', true);
     }
     if (count_nef > 0)
     {
-        alertFhz(nef, count_nef-anz_Driving_nef-anz_onSite_nef, 'NEF', true);
+        alertFhz(nef, count_nef-anz_Driving_nef, 'NEF', true);
     }
     if (count_rtw > 0)
     {
-        alertFhz(rtw, count_rtw-anz_Driving_rtw-anz_onSite_rtw, 'RTW', true);
+        alertFhz(rtw, count_rtw-anz_Driving_rtw, 'RTW', true);
     }
     if (count_orgl > 0)
     {
-        alertFhz(kdoworgl, 1-anz_Driving_kdoworgl-anz_onSite_kdoworgl, 'OrgL', true);
+        alertFhz(kdoworgl, 1-anz_Driving_kdoworgl, 'OrgL', true);
     }
     if (count_rth > 0)
     {
-        alertFhz(rth, 1-anz_Driving_rth-anz_onSite_rth, 'RTH', true);
+        alertFhz(rth, 1-anz_Driving_rth, 'RTH', true);
     }
 }
 
