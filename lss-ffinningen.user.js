@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.8
+// @version     0.2.7.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -20,7 +20,7 @@ var color_wr      = 'blue';
 
 //Wie lange das Script warten soll, bis es startet (notwendig um die korrekte Reihenfolge der Fahrzeuge zu ermitteln).
 //Kann bei Bedarf erhöht werden, falls die falschen Fahrzeuge angeklickt werden
-var timeout = 500;
+var timeout = 450;
 
 //wie viele Feuerwachen wurden als Rettungswache ausgebaut?
 var anz_rettungswache_ausbau = 3;
@@ -298,12 +298,13 @@ if (title !== null) {
 
     setTimeout(function(){
         var help = document.getElementById('mission_help').href;
+
         checkOnSiteVehicles();
         checkDrivingVehicles();
 
         if (keyword != 'Krankentransport')
         {
-            RTW();
+            RTW(keyword);
         }
 
         if (keyword == 'Krankentransport')
@@ -567,6 +568,7 @@ if (title !== null) {
             alertFhz(mlw5, 1, 'MLW-5', false);
             alertFhz(lf, 3, 'LF', false);
             alertFhz(fwk, 1, 'FwK', false);
+            alertFhz(dl, 1, 'DL', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
         else if(keyword == 'Mülleimerbrand' ||
@@ -625,6 +627,7 @@ if (title !== null) {
             alertFhz(lf, 1, 'LF', false);
             alertFhz(rtw, 1, 'RTW', false);
             alertFhz(gwh, 1, 'GW-H', false);
+            alertFhz(dl, 1, 'DL', false);
         }
         else if(keyword == 'Bewusstloser Kranführer')
         {
@@ -1271,7 +1274,6 @@ function checkOnSiteVehicles() {
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
                     anz_onSite_elw2++;
-                    anz_onSite_elw1++;
                     break;
                 }
             }
@@ -1564,7 +1566,6 @@ function checkDrivingVehicles() {
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
                     anz_Driving_elw2++;
-                    anz_Driving_elw1++;
                     break;
                 }
             }
@@ -2120,7 +2121,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "elw2":
             anz_Driving_elw2 = anz_Driving_elw2+checked;
-            anz_Driving_elw1 = anz_Driving_elw1+checked;
             color = color_fw;
             break;
         case "gw-a":
@@ -2287,7 +2287,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         aao_text = '<font color='+color+'><b> '+aao_key+''+anzahl_orig+'</b></font>'+aao_text;
 }
 
-function RTW() {
+function RTW(keyword_rtw) {
     var patients = document.getElementsByClassName("patient_progress");
     var patients_anzahl = patients.length;
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
@@ -2362,6 +2362,10 @@ function RTW() {
     else
     {
         alertNef = false;
+    }
+    if(keyword_rtw == 'Kleinflugzeug abgestürzt')
+    {
+        alertFhz(nef, patients_anzahl, 'NEF', false);
     }
 }
 
