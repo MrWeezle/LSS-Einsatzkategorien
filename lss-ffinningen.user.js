@@ -407,7 +407,9 @@ if (title !== null) {
                 keyword == 'Schlaganfall' ||
                 keyword == 'Bluthockdruck' ||
                 keyword == 'Motorradunfall' ||
-                keyword == 'Vaginale Blutung')
+                keyword == 'Vaginale Blutung' ||
+                keyword == 'Stromschlag' ||
+                keyword == 'Unterzuckerung')
         {
             alertFhz(nef, 1, 'NEF', false);
         }
