@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.7.9
+// @version     0.2.7.10
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -785,6 +785,7 @@ if (title !== null) {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(fwk, 1, 'FwK', false);
         }
         else if(keyword == 'Verkehrsunfall mit Zug')
         {
