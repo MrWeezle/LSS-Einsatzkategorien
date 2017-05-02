@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.8.1
+// @version     0.2.8.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -31,6 +31,7 @@ var anz_wasserrettungswache_ausbau = 0;
 var alertNef = true;
 var addedRTW = false;
 var seg_alerted = false;
+var patients_anzahl = 0;
 
 //FEUERWEHR
 var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37];
@@ -406,12 +407,17 @@ if (title !== null) {
                 keyword == 'Fieber' ||
                 keyword == 'Schlaganfall' ||
                 keyword == 'Bluthockdruck' ||
-                keyword == 'Motorradunfall' ||
                 keyword == 'Vaginale Blutung' ||
-                keyword == 'Stromschlag' ||
                 keyword == 'Unterzuckerung')
         {
-            alertFhz(nef, 1, 'NEF', false);
+            //if (patients_anzahl > 0)
+            //{
+            //    alertFhz(nef, 1, 'NEF', false);
+            //}
+        }
+        else if(keyword == 'Stromschlag')
+        {
+            alertFhz(rth, 1, 'RTH', false);
         }
         else if(keyword == 'Sturz aus Höhe' ||
                 keyword == 'Wirbelsäulenverletzung')
@@ -689,6 +695,7 @@ if (title !== null) {
             alertFhz(lf, 1, 'LF', false, 'THL');
             alertFhz(rtw, 1, 'RTW', false);
             alertFhz(fustw, 1, 'FuStW', false);
+            alertFhz(nef, 1, 'NEF', false);
         }
         else if(keyword == 'Baum auf Gleisen')
         {
@@ -711,6 +718,8 @@ if (title !== null) {
                 keyword == 'Brennendes Gras' ||
                 keyword == 'Eierkocherbrand')
         {
+            if(help.slice(-3) == 100)
+                alertFhz(fustw, 1, 'FuStW', false);
             alertFhz(lf, 2, 'LF', false, 'B');
         }
         else if(keyword == 'Geplatzte Wasserleitung')
@@ -723,6 +732,8 @@ if (title !== null) {
         {
             alertFhz(lf, 2, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
+            if(help.slice(-3) == 101)
+                alertFhz(fustw, 1, 'FuStW', false);
         }
         else if(keyword == 'Beschädigter Dachbereich')
         {
@@ -824,6 +835,7 @@ if (title !== null) {
         {
             alertFhz(lf, 2, 'LF', false);
             alertFhz(fustw, 3, 'FuStW', false, 'POL');
+            alertFhz(gwm, 1, 'GW-M', false);
         }
         else if(keyword == 'Feuer in Schnellrestaurant')
         {
@@ -869,6 +881,8 @@ if (title !== null) {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
+            if(help.slice(-3) == 103 || help.slice(-3) == 105)
+                alertFhz(fustw, 1, 'FuStW', false);
         }
         else if(keyword == 'Rauchentwicklung in Museum')
         {
@@ -911,6 +925,7 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
+            alertFhz(gwm, 1, 'GW-M', false);
         }
         else if(keyword == 'Mittlerer Feldbrand' ||
                 keyword == 'Großer Feldbrand')
@@ -1230,6 +1245,16 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false);
             alertFhz(gwt, 3, 'GW-T', false);
         }
+        else if(keyword == 'Fußball Bundesliga-Risikospiel')
+        {
+            alertFhz(lebefkw, 9, 'leBefKw', false, 'BePo');
+            alertFhz(grukw, 27, 'GruKW', false);
+            alertFhz(gefkw, 1, 'GefKW', false);
+            alertFhz(fuekw, 2, 'FüKW', false);
+            alertFhz(fustw, 5, 'FuStW', false);
+            alertFhz(rtw, 4, 'RTW', false);
+            alertFhz(lf, 2, 'LF', false);
+        }
         else
         {
         }
@@ -1276,6 +1301,7 @@ function checkOnSiteVehicles() {
 
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
+                    anz_onSite_elw1++;
                     anz_onSite_elw2++;
                     break;
                 }
@@ -1568,6 +1594,7 @@ function checkDrivingVehicles() {
 
             for (j=0;j<elw2.length;j++) {
                 if (fhz_id == elw2[j]) {
+                    anz_Driving_elw1++;
                     anz_Driving_elw2++;
                     break;
                 }
@@ -1857,7 +1884,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "elw1":
                 if (anzahl_fw >= 6)
-                    toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1) - (anz_onSite_elw2 + anz_Driving_elw2);
+                    toAlarm = toAlarm - (anz_onSite_elw1 + anz_Driving_elw1);
                 else
                     toAlarm = 0;
                 break;
@@ -2292,7 +2319,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
 
 function RTW(keyword_rtw) {
     var patients = document.getElementsByClassName("patient_progress");
-    var patients_anzahl = patients.length;
+    patients_anzahl = patients.length;
     var patient_progress = document.querySelectorAll('.progress-bar.progress-bar-danger:not(.progress-bar-striped)');
     var anzahl = 0;
 
