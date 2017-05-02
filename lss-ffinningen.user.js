@@ -2376,7 +2376,7 @@ function RTW(keyword_rtw) {
             }
             if(seg_alerted && anz_onSite_gwsan > 0 && anz_transport > 0)
             {
-                alertFhz(ktwb, anz_transport, 'KTW-B', false, 'RD');
+                alertFhz(ktwb, anz_transport-anz_Driving_rtw-anz_onSite_rtw, 'KTW-B', false, 'RD');
                 alertFhz(rtw, anz_transport-anz_Driving_ktwb-anz_onSite_ktwb, 'RTW', false);
             }
             else if (anz_transport > 0)
