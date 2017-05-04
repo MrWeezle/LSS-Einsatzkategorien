@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.8.2
+// @version     0.2.8.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -410,10 +410,10 @@ if (title !== null) {
                 keyword == 'Vaginale Blutung' ||
                 keyword == 'Unterzuckerung')
         {
-            //if (patients_anzahl > 0)
-            //{
-            //    alertFhz(nef, 1, 'NEF', false);
-            //}
+            if (patients_anzahl > 0)
+            {
+                alertFhz(nef, 1, 'NEF', false);
+            }
         }
         else if(keyword == 'Stromschlag')
         {
@@ -435,6 +435,7 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(rtw, 1, 'RTW', false);
             alertFhz(gwh, 1, 'GW-H', false);
+            alertFhz(dl, 1, 'DL', false);
             alertFhz(fustw, 1, 'FuStW', false);
             if(help.slice(-3) == 236)
             {
@@ -448,7 +449,7 @@ if (title !== null) {
         else if(keyword == 'Hilflose Person')
         {
             alertFhz(fustw, 1, 'FuStW', false, 'POL');
-            alertFhz(rtw, 1, 'rtw', false);
+            alertFhz(rtw, 1, 'RTW', false);
         }
         else if(keyword == 'Raub' ||
                 keyword == 'Schlägerei')
@@ -521,6 +522,7 @@ if (title !== null) {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
             alertFhz(lf, 1, 'LF', false);
+            alertFhz(rtw, 1, 'RTW', false);
         }
 
         else if(keyword == 'Kabeldiebstahl')
@@ -1129,6 +1131,7 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 2, 'ELW1', false);
             alertFhz(dl, 2, 'DL', false);
+            alertFhz(gws, 2, 'GW-S', false);
             alertFhz(ruest, 1, 'RÜST', false);
             alertFhz(gwg, 1, 'GW-G', false);
             alertFhz(gwm, 1, 'GW-M', false);
