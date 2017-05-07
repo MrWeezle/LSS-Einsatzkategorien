@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.2.8.3
+// @version     0.2.8.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2354,7 +2354,10 @@ function RTW(keyword_rtw) {
                 seg_alerted = true;
             }
             alertFhz(kdowlna, 1, 'LNA', false, 'LNA');
-            alertFhz(kdoworgl, 1, 'OrgL', false, 'OrgL');
+            if(patients_anzahl >= 10)
+            {
+                alertFhz(kdoworgl, 1, 'OrgL', false, 'OrgL');
+            }
             //alertFhz(nef, 1-anz_Driving_nef, 'NEF', true);
         }
 
