@@ -2490,6 +2490,9 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigten einen RTH.')>=0) {
             count_rth++;
         }
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0) {
+            count_rtw++;
+        }
     }
     if (count_lna > 0)
     {
