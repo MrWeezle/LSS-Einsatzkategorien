@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.1
+// @version     0.3.0.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2434,7 +2434,7 @@ function additionalFHZ() {
 function displayAlertDate() {
     var h1 = document.getElementById('missionH1');
     var einsatzdate = h1.getAttribute("data-original-title");
-    h1.insertAdjacentHTML('afterend', '<br><small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small><br>');
+    h1.insertAdjacentHTML('afterend', '<small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small><br>');
     //var bar = document.getElementsByClassName('progress');
     //bar[0].insertAdjacentHTML('beforebegin', aao_text);
     title.insertAdjacentHTML('afterbegin', aao_text);
