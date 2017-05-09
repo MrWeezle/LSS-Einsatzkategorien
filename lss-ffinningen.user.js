@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.2
+// @version     0.3.0.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -13,7 +13,7 @@
 //Farben für die einzelnen Orgas
 var color_fw       = 'red';
 var color_thw      = '#03a8f9';
-var color_pol      = 'green';
+var color_pol      = '#00de13';
 var color_rd       = '#ff90a4';
 var color_seg      = '#ff90a4';
 var color_wr       = '#03a8f9';
@@ -952,7 +952,7 @@ if (title !== null) {
             alertFhz(dl, 1, 'DL', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
-        else if(keyword == 'brennende Lok')
+        else if(keyword == 'brennende lok')
         {
             alertFhz(lf, 4, 'LF', false, 'B');
             alertFhz(gwa, 1, 'GW-A', false);
