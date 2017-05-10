@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.4
+// @version     0.3.0.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -353,7 +353,8 @@ if (title !== null) {
                 keyword == 'Schlaganfall' ||
                 keyword == 'Bluthochdruck' ||
                 keyword == 'Vaginale Blutung' ||
-                keyword == 'Unterzuckerung')
+                keyword == 'Unterzuckerung' ||
+                keyword == 'Harnleiterblutung')
         {
             if (patients_anzahl > 0)
             {
