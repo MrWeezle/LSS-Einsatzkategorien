@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.5
+// @version     0.3.0.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -298,7 +298,10 @@ if (title !== null) {
     keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
 
     setTimeout(function(){
-        var help = document.getElementById('mission_help').href;
+        var help_el = document.getElementById('mission_help');
+        var help = "";
+        if (help_el !== null)
+            help = help_el.href;
 
         checkOnSiteVehicles();
         checkDrivingVehicles();
@@ -1362,6 +1365,7 @@ function checkOnSiteVehicles() {
             for (j=0;j<rtw.length;j++) {
                 if (fhz_id == rtw[j]) {
                     anz_onSite_rtw++;
+                    anz_onSite_ktwb++;
                     break;
                 }
             }
@@ -1615,6 +1619,7 @@ function checkDrivingVehicles() {
             for (j=0;j<rtw.length;j++) {
                 if (fhz_id == rtw[j]) {
                     anz_Driving_rtw++;
+                    anz_Driving_ktwb++;
                     found=true;
                     break;
                 }
@@ -2312,7 +2317,7 @@ function RTW(keyword_rtw) {
     {
         alertNef = false;
     }
-    if(keyword_rtw == 'kleinflugzeug abgestürzt')
+    if(keyword_rtw == 'Kleinflugzeug abgestürzt')
     {
         alertFhz(nef, patients_anzahl, 'NEF', false);
     }
@@ -2330,7 +2335,7 @@ function additionalFHZ() {
     var count_rth = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
-            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2');
+            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2').replace('Anhänger','');
             var fhz = additionalfhzInnerText.split(' ');
             for (var ab=0;ab<fhz.length;ab++) {
                 if((ab % 2) === 0) {
@@ -2386,6 +2391,12 @@ function additionalFHZ() {
                             break;
                         case "GW-SAN":
                             alertFhz(rtw, fhz[ab]-anz_Driving_rtw, 'RTW', true);
+                            break;
+                        case "Gerätekraftwagen":
+                            alertFhz(gkw, fhz[ab]-anz_Driving_gkw, 'GKW', true);
+                            break;
+                        case "Radlader":
+                            alertFhz(brmgr, fhz[ab]-anz_Driving_brmgr, 'BRmG R', true);
                             break;
                     }
                 }
