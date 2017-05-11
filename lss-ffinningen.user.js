@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.6
+// @version     0.3.0.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2341,6 +2341,9 @@ function additionalFHZ() {
                 if((ab % 2) === 0) {
                     var j;
                     switch(fhz[ab+1]) {
+                        case "Drehleiter":
+                            alertFhz(dl, fhz[ab]-anz_Driving_dl, 'DL', true);
+                            break;
                         case "Drehleitern":
                             alertFhz(dl, fhz[ab]-anz_Driving_dl, 'DL', true);
                             break;
