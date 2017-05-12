@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.8
+// @version     0.3.0.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -295,7 +295,6 @@ if (title !== null) {
     title.innerHTML = origInner;
     keyword = orig;
 
-    keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
 
     setTimeout(function(){
         var help_el = document.getElementById('mission_help');
@@ -306,6 +305,12 @@ if (title !== null) {
         checkOnSiteVehicles();
         checkDrivingVehicles();
 
+        if(keyword.includes('Brandmeldeanlage'))
+        {
+            alertFhz(rtw, 2, 'RTW', false);
+        }
+        keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
+
         if (keyword != 'Krankentransport')
         {
             RTW(keyword);
@@ -314,7 +319,7 @@ if (title !== null) {
         {
             alertFhz(ktw, 1, 'KTW', false, 'RD');
         }
-/************************************************************************************* GEPLANTE EINSÄTZE**************************************************************************/
+        /************************************************************************************* GEPLANTE EINSÄTZE**************************************************************************/
         /*else if(keyword == 'Dorf/Stadtfest')
         {
             alertFhz(lf, 3, 'LF', false);
@@ -340,7 +345,7 @@ if (title !== null) {
             alertFhz(lf, 1, 'LF', false);
             alertFhz(rtw, 1, 'RTW', false);
         }
-/************************************************************************************* RD ****************************************************************************************/
+        /************************************************************************************* RD ****************************************************************************************/
         else if(keyword == 'Herzinfarkt' ||
                 keyword == 'Krampfanfall' ||
                 keyword == 'Hitzschlag' ||
@@ -378,7 +383,7 @@ if (title !== null) {
             else
                 alertFhz(nef, 1, 'NEF', false);
         }
-/************************************************************************************* POL *************************************************************************************/
+        /************************************************************************************* POL *************************************************************************************/
         else if(keyword == 'Ladendiebstahl' ||
                 keyword == 'Parkendes Auto gerammt' ||
                 keyword == 'Metalldiebstahl' ||
@@ -461,7 +466,7 @@ if (title !== null) {
             alertFhz(fustw, 10, 'FuStW', false, 'POL');
             alertFhz(ph, 1, 'PH', false);
         }
-/************************************************************************************* BEPO ************************************************************************************/
+        /************************************************************************************* BEPO ************************************************************************************/
         else if(keyword == 'Schwerpunkteinsatz Tageswohnungseinbrüche')
         {
             alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
@@ -518,7 +523,7 @@ if (title !== null) {
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(rtw, 1, 'RTW', false);
         }
-/************************************************************************************* THW *************************************************************************************/
+        /************************************************************************************* THW *************************************************************************************/
         else if(keyword == 'LKW in Hauswand')
         {
             alertFhz(gkw, 1, 'GKW', false, 'THW');
@@ -571,7 +576,7 @@ if (title !== null) {
             alertFhz(dl, 1, 'DL', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
-/************************************************************************************* FW **************************************************************************************/
+        /************************************************************************************* FW **************************************************************************************/
         else if(keyword == 'Mülleimerbrand' ||
                 keyword == 'Containerbrand' ||
                 keyword == 'Brennender PKW' ||
@@ -1262,7 +1267,7 @@ if (title !== null) {
         title_bar[0].scrollIntoView();
         //title.scrollIntoView();
         //if (document.getElementById('amount_of_people') !== null)
-            //document.getElementById('amount_of_people').scrollIntoView();
+        //document.getElementById('amount_of_people').scrollIntoView();
 
         addMissingFhzInfo();
     }, timeout);
@@ -1872,7 +1877,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "rtw":
-                toAlarm = toAlarm - (anz_onSite_rtw + anz_Driving_rtw);
+                if((anz_onSite_lf > 0 || anz_onSite_fustw > 0 || anz_onSite_gkw > 0 || anz_onSite_boot > 0) && patients_anzahl == 0)
+                    toAlarm = 0;
+                else
+                    toAlarm = toAlarm - (anz_onSite_rtw + anz_Driving_rtw);
                 break;
             case "ktw":
                 toAlarm = toAlarm - (anz_onSite_ktw + anz_Driving_ktw);
