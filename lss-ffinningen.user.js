@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.7
+// @version     0.3.0.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2052,6 +2052,35 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             }
             desc = desc_orig;
         }
+        if (checked === 0 && desc == 'MTW'){
+            desc_orig = desc;
+            desc='LF';
+            fhz = lf;
+            for (var k=0;k<x.length;k++) {
+                //get vehicle_type_id attribute
+                var z = x[k].getAttribute('vehicle_type_id');
+                //check if element has the proper attribute
+                if (z !== null) {
+                    //check the Vehicle array for the vehicle_type_id
+                    for (var l=0;l<fhz.length;l++) {
+                        //if vehice is found
+                        if (z == fhz[l] && checked < toAlarm) {
+                            //click the vehicle
+                            var fahrzeug2 = x[k].children[0];
+
+                            if (fahrzeug2.getAttribute("clicked") != 'yes')
+                            {
+                                fahrzeug2.click();
+                                fahrzeug2.setAttribute("clicked", "yes");
+                                //and count how many are clicked
+                                checked++;
+                            }
+                        }
+                    }
+                }
+            }
+            desc = desc_orig;
+        }
     }
 
     switch(desc.toLowerCase()) {
@@ -2333,6 +2362,7 @@ function additionalFHZ() {
     var count_rtw = 0;
     var count_orgl = 0;
     var count_rth = 0;
+    var count_mtw = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
             var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2').replace('Anhänger','');
@@ -2423,6 +2453,9 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0) {
             count_rtw++;
         }
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen eine Tragehilfe')>=0) {
+            count_mtw = 1;
+        }
     }
     if (count_lna > 0)
     {
@@ -2443,6 +2476,10 @@ function additionalFHZ() {
     if (count_rth > 0)
     {
         alertFhz(rth, 1-anz_Driving_rth, 'RTH', true);
+    }
+    if (count_mtw > 0)
+    {
+        alertFhz(mtw, 1-anz_Driving_mtw, 'MTW', true);
     }
 }
 
