@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.0.9
+// @version     0.3.1.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -732,6 +732,7 @@ if (title !== null) {
         else if(keyword == 'Geplatzte Wasserleitung')
         {
             alertFhz(lf, 2, 'LF', false, 'THL');
+            alertFhz(elw1, 1, 'ELW1', false);
         }
         else if(keyword == 'Feuer auf Balkon' ||
                 keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
@@ -793,7 +794,8 @@ if (title !== null) {
                 alertFhz(elw1, 2, 'ELW1', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
                 alertFhz(fwk, 1, 'FwK', false);
-                alertFhz(kdowlna, 1, 'LNA', false);
+                if(patients_anzahl > 0)
+                    alertFhz(kdowlna, 1, 'LNA', false);
             }
         }
         else if(keyword == 'LKW umgestürzt')
@@ -1027,9 +1029,12 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 3, 'ELW1', false);
             alertFhz(gwa, 1, 'GW-A', false);
-            alertFhz(kdowlna, 1, 'LNA', false);
-            alertFhz(kdoworgl, 1, 'OrgL', false);
-            alertFhz(elw1seg, 1, 'ELW1-SEG', false);
+            if(anzahl_patients > 0)
+            {
+                alertFhz(kdowlna, 1, 'LNA', false);
+                alertFhz(kdoworgl, 1, 'OrgL', false);
+                alertFhz(elw1seg, 1, 'ELW1-SEG', false);
+            }
         }
         else if(keyword == 'Ausgedehnte Ölspur')
         {
