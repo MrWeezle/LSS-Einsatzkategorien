@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.1.0
+// @version     0.3.1.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -725,7 +725,7 @@ if (title !== null) {
                 keyword == 'Brennendes Gras' ||
                 keyword == 'Eierkocherbrand')
         {
-            if(help.slice(-3) == 100)
+            if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                 alertFhz(fustw, 1, 'FuStW', false);
             alertFhz(lf, 2, 'LF', false, 'B');
         }
@@ -1029,7 +1029,7 @@ if (title !== null) {
             alertFhz(elw2, 1, 'ELW2', false);
             alertFhz(elw1, 3, 'ELW1', false);
             alertFhz(gwa, 1, 'GW-A', false);
-            if(anzahl_patients > 0)
+            if(patients_anzahl > 0)
             {
                 alertFhz(kdowlna, 1, 'LNA', false);
                 alertFhz(kdoworgl, 1, 'OrgL', false);
