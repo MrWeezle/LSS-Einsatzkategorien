@@ -871,6 +871,12 @@ if (title !== null) {
             alertFhz(elw1, 1, 'ELW1', false);
             alertFhz(ruest, 1, 'RÜST', false);
         }
+        else if(keyword == 'Gasunfall in Werkstatt')
+        {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(ruest, 1, 'RÜST', false);
+        }
         else if(keyword == 'Kellerbrand' ||
                 keyword == 'Kellerbrand durch Feuerwerkskörper' ||
                 keyword == 'Maschinenbrand')
