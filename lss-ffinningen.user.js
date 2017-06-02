@@ -878,11 +878,17 @@ if (title !== null) {
             alertFhz(ruest, 1, 'RÜST', false);
         }
         else if(keyword == 'Kellerbrand' ||
-                keyword == 'Kellerbrand durch Feuerwerkskörper' ||
-                keyword == 'Maschinenbrand')
+                keyword == 'Kellerbrand durch Feuerwerkskörper')
         {
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
+        }
+        else if(keyword == 'Maschinenbrand')
+        {
+            alertFhz(lf, 3, 'LF', false, 'B');
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(gwa, 1, 'GW-A', false);
+            alertFhz(gws, 1, 'GW-S', false);
         }
         else if(keyword == 'Dachstuhlbrand' ||
                 keyword == 'Feuer in Einfamilienhaus' ||
@@ -908,6 +914,9 @@ if (title !== null) {
             alertFhz(fustw, 1, 'FuStW', false);
             alertFhz(lf, 3, 'LF', false, 'B');
             alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(gwg, 1, 'GW-G', false);
+            alertFhz(gwm, 1, 'GW-M', false);
+            alertFhz(dekonp, 1, 'Dekon-P', false);
         }
         else if(keyword == 'Kleinflugzeug abgestürzt')
         {
