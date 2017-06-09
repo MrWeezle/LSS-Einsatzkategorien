@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
-// @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.1.3
+// @include     http*://www.leitstellenspiel.de/missions/*
+// @include     http*://www.leitstellenspiel.de/vehicles/*
+// @version     0.3.1.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1234,7 +1235,8 @@ if (title !== null) {
                 alertFhz(fustw, 2, 'FuStW', false);
             }
         }
-        else if(keyword == 'Person in Wasser')
+        else if(keyword == 'Person in Wasser' ||
+                keyword == 'Hilflose Person auf Wasser')
         {
             alertFhz(boot, 1, 'Boot', false, 'RD');
             alertFhz(rtw, 1, 'RTW', false);
@@ -1243,6 +1245,10 @@ if (title !== null) {
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
+            }
+            if(help.slice(-3) == 298)
+            {
+                alertFhz(rth, 1, 'RTH', false);
             }
         }
         else if(keyword == 'Gewässerverschmutzung durch Öl')
