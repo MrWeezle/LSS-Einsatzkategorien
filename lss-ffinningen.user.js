@@ -1281,7 +1281,6 @@ if (title !== null) {
         }
 
         additionalFHZ();
-        displayAlertDate();
         var title_bar = document.getElementsByClassName('mission_header_info row');
         title_bar[0].scrollIntoView();
         //title.scrollIntoView();
@@ -2510,16 +2509,6 @@ function additionalFHZ() {
     }
 }
 
-function displayAlertDate() {
-    var h1 = document.getElementById('missionH1');
-    var einsatzdate = h1.getAttribute("data-original-title");
-    //h1.insertAdjacentHTML('afterend', '<small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small><br>');
-    //var bar = document.getElementsByClassName('progress');
-    //bar[0].insertAdjacentHTML('beforebegin', aao_text);
-    //title.insertAdjacentHTML('afterbegin', aao_text);
-    //display_ct(einsatzdate);
-}
-
 function addMissingFhzInfo() {
     if (addedMissingFhzInformation) {
         var missing_vehicles_load = document.getElementsByClassName('missing_vehicles_load');
@@ -2530,43 +2519,4 @@ function addMissingFhzInfo() {
         aao_group.insertAdjacentHTML('afterEnd', '<div class="alert alert-warning">Fehlende Fahrzeuge:<br>'+missingFhzText.substring(2, missingFhzText.length)+'</div>');
         addedMissingFhzInformation = false;
     }
-}
-
-function display_ct(date) {
-
-    var a = date.replace(/[a-zA-Z]/ig,'').split(',');
-    var b = a[1].split(':');
-    var oldHour = b[0];
-    var oldMin = b[1];
-
-    var strcount;
-    var x = new Date();
-    var hour = x.getHours();
-    var min = x.getMinutes();
-    var newHour, newMin;
-
-    if (oldHour > hour) {
-        newHour = (24-oldHour)+hour;
-    }
-    else {
-        newHour = hour-oldHour;
-    }
-
-    if (oldMin > min) {
-        newMin = (60 - oldMin) + min;
-        newHour--;
-    }
-    else {
-        newMin = min-oldMin;
-    }
-
-    if (newHour >= 1)
-        newHour = newHour + 'h ';
-    else
-        newHour = '';
-
-    if (newMin < 0)
-        newMin = 0;
-    if (document.getElementById('einsatzdate') !== null)
-        document.getElementById('einsatzdate').innerHTML = newHour + newMin + ' min';
 }
