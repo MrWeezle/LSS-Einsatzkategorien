@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.6
+// @version     0.3.1.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2314,7 +2314,7 @@ function RTW(keyword_rtw) {
     }
 
     if (patients_anzahl > 0) {
-        for (var i = 0;i<patients_anzahl;i++) {
+        /*for (var i = 0;i<patients_anzahl;i++) {
             var width = $(patient_progress[i]).width();
             var parentWidth = $(patients).offsetParent().width();
             if (width == parentWidth) {
@@ -2322,11 +2322,11 @@ function RTW(keyword_rtw) {
             }
         }
 
-        //if(patients_anzahl >= 10 && anzahl_seg > 0)
-        //{
-        //    alertFhz(gwsan, 1, 'GW-SAN', false);
-        //    seg_alerted = true;
-        //}
+        if(patients_anzahl >= 10 && anzahl_seg > 0)
+        {
+            alertFhz(gwsan, 1, 'GW-SAN', false);
+            seg_alerted = true;
+        }*/
 
         if(patients_anzahl >= 5)
         {
