@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.4
+// @version     0.3.1.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -107,28 +107,6 @@ var anzahl_wr   = GM_getValue("anzahl_wr", anzahl_wr)+anz_wasserrettungswache_au
 var easteregg = document.querySelectorAll('a[href*=easteregg]');
 if (easteregg.length == 1){
     easteregg[0].click();
-}
-
-var sprechwunsch = document.getElementsByClassName('btn btn-xs btn-success');
-if (sprechwunsch.length>0) {
-    if (sprechwunsch[0].innerText.match('Sprechwunsch bearbeiten'))
-        sprechwunsch[0].click();
-}
-
-var next_sprechwunsch = document.getElementsByClassName('btn btn-success');
-var next_clicked = false;
-for (var i = 0;i<next_sprechwunsch.length;i++)
-{
-    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.match('Zum nächsten Fahrzeug im Status 5')) {
-        next_sprechwunsch[i].click();
-        next_clicked = true;
-    }
-}
-for (var i = 0;i<next_sprechwunsch.length;i++)
-{
-    if (next_sprechwunsch.length > 0 && next_sprechwunsch[i].innerText.match('Zurück zum Einsatz') && !next_clicked) {
-        next_sprechwunsch[i].click();
-    }
 }
 
 var site_location = window.location.href;
@@ -291,7 +269,7 @@ var title = title_orig;
 
 if (title !== null) {
     origInner = title.innerHTML;
-    title.innerHTML = title.innerHTML.replace(/(<small>\s*.+\s*.+\s.+\s.+\s*<\/small>)/ig, '').replace(/(<small>\s*.+\s*<\/small>)/ig, '');
+    title.innerHTML = title.innerHTML.replace(/(<small>\s*.+\s*.+\s.+\s.+\s*<\/small>)/ig, '').replace(/(<small>\s*.+\s*<\/small>)/ig, '').replace(/<span[^>]*>.*<\/span>/ig, '');
     var orig = title.innerText;
     title.innerHTML = origInner;
     keyword = orig;
@@ -990,9 +968,16 @@ if (title !== null) {
         else if(keyword == 'Flächenbrand')
         {
             if(help.slice(-3) == 139 || help.slice(-3) == 141)
+            {
                 alertFhz(lf, 4, 'LF', false, 'B');
+                alertFhz(gws, 1, 'GW-S', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+            }
             else
+            {
                 alertFhz(lf, 2, 'LF', false, 'B');
+            }
+
             if(help.slice(-3) == 140 || help.slice(-3) == 141)
                 alertFhz(fustw, 2, 'FuStW', false);
         }
@@ -1228,6 +1213,10 @@ if (title !== null) {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(fustw, 1, 'FuStW', false);
             }
+            else if(help.slice(-2) == 25)
+            {
+                alertFhz(lf, 1, 'LF', false, 'THL');
+            }
             else if(help.slice(-3) == 127)
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
@@ -1285,6 +1274,10 @@ if (title !== null) {
             alertFhz(fustw, 5, 'FuStW', false);
             alertFhz(rtw, 4, 'RTW', false);
             alertFhz(lf, 2, 'LF', false);
+        }
+        else
+        {
+            missingFhzText = "Einsatz nicht bekannt";
         }
 
         additionalFHZ();
@@ -2520,15 +2513,19 @@ function additionalFHZ() {
 function displayAlertDate() {
     var h1 = document.getElementById('missionH1');
     var einsatzdate = h1.getAttribute("data-original-title");
-    h1.insertAdjacentHTML('afterend', '<small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small><br>');
+    //h1.insertAdjacentHTML('afterend', '<small>'+einsatzdate+' - Vor <span id="einsatzdate"></span></small><br>');
     //var bar = document.getElementsByClassName('progress');
     //bar[0].insertAdjacentHTML('beforebegin', aao_text);
-    title.insertAdjacentHTML('afterbegin', aao_text);
-    display_ct(einsatzdate);
+    //title.insertAdjacentHTML('afterbegin', aao_text);
+    //display_ct(einsatzdate);
 }
 
 function addMissingFhzInfo() {
     if (addedMissingFhzInformation) {
+        var missing_vehicles_load = document.getElementsByClassName('missing_vehicles_load');
+        if(missing_vehicles_load.length > 0) {
+            missing_vehicles_load[0].click();
+        }
         var aao_group = document.getElementById('missionH1');
         aao_group.insertAdjacentHTML('afterEnd', '<div class="alert alert-warning">Fehlende Fahrzeuge:<br>'+missingFhzText.substring(2, missingFhzText.length)+'</div>');
         addedMissingFhzInformation = false;
@@ -2536,6 +2533,7 @@ function addMissingFhzInfo() {
 }
 
 function display_ct(date) {
+
     var a = date.replace(/[a-zA-Z]/ig,'').split(',');
     var b = a[1].split(':');
     var oldHour = b[0];
@@ -2547,7 +2545,12 @@ function display_ct(date) {
     var min = x.getMinutes();
     var newHour, newMin;
 
-    newHour = hour-oldHour;
+    if (oldHour > hour) {
+        newHour = (24-oldHour)+hour;
+    }
+    else {
+        newHour = hour-oldHour;
+    }
 
     if (oldMin > min) {
         newMin = (60 - oldMin) + min;
