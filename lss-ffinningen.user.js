@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.5
+// @version     0.3.1.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -80,7 +80,7 @@ var lkw7     = [65];
 //SEG
 var gwsan    = [60];
 var elw1seg  = [59];
-var ktwb     = [58];
+var ktwb     = [58, 28];
 
 //Wasserrettung
 var gwt      = [63, 69];
@@ -1288,6 +1288,15 @@ if (title !== null) {
         //document.getElementById('amount_of_people').scrollIntoView();
 
         addMissingFhzInfo();
+        var done = document.getElementsByClassName('glyphicon-user');
+        if(done.length > 0)
+            done[0].style.color = 'green';
+        else
+        {
+            done = document.getElementsByClassName('glyphicon-asterisk');
+            if(done.length > 0)
+                done[0].style.color = 'green';
+        }
     }, timeout);
 }
 
@@ -1895,7 +1904,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "rtw":
-                if((anz_onSite_lf > 0 || anz_onSite_fustw > 0 || anz_onSite_gkw > 0 || anz_onSite_boot > 0) && patients_anzahl == 0)
+                if((anz_onSite_lf > 0 || anz_onSite_fustw > 0 || anz_onSite_gkw > 0 || anz_onSite_boot > 0) && patients_anzahl === 0)
                     toAlarm = 0;
                 else
                     toAlarm = toAlarm - (anz_onSite_rtw + anz_Driving_rtw);
@@ -1980,7 +1989,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
             case "ktw-b":
                 if (anzahl_seg >= 1)
-                    toAlarm = toAlarm - (anz_onSite_ktwb + anz_Driving_ktwb);
+                    toAlarm = toAlarm - (anz_onSite_ktwb + anz_Driving_ktwb) - (anz_onSite_rtw + anz_Driving_rtw);
                 else
                     toAlarm = 0;
                 break;
@@ -1995,10 +2004,11 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 break;
         }
     }
+
     var desc_orig;
     var hlf_ruest = 0;
     var nef_rth = 0;
-
+    
     var x = document.getElementsByTagName('td');
     if (x !== null) {
         for (var i=0;i<x.length;i++) {
@@ -2082,9 +2092,9 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             desc_orig = desc;
             desc='LF';
             fhz = lf;
-            for (var k=0;k<x.length;k++) {
+            for (k=0;k<x.length;k++) {
                 //get vehicle_type_id attribute
-                var z = x[k].getAttribute('vehicle_type_id');
+                z = x[k].getAttribute('vehicle_type_id');
                 //check if element has the proper attribute
                 if (z !== null) {
                     //check the Vehicle array for the vehicle_type_id
@@ -2092,7 +2102,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //if vehice is found
                         if (z == fhz[l] && checked < toAlarm) {
                             //click the vehicle
-                            var fahrzeug2 = x[k].children[0];
+                            fahrzeug2 = x[k].children[0];
 
                             if (fahrzeug2.getAttribute("clicked") != 'yes')
                             {
@@ -2342,21 +2352,28 @@ function RTW(keyword_rtw) {
                 var needsTransport;
                 for(var z = 1;z<=patients_anzahl;z++)
                 {
-                    var xpath = '//*[@id="col_left"]/small['+z+']/span[1]'
+                    var xpath = '//*[@id="col_left"]/div['+z+']/small/span[6]';
                     needsTransport = getElementByXpath(xpath);
                     if (needsTransport !== null)
                     {
-                        if(needsTransport.className != 'label label-success')
+                        if(needsTransport.innerText == 'Ja')
                         {
-                            anz_transport++;
+                            xpath = '//*[@id="col_left"]/div['+z+']/small/span[8]';
+                            var rtw_at_person = getElementByXpath(xpath);
+                            if (rtw_at_person !== null)
+                            {
+                                if(rtw_at_person.innerText == 'Nein')
+                                {
+                                    anz_transport++;
+                                }
+                            }
                         }
                     }
                 }
             }
             if(seg_alerted && anz_onSite_gwsan > 0 && anz_transport > 0)
             {
-                alertFhz(ktwb, anz_transport-anz_Driving_rtw-anz_onSite_rtw, 'KTW-B', false, 'RD');
-                alertFhz(rtw, anz_transport-anz_Driving_ktwb-anz_onSite_ktwb, 'RTW', false);
+                alertFhz(ktwb, anz_transport, 'KTW-B', false, 'RD');
             }
             else if (anz_transport > 0)
             {
@@ -2386,6 +2403,7 @@ function additionalFHZ() {
     var count_lna = 0;
     var count_nef = 0;
     var count_rtw = 0;
+    var count_ktw = 0;
     var count_orgl = 0;
     var count_rth = 0;
     var count_mtw = 0;
@@ -2477,7 +2495,7 @@ function additionalFHZ() {
             count_rth++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0) {
-            count_rtw++;
+            count_ktw++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen eine Tragehilfe')>=0) {
             count_mtw = 1;
@@ -2494,6 +2512,10 @@ function additionalFHZ() {
     if (count_rtw > 0)
     {
         alertFhz(rtw, count_rtw-anz_Driving_rtw, 'RTW', true);
+    }
+    if (count_ktw > 0)
+    {
+        alertFhz(ktwb, count_ktw-anz_Driving_ktw, 'KTW-B', true);
     }
     if (count_orgl > 0)
     {
