@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.7
+// @version     0.3.1.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -990,6 +990,14 @@ if (title !== null) {
             alertFhz(gwa, 1, 'GW-A', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
+        else if(keyword == 'Strohballen qualmen in Scheune')
+        {
+            alertFhz(lf, 5, 'LF', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(elw1, 1, 'ELW1', false);
+            alertFhz(gwa, 1, 'GW-A', false);
+            alertFhz(gws, 1, 'GW-S', false);
+        }
         else if(keyword == 'Brennender Bus')
         {
             alertFhz(fustw, 2, 'FuStW', false);
@@ -1277,7 +1285,13 @@ if (title !== null) {
         }
         else
         {
-            missingFhzText = "Einsatz nicht bekannt";
+            if(addedMissingFhzInformation)
+                missingFhzText += "<br>Einsatz nicht bekannt";
+            else
+            {
+                missingFhzText = ", Einsatz nicht bekannt";
+                addedMissingFhzInformation = true;
+            }
         }
 
         additionalFHZ();
