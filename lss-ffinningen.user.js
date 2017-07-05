@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.8
+// @version     0.3.1.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1289,8 +1289,11 @@ if (title !== null) {
                 missingFhzText += "<br>Einsatz nicht bekannt";
             else
             {
-                missingFhzText = ", Einsatz nicht bekannt";
-                addedMissingFhzInformation = true;
+                if (anz_Driving_rtw < 1 && anz_onSite_rtw < 1)
+                {
+                    missingFhzText = ", Einsatz nicht bekannt";
+                    addedMissingFhzInformation = true;
+                }
             }
         }
 
