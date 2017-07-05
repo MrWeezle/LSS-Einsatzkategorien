@@ -3,7 +3,7 @@
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/missions/*
 // @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.1.9
+// @version     0.3.2.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -23,10 +23,10 @@ var color_wr       = '#03a8f9';
 //Kann bei Bedarf erhöht werden, falls die falschen Fahrzeuge angeklickt werden
 var timeout = 450;
 
-//wie viele Feuerwachen wurden als Rettungswache ausgebaut?
+//wie viele Feuerwachen wurden als Rettungswache ausgebaut und sind aktiv gesetzt?
 var anz_rettungswache_ausbau = 3;
 
-//wie viele Feuerwachen wurden als Wasserrettungswache ausgebaut?
+//wie viele Feuerwachen/THW-Wachen wurden als Wasserrettungswache ausgebaut?
 var anz_wasserrettungswache_ausbau = 0;
 
 var alertNef = true;
@@ -1936,7 +1936,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "rth":
-                toAlarm = toAlarm - (anz_onSite_rth + anz_Driving_rth);
+                if (anzahl_rth >= 1)
+                    toAlarm = toAlarm - (anz_onSite_rth + anz_Driving_rth);
+                else
+                    toAlarm = 0;
                 break;
             case "orgl":
                 if (anzahl_rd >= 10)
@@ -1951,46 +1954,88 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "fustw":
-                toAlarm = toAlarm - (anz_onSite_fustw + anz_Driving_fustw);
+                if (anzahl_pol >= 1)
+                    toAlarm = toAlarm - (anz_onSite_fustw + anz_Driving_fustw);
+                else
+                    toAlarm = 0;
                 break;
             case "lebefkw":
-                toAlarm = toAlarm - (anz_onSite_lebefkw + anz_Driving_lebefkw);
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_lebefkw + anz_Driving_lebefkw);
+                else
+                    toAlarm = 0;
                 break;
             case "grukw":
-                toAlarm = toAlarm - (anz_onSite_grukw + anz_Driving_grukw);
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_grukw + anz_Driving_grukw);
+                else
+                    toAlarm = 0;
                 break;
             case "gefkw":
-                toAlarm = toAlarm - (anz_onSite_gefkw + anz_Driving_gefkw);
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_gefkw + anz_Driving_gefkw);
+                else
+                    toAlarm = 0;
                 break;
             case "ph":
-                toAlarm = toAlarm - (anz_onSite_ph + anz_Driving_ph);
+                if (anzahl_ph >= 1)
+                    toAlarm = toAlarm - (anz_onSite_ph + anz_Driving_ph);
+                else
+                    toAlarm = 0;
                 break;
             case "fükw":
-                toAlarm = toAlarm - (anz_onSite_fuekw + anz_Driving_fuekw);
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_fuekw + anz_Driving_fuekw);
+                else
+                    toAlarm = 0;
                 break;
             case "gkw":
-                toAlarm = toAlarm - (anz_onSite_gkw + anz_Driving_gkw);
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_gkw + anz_Driving_gkw);
+                else
+                    toAlarm = 0;
                 break;
             case "mzkw":
-                toAlarm = toAlarm - (anz_onSite_mzkw + anz_Driving_mzkw);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_mzkw + anz_Driving_mzkw);
+                else
+                    toAlarm = 0;
                 break;
             case "mtw-tz":
-                toAlarm = toAlarm - (anz_onSite_mtwtz + anz_Driving_mtwtz);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_mtwtz + anz_Driving_mtwtz);
+                else
+                    toAlarm = 0;
                 break;
             case "lkw k 9":
-                toAlarm = toAlarm - (anz_onSite_lkwk9 + anz_Driving_lkwk9);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_lkwk9 + anz_Driving_lkwk9);
+                else
+                    toAlarm = 0;
                 break;
             case "lkw 7":
-                toAlarm = toAlarm - (anz_onSite_lkw7 + anz_Driving_lkw7);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_lkw7 + anz_Driving_lkw7);
+                else
+                    toAlarm = 0;
                 break;
             case "brmg r":
-                toAlarm = toAlarm - (anz_onSite_brmgr + anz_Driving_brmgr);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_brmgr + anz_Driving_brmgr);
+                else
+                    toAlarm = 0;
                 break;
             case "anh dle":
-                toAlarm = toAlarm - (anz_onSite_anhdle + anz_Driving_anhdle);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_anhdle + anz_Driving_anhdle);
+                else
+                    toAlarm = 0;
                 break;
             case "mlw-5":
-                toAlarm = toAlarm - (anz_onSite_mlw5 + anz_Driving_mlw5);
+                if (anzahl_thw >= 1)
+                    toAlarm = toAlarm - (anz_onSite_mlw5 + anz_Driving_mlw5);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-san":
                 if (anzahl_seg >= 1)
@@ -2011,13 +2056,22 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "gw-t":
-                toAlarm = toAlarm - (anz_onSite_gwt + anz_Driving_gwt);
+                if (anzahl_wr >= 1)
+                    toAlarm = toAlarm - (anz_onSite_gwt + anz_Driving_gwt);
+                else
+                    toAlarm = 0;
                 break;
             case "gw-w":
-                toAlarm = toAlarm - (anz_onSite_gww + anz_Driving_gww);
+                if (anzahl_wr >= 1)
+                    toAlarm = toAlarm - (anz_onSite_gww + anz_Driving_gww);
+                else
+                    toAlarm = 0;
                 break;
             case "boot":
-                toAlarm = toAlarm - (anz_onSite_boot + anz_Driving_boot);
+                if (anzahl_wr >= 1)
+                    toAlarm = toAlarm - (anz_onSite_boot + anz_Driving_boot);
+                else
+                    toAlarm = 0;
                 break;
         }
     }
@@ -2025,7 +2079,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
     var desc_orig;
     var hlf_ruest = 0;
     var nef_rth = 0;
-    
+
     var x = document.getElementsByTagName('td');
     if (x !== null) {
         for (var i=0;i<x.length;i++) {
