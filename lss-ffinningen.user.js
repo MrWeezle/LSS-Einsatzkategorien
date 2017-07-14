@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
-// @include     http*://www.leitstellenspiel.de/missions/*
-// @include     http*://www.leitstellenspiel.de/vehicles/*
-// @version     0.3.2.0
+// @include     http*://www.leitstellenspiel.de/*
+// @version     0.3.2.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -109,67 +108,63 @@ if (easteregg.length == 1){
     easteregg[0].click();
 }
 
-var site_location = window.location.href;
-if (site_location.slice(-1) == '#' || site_location.slice(-3) == '.de') {
+var building_list = document.getElementsByClassName('building_list_li');
 
-    var building_list = document.getElementsByClassName('building_list_li');
-
-    for(var i = 0; i < building_list.length; i++) {
-        if (i===0)
-        {
-            anzahl_fw   = 0;
-            anzahl_rd   = 0;
-            anzahl_rth  = 0;
-            anzahl_thw  = 0;
-            anzahl_pol  = 0;
-            anzahl_ph   = 0;
-            anzahl_bepo = 0;
-            anzahl_seg  = 0;
-            anzahl_wr   = 0;
-        }
-        var building_id = building_list[i].getAttribute('building_type_id');
-        if (building_id > -1) {
-            switch(building_id) {
-                case '0':
-                    anzahl_fw++;
-                    break;
-                case '2':
-                    anzahl_rd++;
-                    break;
-                case '5':
-                    anzahl_rth++;
-                    break;
-                case '6':
-                    anzahl_pol++;
-                    break;
-                case '9':
-                    anzahl_thw++;
-                    break;
-                case '11':
-                    anzahl_bepo++;
-                    break;
-                case '12':
-                    anzahl_seg++;
-                    break;
-                case '13':
-                    anzahl_ph++;
-                    break;
-                case '15':
-                    anzahl_wr++;
-                    break;
-            }
+for(var i = 0; i < building_list.length; i++) {
+    if (i===0)
+    {
+        anzahl_fw   = 0;
+        anzahl_rd   = 0;
+        anzahl_rth  = 0;
+        anzahl_thw  = 0;
+        anzahl_pol  = 0;
+        anzahl_ph   = 0;
+        anzahl_bepo = 0;
+        anzahl_seg  = 0;
+        anzahl_wr   = 0;
+    }
+    var building_id = building_list[i].getAttribute('building_type_id');
+    if (building_id > -1) {
+        switch(building_id) {
+            case '0':
+                anzahl_fw++;
+                break;
+            case '2':
+                anzahl_rd++;
+                break;
+            case '5':
+                anzahl_rth++;
+                break;
+            case '6':
+                anzahl_pol++;
+                break;
+            case '9':
+                anzahl_thw++;
+                break;
+            case '11':
+                anzahl_bepo++;
+                break;
+            case '12':
+                anzahl_seg++;
+                break;
+            case '13':
+                anzahl_ph++;
+                break;
+            case '15':
+                anzahl_wr++;
+                break;
         }
     }
-    GM_setValue("anzahl_fw", anzahl_fw);
-    GM_setValue("anzahl_rd", anzahl_rd);
-    GM_setValue("anzahl_rth", anzahl_rth);
-    GM_setValue("anzahl_thw", anzahl_thw);
-    GM_setValue("anzahl_pol", anzahl_pol);
-    GM_setValue("anzahl_ph", anzahl_ph);
-    GM_setValue("anzahl_bepo", anzahl_bepo);
-    GM_setValue("anzahl_seg", anzahl_seg);
-    GM_setValue("anzahl_wr", anzahl_wr);
 }
+GM_setValue("anzahl_fw", anzahl_fw);
+GM_setValue("anzahl_rd", anzahl_rd);
+GM_setValue("anzahl_rth", anzahl_rth);
+GM_setValue("anzahl_thw", anzahl_thw);
+GM_setValue("anzahl_pol", anzahl_pol);
+GM_setValue("anzahl_ph", anzahl_ph);
+GM_setValue("anzahl_bepo", anzahl_bepo);
+GM_setValue("anzahl_seg", anzahl_seg);
+GM_setValue("anzahl_wr", anzahl_wr);
 
 var anz_onSite_lf = 0;
 var anz_onSite_dl = 0;
@@ -614,7 +609,8 @@ if (title !== null) {
             alertFhz(gwh, 1, 'GW-H', false);
             alertFhz(dl, 1, 'DL', false);
         }
-        else if(keyword == 'Verletzte Person auf Hochspannungsmast')
+        else if(keyword == 'Verletzte Person auf Hochspannungsmast' ||
+                keyword == 'Abgestürzter Kletterer')
         {
             alertFhz(lf, 2, 'LF', false, 'THL');
             alertFhz(elw1, 1, 'ELW1', false);
@@ -622,7 +618,7 @@ if (title !== null) {
             alertFhz(gwh, 1, 'GW-H', false);
             alertFhz(dl, 1, 'DL', false);
             alertFhz(fustw, 1, 'FuStW', false);
-            if(help.slice(-3) == 236)
+            if(help.slice(-3) == 236 || help.slice(-3) == 300)
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
@@ -1305,7 +1301,7 @@ if (title !== null) {
         //document.getElementById('amount_of_people').scrollIntoView();
 
         addMissingFhzInfo();
-        var done = document.getElementsByClassName('glyphicon-user');
+        var done = $('.glyphicon-user');
         if(done.length > 0)
             done[0].style.color = 'green';
         else
@@ -2094,7 +2090,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //click the vehicle
                         var fahrzeug = x[i].children[0];
                         //If AB/Anh is needed, check if a WLF/Zugfahrzeug is present
-                        if((y >= 43 && y <= 44) || (y >= 47 && y <= 49) || y == 54 || (y >= 62 && y <= 64) || (y >= 66 && y <= 71))
+                        if((y >= 43 && y <= 44) || (y >= 47 && y <= 49) || y == 54 || y == 62 || (y >= 66 && y <= 68) || (y >= 70 && y <= 71))
                         {
                             var noZugfahrzeug = fahrzeug.children[1];
                             if (noZugfahrzeug.style.display == 'none')
@@ -2545,6 +2541,9 @@ function additionalFHZ() {
                             break;
                         case "Radlader":
                             alertFhz(brmgr, fhz[ab]-anz_Driving_brmgr, 'BRmG R', true);
+                            break;
+                        case "GW-Taucher":
+                            alertFhz(gwt, fhz[ab]-anz_Driving_gwt, 'GW-T', true);
                             break;
                     }
                 }
