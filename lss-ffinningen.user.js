@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.2.1
+// @version     0.3.2.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2400,7 +2400,7 @@ function RTW(keyword_rtw) {
             if (anzahl_seg > 0) {
                 alertFhz(elw1seg, 1, 'ELW1-SEG', false, 'SEG');
                 alertFhz(gwsan, 1, 'GW-SAN', false);
-                alertFhz(ktwb, patients_anzahl/2, 'KTW-B', false);
+                //alertFhz(ktwb, patients_anzahl/2, 'KTW-B', false);
                 seg_alerted = true;
             }
             alertFhz(kdowlna, 1, 'LNA', false, 'LNA');
@@ -2564,7 +2564,7 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigten einen RTH.')>=0) {
             count_rth++;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0 && anz_onSite_kdoworgl < 1 && anz_Driving_kdoworgl < 1) {
             count_ktw++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen eine Tragehilfe')>=0) {
