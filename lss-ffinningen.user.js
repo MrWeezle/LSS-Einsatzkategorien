@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.2.2
+// @version     0.3.2.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -400,7 +400,8 @@ if (title !== null) {
         else if(keyword == 'Randalierende Person' ||
                 keyword == 'Häusliche Gewalt' ||
                 keyword == 'Absicherung Musikumzug' ||
-                keyword == 'Verkehrsüberwachung')
+                keyword == 'Verkehrsüberwachung' ||
+                keyword == 'Tiere auf der Fahrbahn')
         {
             alertFhz(fustw, 2, 'FuStW', false, 'POL');
         }
@@ -1232,7 +1233,7 @@ if (title !== null) {
                 keyword == 'Hilflose Person auf Wasser')
         {
             alertFhz(boot, 1, 'Boot', false, 'RD');
-            alertFhz(rtw, 1, 'RTW', false);
+            alertFhz(rtw, 1, 'RTW', true);
             alertFhz(nef, 1, 'NEF', false);
             if(help.slice(-3) == 246 || help.slice(-3) == 252)
             {
