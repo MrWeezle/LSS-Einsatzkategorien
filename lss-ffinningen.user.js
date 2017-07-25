@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.2.3
+// @version     0.3.2.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -476,18 +476,22 @@ if (title !== null) {
             alertFhz(fustw, 2, 'FuStW', false);
         }
         else if(keyword == 'Fußball Bundesliga-Spiel' ||
-                keyword == 'Hasentreffen in Ostereistedt')
+                keyword == 'Hasentreffen in Ostereistedt' ||
+                keyword == 'Absicherung Rockkonzert')
         {
             alertFhz(lebefkw, 3, 'leBefKw', false, 'BP');
             alertFhz(grukw, 9, 'GruKW', false);
-            alertFhz(gefkw, 1, 'GefKW', false);
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(fustw, 2, 'FuStW', false);
-            if(help.slice(-3) == 291)
+            if(help.slice(-3) == 291 || help.slice(-3) == 275)
             {
                 alertFhz(rtw, 4, 'RTW', false);
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false);
+            }
+            if(help.slice(-3) == 201)
+            {
+                alertFhz(gefkw, 1, 'GefKW', false);
             }
         }
         else if(keyword == 'Angemeldete Demonstration')
@@ -497,6 +501,15 @@ if (title !== null) {
             alertFhz(fustw, 3, 'FuStW', false);
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(rtw, 1, 'RTW', false);
+        }
+        else if(keyword == 'Fußball Bundesliga-Risikospiel')
+        {
+            alertFhz(grukw, 27, 'GruKW', false);
+            alertFhz(lebefkw, 9, 'leBefKw', false, 'BP');
+            alertFhz(fuekw, 3, 'FüKW', false);
+            alertFhz(fustw, 5, 'FuStW', false);
+            alertFhz(rtw, 4, 'RTW', false);
+            alertFhz(lf, 2, 'LF', false);
         }
         /************************************************************************************* THW *************************************************************************************/
         else if(keyword == 'LKW in Hauswand')
