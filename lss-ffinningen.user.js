@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.2.4
+// @version     0.3.2.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1293,6 +1293,16 @@ if (title !== null) {
             alertFhz(rtw, 4, 'RTW', false);
             alertFhz(lf, 2, 'LF', false);
         }
+        else if(keyword == 'Brennendes Kleinflugzeug')
+        {
+            alertFhz(fustw, 3, 'FuStW', false);
+            alertFhz(lf, 8, 'LF', false);
+            alertFhz(elw2, 1, 'ELW2', false);
+            alertFhz(elw1, 2, 'ELW1', false, 'B');
+            alertFhz(dl, 1, 'DL', false);
+            alertFhz(gws, 1, 'GW-S', false);
+            alertFhz(oel, 1, 'GW-ÖL', false);
+        }
         else
         {
             if(addedMissingFhzInformation)
@@ -2470,7 +2480,8 @@ function RTW(keyword_rtw) {
     {
         alertNef = false;
     }
-    if(keyword_rtw == 'Kleinflugzeug abgestürzt')
+    if(keyword_rtw == 'Kleinflugzeug abgestürzt' ||
+       keyword_rtw == 'Brennendes Kleinflugzeug')
     {
         alertFhz(nef, patients_anzahl, 'NEF', false);
     }
