@@ -65,6 +65,7 @@ var grukw    = [50];
 var gefkw    = [52];
 var ph       = [61];
 var fuekw    = [51];
+var wawe     = [72];
 
 //THW
 var gkw      = [39];
@@ -192,6 +193,7 @@ var anz_onSite_lebefkw = 0;
 var anz_onSite_gefkw = 0;
 var anz_onSite_ph = 0;
 var anz_onSite_fuekw = 0;
+var anz_onSite_wawe = 0;
 var anz_onSite_gkw = 0;
 var anz_onSite_mzkw = 0;
 var anz_onSite_mtwtz = 0;
@@ -233,6 +235,7 @@ var anz_Driving_lebefkw = 0;
 var anz_Driving_gefkw = 0;
 var anz_Driving_ph = 0;
 var anz_Driving_fuekw = 0;
+var anz_Driving_wawe = 0;
 var anz_Driving_gkw = 0;
 var anz_Driving_mzkw = 0;
 var anz_Driving_mtwtz = 0;
@@ -493,23 +496,44 @@ if (title !== null) {
             {
                 alertFhz(gefkw, 1, 'GefKW', false);
             }
+            if(help.slice(-3) == 306)
+            {
+                alertFhz(fustw, 6, 'FuStW', false);
+                alertFhz(lebefkw, 1, 'leBefKw', false);
+                alertFhz(rtw, 4, 'RTW', false);
+                alertFhz(wawe, 2, 'WaWe', false);
+            }
         }
         else if(keyword == 'Angemeldete Demonstration')
         {
             alertFhz(grukw, 6, 'GruKW', false);
-            alertFhz(lebefkw, 2, 'leBefKw', false, 'BP');
+            alertFhz(lebefkw, 2, 'leBefKw', false);
             alertFhz(fustw, 3, 'FuStW', false);
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(rtw, 1, 'RTW', false);
+            if(help.slice(-3) == 304)
+            {                
+                alertFhz(lebefkw, 1, 'leBefKw', false);
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(rtw, 2, 'RTW', false);
+                alertFhz(wawe, 3, 'WaWe', false);
+                alertFhz(fustw, 3, 'FuStW', false);
+            }
         }
         else if(keyword == 'Fußball Bundesliga-Risikospiel')
         {
             alertFhz(grukw, 27, 'GruKW', false);
-            alertFhz(lebefkw, 9, 'leBefKw', false, 'BP');
+            alertFhz(lebefkw, 9, 'leBefKw', false);
             alertFhz(fuekw, 3, 'FüKW', false);
             alertFhz(fustw, 5, 'FuStW', false);
             alertFhz(rtw, 4, 'RTW', false);
             alertFhz(lf, 2, 'LF', false);
+            if(help.slice(-3) == 304)
+            {
+                alertFhz(lebefkw, 1, 'leBefKw', false);
+                alertFhz(gefkw, 2, 'GefKW', false);
+                alertFhz(wawe, 3, 'WaWe', false);
+            }
         }
         /************************************************************************************* THW *************************************************************************************/
         else if(keyword == 'LKW in Hauswand')
@@ -1504,6 +1528,12 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
+            for (j=0;j<wawe.length;j++) {
+                if (fhz_id == wawe[j]) {
+                    anz_onSite_wawe++;
+                    break;
+                }
+            }
             for (j=0;j<gkw.length;j++) {
                 if (fhz_id == gkw[j]) {
                     anz_onSite_gkw++;
@@ -1758,6 +1788,12 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
+            for (j=0;j<wawe.length;j++) {
+                if (fhz_id == wawe[j]) {
+                    anz_Driving_wawe++;
+                    break;
+                }
+            }
             for (j=0;j<gkw.length;j++) {
                 if (fhz_id == gkw[j]) {
                     anz_Driving_gkw++;
@@ -2006,6 +2042,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "fükw":
                 if (anzahl_bepo >= 1)
                     toAlarm = toAlarm - (anz_onSite_fuekw + anz_Driving_fuekw);
+                else
+                    toAlarm = 0;
+                break;
+            case "wawe":
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_wawe + anz_Driving_wawe);
                 else
                     toAlarm = 0;
                 break;
@@ -2317,6 +2359,10 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "fükw":
             anz_Driving_fuekw = anz_Driving_fuekw+checked;
+            color = color_pol;
+            break;
+        case "wawe":
+            anz_Driving_wawe = anz_Driving_wawe+checked;
             color = color_pol;
             break;
         case "gkw":
