@@ -535,6 +535,15 @@ if (title !== null) {
                 alertFhz(wawe, 3, 'WaWe', false);
             }
         }
+        else if(keyword == 'Spontaner Aufstand')
+        {
+            alertFhz(grukw, 9, 'GruKW', false);
+            alertFhz(lebefkw, 4, 'leBefKw', false);
+            alertFhz(fustw, 7, 'FuStW', false);
+            alertFhz(fuekw, 1, 'FüKW', false);
+            alertFhz(ph, 1, 'PH', false);
+            alertFhz(wawe, 1, 'WaWe', false);
+        }
         /************************************************************************************* THW *************************************************************************************/
         else if(keyword == 'LKW in Hauswand')
         {
