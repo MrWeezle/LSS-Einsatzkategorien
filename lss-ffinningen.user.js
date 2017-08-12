@@ -2625,6 +2625,8 @@ function additionalFHZ() {
                         case "GW-Taucher":
                             alertFhz(gwt, fhz[ab]-anz_Driving_gwt, 'GW-T', true);
                             break;
+                        case "Wasserwerfer":
+                            alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
                     }
                 }
             }
