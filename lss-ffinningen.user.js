@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.2.7
+// @version     0.3.2.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -745,7 +745,8 @@ if (title !== null) {
                 keyword == 'Garagenbrand' ||
                 keyword == 'Mähdrescher Brand' ||
                 keyword == 'Brennendes Gras' ||
-                keyword == 'Eierkocherbrand')
+                keyword == 'Eierkocherbrand' ||
+                keyword == 'Carportbrand')
         {
             if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                 alertFhz(fustw, 1, 'FuStW', false);
