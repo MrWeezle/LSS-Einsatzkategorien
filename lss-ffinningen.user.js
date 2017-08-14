@@ -542,7 +542,7 @@ if (title !== null) {
             alertFhz(fustw, 7, 'FuStW', false);
             alertFhz(fuekw, 1, 'FüKW', false);
             alertFhz(ph, 1, 'PH', false);
-            alertFhz(wawe, 1, 'WaWe', false);
+            alertFhz(wawe, 3, 'WaWe', false);
         }
         /************************************************************************************* THW *************************************************************************************/
         else if(keyword == 'LKW in Hauswand')
