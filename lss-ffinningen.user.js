@@ -746,7 +746,8 @@ if (title !== null) {
                 keyword == 'Mähdrescher Brand' ||
                 keyword == 'Brennendes Gras' ||
                 keyword == 'Eierkocherbrand' ||
-                keyword == 'Carportbrand')
+                keyword == 'Carportbrand' ||
+                keyword == 'Brennender Müllwagen')
         {
             if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                 alertFhz(fustw, 1, 'FuStW', false);
