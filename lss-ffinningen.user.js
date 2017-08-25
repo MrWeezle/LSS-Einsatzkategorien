@@ -1278,7 +1278,8 @@ if (title !== null) {
             }
         }
         else if(keyword == 'Person in Wasser' ||
-                keyword == 'Hilflose Person auf Wasser')
+                keyword == 'Hilflose Person auf Wasser' ||
+                keyword == 'Tauchunfall')
         {
             alertFhz(boot, 1, 'Boot', false, 'RD');
             alertFhz(rtw, 1, 'RTW', true);
@@ -1291,6 +1292,10 @@ if (title !== null) {
             if(help.slice(-3) == 298)
             {
                 alertFhz(rth, 1, 'RTH', false);
+            }
+            if(help.slice(-3) == 309 || help.slice(-3) == 310)
+            {
+                alertFhz(gwt, 1, 'GW-T', false);
             }
         }
         else if(keyword == 'Gewässerverschmutzung durch Öl')
