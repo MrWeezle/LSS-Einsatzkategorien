@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.4
+// @version     0.3.3.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -772,7 +772,8 @@ function main() {
             }
             else if(keyword == 'Feuer auf Balkon' ||
                     keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
-                    keyword == 'Zimmerbrand')
+                    keyword == 'Zimmerbrand' ||
+                    keyword == 'Verunglückter Fallschirmspringer')
             {
                 alertFhz(lf, 2, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
