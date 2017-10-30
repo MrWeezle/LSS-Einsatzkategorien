@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.3
+// @version     0.3.3.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -625,7 +625,9 @@ function main() {
                     keyword == 'Brennende Papiercontainer durch Feuerwerkskörper' ||
                     keyword == 'Feuerprobealarm an Schule' ||
                     keyword == 'Brennender Bollerwagen' ||
-                    keyword == 'Brennendes Osternest')
+                    keyword == 'Brennendes Osternest' ||
+                    keyword == 'Brennende Vogelscheuche' ||
+                    keyword == 'Ausgelöster Heimrauchmelder')
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
@@ -639,9 +641,14 @@ function main() {
                     keyword == 'Umherfliegendes Baumaterial' ||
                     keyword == 'Baum auf Dach' ||
                     keyword == 'Baum auf Radweg' ||
-                    keyword == 'Schokoladenspur auf Strasse')
+                    keyword == 'Schokoladenspur auf Strasse' ||
+                    keyword == 'Hexe hängt in Baum')
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
+                if(help.slice(-3) == 114)
+                {
+                    alertFhz(dl, 1, 'FuStW', false);
+                }
             }
             else if(keyword == 'Straße unter Wasser') {
                 alertFhz(lf, 1, 'LF', false, 'THL');
@@ -749,13 +756,15 @@ function main() {
                     keyword == 'Brennendes Gras' ||
                     keyword == 'Eierkocherbrand' ||
                     keyword == 'Carportbrand' ||
-                    keyword == 'Brennender Müllwagen')
+                    keyword == 'Brennender Müllwagen' ||
+                    keyword == 'Brennendes Kürbisfeld')
             {
                 if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                     alertFhz(fustw, 1, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false, 'B');
             }
-            else if(keyword == 'Geplatzte Wasserleitung')
+            else if(keyword == 'Geplatzte Wasserleitung' ||
+                    keyword == 'Kürbissuppe übergekocht')
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
