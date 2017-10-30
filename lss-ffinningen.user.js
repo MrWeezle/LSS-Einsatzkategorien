@@ -627,7 +627,8 @@ function main() {
                     keyword == 'Brennender Bollerwagen' ||
                     keyword == 'Brennendes Osternest' ||
                     keyword == 'Brennende Vogelscheuche' ||
-                    keyword == 'Ausgelöster Heimrauchmelder')
+                    keyword == 'Ausgelöster Heimrauchmelder' ||
+                    keyword == 'Brennendes Kürbisfeld')
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
