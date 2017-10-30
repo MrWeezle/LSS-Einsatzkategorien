@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.2
+// @version     0.3.3.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1344,6 +1344,17 @@ function main() {
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
+            }
+            else if(keyword == 'Chemieunfall an Schule')
+            {
+                alertFhz(lf, 8, 'LF', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false, 'B');
+                alertFhz(dl, 1, 'DL', false);
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(dekonp, 1, 'Dekon-P', false);
+                alertFhz(gwm, 1, 'GW-M', false);
+                alertFhz(gwg, 2, 'GW-G', false);
             }
             else
             {
