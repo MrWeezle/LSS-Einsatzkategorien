@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.5
+// @version     0.3.3.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1366,6 +1366,17 @@ function main() {
                 alertFhz(dekonp, 1, 'Dekon-P', false);
                 alertFhz(gwm, 1, 'GW-M', false);
                 alertFhz(gwg, 2, 'GW-G', false);
+            }
+            else if(keyword == 'Unbekannte Substanz')
+            {
+                alertFhz(lf, 12, 'LF', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false, 'B');
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(dekonp, 1, 'Dekon-P', false);
+                alertFhz(gwm, 2, 'GW-M', false);
+                alertFhz(gwg, 1, 'GW-G', false);
+                alertFhz(fustw, 4, 'FuStW', false);
             }
             else
             {
