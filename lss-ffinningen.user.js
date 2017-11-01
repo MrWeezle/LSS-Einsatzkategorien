@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.6
+// @version     0.3.3.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -765,7 +765,8 @@ function main() {
                 alertFhz(lf, 2, 'LF', false, 'B');
             }
             else if(keyword == 'Geplatzte Wasserleitung' ||
-                    keyword == 'Kürbissuppe übergekocht')
+                    keyword == 'Kürbissuppe übergekocht' ||
+                    keyword == 'Person in Baumaschine eingeklemmt')
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
