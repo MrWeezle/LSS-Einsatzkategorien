@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.8
+// @version     0.3.3.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -648,8 +648,14 @@ function main() {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 if(help.slice(-3) == 114)
                 {
-                    alertFhz(dl, 1, 'FuStW', false);
+                    alertFhz(dl, 1, 'DL', false);
                 }
+            }
+            else if(keyword == 'Person in Baugrube')
+            {
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(dl, 1, 'DL', false);
+                alertFhz(ruest, 1, 'RÜST', false);
             }
             else if(keyword == 'Straße unter Wasser') {
                 alertFhz(lf, 1, 'LF', false, 'THL');
