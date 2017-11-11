@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.3.9
+// @version     0.3.4.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1390,6 +1390,27 @@ function main() {
                 alertFhz(gwm, 2, 'GW-M', false);
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(fustw, 4, 'FuStW', false);
+            }
+            else if(keyword == 'Großfeuer im Krankenhaus')
+            {
+                alertFhz(lf, 20, 'LF', false);
+                alertFhz(dl, 5, 'DL', false);
+                alertFhz(elw2, 4, 'ELW2', false);
+                alertFhz(elw1, 6 'ELW1', false, 'B');
+                alertFhz(gwa, 3, 'GW-A', false);
+                alertFhz(dekonp, 1, 'Dekon-P', false);
+                alertFhz(gwm, 3, 'GW-M', false);
+                alertFhz(gwg, 2, 'GW-G', false);
+                alertFhz(gws, 2, 'GW-S', false);
+                alertFhz(gwh, 1, 'GW-H', false);
+                alertFhz(ruest, 2, 'RÜST', false);
+                alertFhz(fustw, 6, 'FuStW', false);                 
+                alertFhz(gkw, 1, 'GKW', false, 'THW');
+                alertFhz(mtwtz, 1, 'MTW-TZ', false);
+                alertFhz(brmgr, 1, 'BRmG R', false);
+                alertFhz(mlw5, 1, 'MLW-5', false);
+                alertFhz(lkwk9, 1, 'LKW K 9', false);
+                alertFhz(mzkw, 1, 'MzKW', false);
             }
             else
             {
