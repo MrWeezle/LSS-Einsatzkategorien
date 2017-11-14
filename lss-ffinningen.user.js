@@ -1396,7 +1396,7 @@ function main() {
                 alertFhz(lf, 20, 'LF', false);
                 alertFhz(dl, 5, 'DL', false);
                 alertFhz(elw2, 4, 'ELW2', false);
-                alertFhz(elw1, 6 'ELW1', false, 'B');
+                alertFhz(elw1, 6, 'ELW1', false, 'B');
                 alertFhz(gwa, 3, 'GW-A', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
                 alertFhz(gwm, 3, 'GW-M', false);
