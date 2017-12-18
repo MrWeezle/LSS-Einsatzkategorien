@@ -429,7 +429,8 @@ function main() {
                 alertFhz(ph, 1, 'PH', false);
             }
             else if(keyword == 'Monster ausgebrochen' ||
-                    keyword == 'Schwertransport')
+                    keyword == 'Schwertransport' ||
+                    keyword == 'Geplante Autobahnsperrung')
             {
                 alertFhz(fustw, 4, 'FuStW', false, 'POL');
             }
@@ -777,11 +778,17 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
             }
             else if(keyword == 'Mitarbeiter unter PKW eingeklemmt' ||
-                    keyword == 'Person in Baumaschine eingeklemmt')
+                    keyword == 'Person in Baumaschine eingeklemmt' ||
+                    keyword == 'Dehnfugenbrand')
             {                
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
+                if(help.slice(-3) == 323)
+                {
+                    alertFhz(dl, 1, 'DL', false);
+                    alertFhz(fustw, 1, 'FuStW', false);
+                }
             }
             else if(keyword == 'Feuer auf Balkon' ||
                     keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
@@ -951,7 +958,8 @@ function main() {
                 if(help.slice(-3) == 103 || help.slice(-3) == 105)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Rauchentwicklung in Museum')
+            else if(keyword == 'Rauchentwicklung in Museum' ||
+                    keyword == 'Saunabrand')
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'B');
@@ -1390,6 +1398,26 @@ function main() {
                 alertFhz(gwm, 2, 'GW-M', false);
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(fustw, 4, 'FuStW', false);
+            }
+            else if(keyword == 'Brand in Baumarkt')
+            {
+                alertFhz(lf, 15, 'LF', false);
+                alertFhz(dl, 3, 'DL', false);
+                alertFhz(elw2, 2, 'ELW2', false);
+                alertFhz(elw1, 4, 'ELW1', false, 'B');
+                alertFhz(gwa, 2, 'GW-A', false);
+                alertFhz(gwm, 2, 'GW-M', false);
+                alertFhz(gwg, 1, 'GW-G', false);
+                alertFhz(gws, 1, 'GW-S', false);
+                alertFhz(fwk, 1, 'FwK', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(fustw, 5, 'FuStW', false);                 
+                alertFhz(gkw, 2, 'GKW', false, 'THW');
+                alertFhz(mtwtz, 2, 'MTW-TZ', false);
+                alertFhz(brmgr, 2, 'BRmG R', false);
+                alertFhz(lkwk9, 2, 'LKW K 9', false);
+                alertFhz(mzkw, 2, 'MzKW', false); 
+                alertFhz(mlw5, 1, 'MLW-5', false);
             }
             else if(keyword == 'Großfeuer im Krankenhaus')
             {
