@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.2
+// @version     0.3.4.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -110,7 +110,6 @@ if (easteregg.length == 1){
 }
 
 var building_list = document.getElementsByClassName('building_list_li');
-
 for(var i = 0; i < building_list.length; i++) {
     if (i===0)
     {
@@ -266,6 +265,14 @@ var title_orig = document.getElementById('missionH1');
 var title = title_orig;
 
 main();
+
+function compareString(string1, string2) {
+    return string1.toLowerCase() === string2.toLowerCase();
+}
+function includesString(string1, string2) {
+    return string1.toLowerCase().includes(string2.toLowerCase());
+}
+
 function main() {
     if (title !== null) {
         origInner = title.innerHTML;
@@ -273,7 +280,6 @@ function main() {
         var orig = title.innerText;
         title.innerHTML = origInner;
         keyword = orig;
-
 
         setTimeout(function(){
             var help_el = document.getElementById('mission_help');
@@ -284,76 +290,76 @@ function main() {
             checkOnSiteVehicles();
             checkDrivingVehicles();
 
-            if(keyword.includes('Brandmeldeanlage'))
+            if(includesString(keyword, 'Brandmeldeanlage'))
             {
                 alertFhz(rtw, 2, 'RTW', false);
             }
             keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
 
-            if (keyword != 'Krankentransport')
+            if (!compareString(keyword, 'Krankentransport'))
             {
                 RTW(keyword);
             }
-            if (keyword == 'Krankentransport')
+            if (compareString(keyword, 'Krankentransport'))
             {
                 alertFhz(ktw, 1, 'KTW', false, 'RD');
             }
             /************************************************************************************* GEPLANTE EINSÄTZE**************************************************************************/
-            /*else if(keyword == 'Dorf/Stadtfest')
+            /*else if(compareString(keyword, 'Dorf/Stadtfest')
         {
             alertFhz(lf, 3, 'LF', false);
             alertFhz(gwsan, 1, 'GW-SAN', false);
             alertFhz(ktwb, 3, 'KTW-B', false);
         }*/
-            else if(keyword == 'Volkslauf')
+            else if(compareString(keyword, 'Volkslauf'))
             {
                 alertFhz(gwsan, 1, 'GW-SAN', false, 'RD');
                 alertFhz(ktwb, 3, 'KTW-B', false);
                 if(3-(anz_Driving_ktwb+anz_onSite_ktwb)>0)
                     alertFhz(rtw, 3-(anz_Driving_ktwb+anz_onSite_ktwb), 'RTW', false);
             }
-            else if(keyword == 'Entschärfung von Weltkriegsbombe')
+            else if(compareString(keyword, 'Entschärfung von Weltkriegsbombe'))
             {
                 alertFhz(lf, 10, 'LF', false);
                 alertFhz(fustw, 5, 'FuStW', false);
                 alertFhz(elw2, 1, 'ELW2', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Brandsicherheitswachdienst im Theater')
+            else if(compareString(keyword, 'Brandsicherheitswachdienst im Theater'))
             {
                 alertFhz(lf, 1, 'LF', false);
                 alertFhz(rtw, 1, 'RTW', false);
             }
             /************************************************************************************* RD ****************************************************************************************/
-            else if(keyword == 'Herzinfarkt' ||
-                    keyword == 'Krampfanfall' ||
-                    keyword == 'Hitzschlag' ||
-                    keyword == 'Hitzekrampf' ||
-                    keyword == 'Unfall mit Motorsäge' ||
-                    keyword == 'Bewusstlose Person' ||
-                    keyword == 'Schwangere in Notsituation' ||
-                    keyword == 'Beginnende Geburt' ||
-                    keyword == 'Schädelverletzung' ||
-                    keyword == 'Herzrhythmusstörungen' ||
-                    keyword == 'akuter Asthma-Anfall' ||
-                    keyword == 'Fieber' ||
-                    keyword == 'Schlaganfall' ||
-                    keyword == 'Bluthochdruck' ||
-                    keyword == 'Vaginale Blutung' ||
-                    keyword == 'Unterzuckerung' ||
-                    keyword == 'Harnleiterblutung')
+            else if(compareString(keyword, 'Herzinfarkt') ||
+                    compareString(keyword, 'Krampfanfall') ||
+                    compareString(keyword, 'Hitzschlag') ||
+                    compareString(keyword, 'Hitzekrampf') ||
+                    compareString(keyword, 'Unfall mit Motorsäge') ||
+                    compareString(keyword, 'Bewusstlose Person') ||
+                    compareString(keyword, 'Schwangere in Notsituation') ||
+                    compareString(keyword, 'Beginnende Geburt') ||
+                    compareString(keyword, 'Schädelverletzung') ||
+                    compareString(keyword, 'Herzrhythmusstörungen') ||
+                    compareString(keyword, 'akuter Asthma-Anfall') ||
+                    compareString(keyword, 'Fieber') ||
+                    compareString(keyword, 'Schlaganfall') ||
+                    compareString(keyword, 'Bluthochdruck') ||
+                    compareString(keyword, 'Vaginale Blutung') ||
+                    compareString(keyword, 'Unterzuckerung') ||
+                    compareString(keyword, 'Harnleiterblutung'))
             {
                 if (patients_anzahl > 0)
                 {
                     alertFhz(nef, 1, 'NEF', false);
                 }
             }
-            else if(keyword == 'Stromschlag')
+            else if(compareString(keyword, 'Stromschlag'))
             {
                 alertFhz(rth, 1, 'RTH', false);
             }
-            else if(keyword == 'Sturz aus Höhe' ||
-                    keyword == 'Wirbelsäulenverletzung')
+            else if(compareString(keyword, 'Sturz aus Höhe') ||
+                    compareString(keyword, 'Wirbelsäulenverletzung'))
             {
                 if((help.slice(-3) == 180 || help.slice(-3) == 181) && anzahl_rth > 0)
                 {
@@ -363,127 +369,130 @@ function main() {
                     alertFhz(nef, 1, 'NEF', false);
             }
             /************************************************************************************* POL *************************************************************************************/
-            else if(keyword == 'Ladendiebstahl' ||
-                    keyword == 'Parkendes Auto gerammt' ||
-                    keyword == 'Metalldiebstahl' ||
-                    keyword == 'Taschendiebstahl' ||
-                    keyword == 'Notebook aus Schule entwendet' ||
-                    keyword == 'Personalienaufnahme von Schwarzfahrer' ||
-                    keyword == 'Einbruch in Keller' ||
-                    keyword == 'Sachbeschädigung' ||
-                    keyword == 'Angefahrene Person' ||
-                    keyword == 'Ruhestörung' ||
-                    keyword == 'Einbruch in Wohnung' ||
-                    keyword == 'Pannenfahrzeug' ||
-                    keyword == 'Hausfriedensbruch' ||
-                    keyword == 'Trunkenheitsfahrt' ||
-                    keyword == 'Trunkenheitsfahrt nach Silvesterparty' ||
-                    keyword == 'Ampelausfall' ||
-                    keyword == 'Verkehrsbehinderung' ||
-                    keyword == 'Diebstahl aus Kfz' ||
-                    keyword == 'Kfz durch Feuerwerkskörper beschädigt' ||
-                    keyword == 'Verstoß gegen Sprengstoffverordnung' ||
-                    keyword == 'Kürbisse geklaut' ||
-                    keyword == 'Süßigkeitendiebstahl' ||
-                    keyword == 'Fahrraddiebstahl' ||
-                    keyword == 'Personenkontrolle' ||
-                    keyword == 'Wildunfall' ||
-                    keyword == 'Ostereier-Dieb' ||
-                    keyword == 'Pinsel aus Werkstatt entwendet' ||
-                    keyword == 'Angefahrener Osterhase' ||
-                    keyword == 'Tankbetrug' ||
-                    keyword == 'Auffahrunfall')
+            else if(compareString(keyword, 'Ladendiebstahl') ||
+                    compareString(keyword, 'Parkendes Auto gerammt') ||
+                    compareString(keyword, 'Metalldiebstahl') ||
+                    compareString(keyword, 'Taschendiebstahl') ||
+                    compareString(keyword, 'Notebook aus Schule entwendet') ||
+                    compareString(keyword, 'Personalienaufnahme von Schwarzfahrer') ||
+                    compareString(keyword, 'Einbruch in Keller') ||
+                    compareString(keyword, 'Sachbeschädigung') ||
+                    compareString(keyword, 'Angefahrene Person') ||
+                    compareString(keyword, 'Ruhestörung') ||
+                    compareString(keyword, 'Einbruch in Wohnung') ||
+                    compareString(keyword, 'Pannenfahrzeug') ||
+                    compareString(keyword, 'Hausfriedensbruch') ||
+                    compareString(keyword, 'Trunkenheitsfahrt') ||
+                    compareString(keyword, 'Trunkenheitsfahrt nach Silvesterparty') ||
+                    compareString(keyword, 'Ampelausfall') ||
+                    compareString(keyword, 'Verkehrsbehinderung') ||
+                    compareString(keyword, 'Diebstahl aus Kfz') ||
+                    compareString(keyword, 'Kfz durch Feuerwerkskörper beschädigt') ||
+                    compareString(keyword, 'Verstoß gegen Sprengstoffverordnung') ||
+                    compareString(keyword, 'Verstoss gegen Sprengstoffverordnung') ||
+                    compareString(keyword, 'Kürbisse geklaut') ||
+                    compareString(keyword, 'Süßigkeitendiebstahl') ||
+                    compareString(keyword, 'Süssigkeitendiebstahl') ||
+                    compareString(keyword, 'Fahrraddiebstahl') ||
+                    compareString(keyword, 'Personenkontrolle') ||
+                    compareString(keyword, 'Wildunfall') ||
+                    compareString(keyword, 'Ostereier-Dieb') ||
+                    compareString(keyword, 'Pinsel aus Werkstatt entwendet') ||
+                    compareString(keyword, 'Angefahrener Osterhase') ||
+                    compareString(keyword, 'Tankbetrug') ||
+                    compareString(keyword, 'Auffahrunfall'))
             {
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Hilflose Person' ||
-                    keyword == 'Angefahrender Osterhase')
+            else if(compareString(keyword, 'Hilflose Person') ||
+                    compareString(keyword, 'Angefahrender Osterhase'))
             {
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
                 alertFhz(rtw, 1, 'RTW', false);
             }
-            else if(keyword == 'Randalierende Person' ||
-                    keyword == 'Häusliche Gewalt' ||
-                    keyword == 'Absicherung Musikumzug' ||
-                    keyword == 'Verkehrsüberwachung' ||
-                    keyword == 'Tiere auf der Fahrbahn')
+            else if(compareString(keyword, 'Randalierende Person') ||
+                    compareString(keyword, 'Häusliche Gewalt') ||
+                    compareString(keyword, 'Absicherung Musikumzug') ||
+                    compareString(keyword, 'Verkehrsüberwachung') ||
+                    compareString(keyword, 'Tiere auf der Fahrbahn'))
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Suche nach Vermissten')
+            else if(compareString(keyword, 'Suche nach Vermissten'))
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
                 alertFhz(ph, 1, 'PH', false);
                 alertFhz(lf, 1, 'LF', false);
                 alertFhz(rtw, 1, 'RTW', false);
             }
-            else if(keyword == 'Frankenstein gesichtet' ||
-                    keyword == 'Raub' ||
-                    keyword == 'Schlägerei')
+            else if(compareString(keyword, 'Frankenstein gesichtet') ||
+                    compareString(keyword, 'Raub') ||
+                    compareString(keyword, 'Schlägerei'))
             {
                 alertFhz(fustw, 3, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Kabeldiebstahl')
+            else if(compareString(keyword, 'Kabeldiebstahl'))
             {
                 alertFhz(fustw, 3, 'FuStW', false, 'POL');
                 alertFhz(ph, 1, 'PH', false);
             }
-            else if(keyword == 'Monster ausgebrochen' ||
-                    keyword == 'Schwertransport' ||
-                    keyword == 'Geplante Autobahnsperrung')
+            else if(compareString(keyword, 'Monster ausgebrochen') ||
+                    compareString(keyword, 'Schwertransport') ||
+                    compareString(keyword, 'Geplante Autobahnsperrung'))
             {
                 alertFhz(fustw, 4, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Massenschlägerei')
+            else if(compareString(keyword, 'Massenschlägerei'))
             {
                 alertFhz(fustw, 5, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Tankstellenüberfall')
+            else if(compareString(keyword, 'Tankstellenüberfall'))
             {
                 alertFhz(fustw, 6, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Entflohener Gefangener')
+            else if(compareString(keyword, 'Entflohener Gefangener'))
             {
                 alertFhz(fustw, 10, 'FuStW', false, 'POL');
                 alertFhz(ph, 1, 'PH', false);
             }
             /************************************************************************************* BEPO ************************************************************************************/
-            else if(keyword == 'Schwerpunkteinsatz Tageswohnungseinbrüche')
+            else if(compareString(keyword, 'Schwerpunkteinsatz Tageswohnungseinbrüche'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
             }
-            else if(keyword == 'Schwerpunkteinsatz Verkehrsüberwachung')
+            else if(compareString(keyword, 'Schwerpunkteinsatz Verkehrsüberwachung'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
             }
-            else if(keyword == 'Präsenzeinsatz Volksfest')
+            else if(compareString(keyword, 'Präsenzeinsatz Volksfest'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
             }
-            else if(keyword == 'Jugendschutzkontrolle in Diskothek')
+            else if(compareString(keyword, 'Jugendschutzkontrolle in Diskothek'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
                 alertFhz(fustw, 2, 'FuStW', false);
             }
-            else if(keyword == 'Geländedurchsuchung nach Beweismittel')
+            else if(compareString(keyword, 'Geländedurchsuchung nach Beweismittel'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
             }
-            else if(keyword == 'Geplante Razzia')
+            else if(compareString(keyword, 'Geplante Razzia'))
             {
                 alertFhz(lebefkw, 2, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 6, 'GruKW', false);
                 alertFhz(gefkw, 1, 'GefKW', false);
                 alertFhz(fustw, 2, 'FuStW', false);
             }
-            else if(keyword == 'Fußball Bundesliga-Spiel' ||
-                    keyword == 'Hasentreffen in Ostereistedt' ||
-                    keyword == 'Absicherung Rockkonzert')
+            else if(compareString(keyword, 'Fußball Bundesliga-Spiel') ||
+                    compareString(keyword, 'Fussball Bundesliga-Spiel') ||
+                    compareString(keyword, 'Hasentreffen in Ostereistedt') ||
+                    compareString(keyword, 'Absicherung Rockkonzert'))
             {
                 alertFhz(lebefkw, 3, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 9, 'GruKW', false);
@@ -507,7 +516,7 @@ function main() {
                     alertFhz(wawe, 2, 'WaWe', false);
                 }
             }
-            else if(keyword == 'Angemeldete Demonstration')
+            else if(compareString(keyword, 'Angemeldete Demonstration'))
             {
                 alertFhz(grukw, 6, 'GruKW', false);
                 alertFhz(lebefkw, 2, 'leBefKw', false);
@@ -523,7 +532,8 @@ function main() {
                     alertFhz(fustw, 3, 'FuStW', false);
                 }
             }
-            else if(keyword == 'Fußball Bundesliga-Risikospiel')
+            else if(compareString(keyword, 'Fußball Bundesliga-Risikospiel') ||
+                    compareString(keyword, 'Fussball Bundesliga-Risikospiel'))
             {
                 alertFhz(grukw, 27, 'GruKW', false);
                 alertFhz(lebefkw, 9, 'leBefKw', false);
@@ -538,7 +548,7 @@ function main() {
                     alertFhz(wawe, 3, 'WaWe', false);
                 }
             }
-            else if(keyword == 'Spontaner Aufstand')
+            else if(compareString(keyword, 'Spontaner Aufstand'))
             {
                 alertFhz(grukw, 9, 'GruKW', false);
                 alertFhz(lebefkw, 4, 'leBefKw', false);
@@ -548,7 +558,7 @@ function main() {
                 alertFhz(wawe, 3, 'WaWe', false);
             }
             /************************************************************************************* THW *************************************************************************************/
-            else if(keyword == 'LKW in Hauswand')
+            else if(compareString(keyword, 'LKW in Hauswand'))
             {
                 alertFhz(gkw, 1, 'GKW', false, 'THW');
                 alertFhz(lf, 2, 'LF', false);
@@ -559,8 +569,8 @@ function main() {
                 alertFhz(mzkw, 1, 'MzKW', false);
                 alertFhz(fwk, 1, 'FwK', false);
             }
-            else if(keyword == 'Erdrutsch' ||
-                    keyword == 'Eingestürzter Hasenbau')
+            else if(compareString(keyword, 'Erdrutsch') ||
+                    compareString(keyword, 'Eingestürzter Hasenbau'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(gkw, 1, 'GKW', false, 'THW');
@@ -569,7 +579,7 @@ function main() {
                 alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(lkwk9, 1, 'LKW K 9', false);
             }
-            else if(keyword == 'Gefahrgut-LKW verunglückt')
+            else if(compareString(keyword, 'Gefahrgut-LKW verunglückt'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 if(help.slice(-3) == 178)
@@ -586,7 +596,7 @@ function main() {
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(gwm, 1, 'GW-M', false);
             }
-            else if(keyword == 'Eingestürztes Wohnhaus')
+            else if(compareString(keyword, 'Eingestürztes Wohnhaus'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(gkw, 2, 'GKW', false, 'THW');
@@ -601,50 +611,51 @@ function main() {
                 alertFhz(ruest, 1, 'RÜST', false);
             }
             /************************************************************************************* FW **************************************************************************************/
-            else if(keyword == 'Mülleimerbrand' ||
-                    keyword == 'Containerbrand' ||
-                    keyword == 'Brennender PKW' ||
-                    keyword == 'Brennender PKW durch Feuerwerkskörper' ||
-                    keyword == 'Motorrad-Brand' ||
-                    keyword == 'Brennendes Laub' ||
-                    keyword == 'Brennende Hecke' ||
-                    keyword == 'Brennende Hecke durch Feuerwerkskörper' ||
-                    keyword == 'Sperrmüllbrand' ||
-                    keyword == 'Sperrmüllbrand durch Feuerwerkskörper' ||
-                    keyword == 'Strohballen Brand' ||
-                    keyword == 'Traktor Brand' ||
-                    keyword == 'Brennende Telefonzelle' ||
-                    keyword == 'Kleiner Waldbrand' ||
-                    keyword == 'Brand in Briefkasten' ||
-                    keyword == 'Brennendes Gebüsch' ||
-                    keyword == 'Brennender Anhänger' ||
-                    keyword == 'Fettbrand in Pommesbude' ||
-                    keyword == 'Brennendes Bus-Häuschen' ||
-                    keyword == 'Brennendes Bus-Häuschen durch Feuerwerkskörper' ||
-                    keyword == 'Brennender Adventskranz' ||
-                    keyword == 'Brennende Papiercontainer' ||
-                    keyword == 'Brennende Papiercontainer durch Feuerwerkskörper' ||
-                    keyword == 'Feuerprobealarm an Schule' ||
-                    keyword == 'Brennender Bollerwagen' ||
-                    keyword == 'Brennendes Osternest' ||
-                    keyword == 'Brennende Vogelscheuche' ||
-                    keyword == 'Ausgelöster Heimrauchmelder' ||
-                    keyword == 'Brennendes Kürbisfeld')
+            else if(compareString(keyword, 'Mülleimerbrand') ||
+                    compareString(keyword, 'Containerbrand') ||
+                    compareString(keyword, 'Brennender PKW') ||
+                    compareString(keyword, 'Brennender PKW durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Motorrad-Brand') ||
+                    compareString(keyword, 'Brennendes Laub') ||
+                    compareString(keyword, 'Brennende Hecke') ||
+                    compareString(keyword, 'Brennende Hecke durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Sperrmüllbrand') ||
+                    compareString(keyword, 'Sperrmüllbrand durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Strohballen Brand') ||
+                    compareString(keyword, 'Traktor Brand') ||
+                    compareString(keyword, 'Brennende Telefonzelle') ||
+                    compareString(keyword, 'Kleiner Waldbrand') ||
+                    compareString(keyword, 'Brand in Briefkasten') ||
+                    compareString(keyword, 'Brennendes Gebüsch') ||
+                    compareString(keyword, 'Brennender Anhänger') ||
+                    compareString(keyword, 'Fettbrand in Pommesbude') ||
+                    compareString(keyword, 'Brennendes Bus-Häuschen') ||
+                    compareString(keyword, 'Brennendes Bus-Häuschen durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Brennender Adventskranz') ||
+                    compareString(keyword, 'Brennende Papiercontainer') ||
+                    compareString(keyword, 'Brennende Papiercontainer durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Feuerprobealarm an Schule') ||
+                    compareString(keyword, 'Brennender Bollerwagen') ||
+                    compareString(keyword, 'Brennendes Osternest') ||
+                    compareString(keyword, 'Brennende Vogelscheuche') ||
+                    compareString(keyword, 'Ausgelöster Heimrauchmelder') ||
+                    compareString(keyword, 'Brennendes Kürbisfeld'))
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
-            else if(keyword == 'Baum auf Straße' ||
-                    keyword == 'Kleintier in Not' ||
-                    keyword == 'Keller unter Wasser' ||
-                    keyword == 'Kleine Ölspur' ||
-                    keyword == 'Auslaufende Betriebsstoffe' ||
-                    keyword == 'Tiefgarage unter Wasser' ||
-                    keyword == 'Äste auf Fahrbahn' ||
-                    keyword == 'Umherfliegendes Baumaterial' ||
-                    keyword == 'Baum auf Dach' ||
-                    keyword == 'Baum auf Radweg' ||
-                    keyword == 'Schokoladenspur auf Strasse' ||
-                    keyword == 'Hexe hängt in Baum')
+            else if(compareString(keyword, 'Baum auf Straße') ||
+                    compareString(keyword, 'Baum auf Strasse') ||
+                    compareString(keyword, 'Kleintier in Not') ||
+                    compareString(keyword, 'Keller unter Wasser') ||
+                    compareString(keyword, 'Kleine Ölspur') ||
+                    compareString(keyword, 'Auslaufende Betriebsstoffe') ||
+                    compareString(keyword, 'Tiefgarage unter Wasser') ||
+                    compareString(keyword, 'Äste auf Fahrbahn') ||
+                    compareString(keyword, 'Umherfliegendes Baumaterial') ||
+                    compareString(keyword, 'Baum auf Dach') ||
+                    compareString(keyword, 'Baum auf Radweg') ||
+                    compareString(keyword, 'Schokoladenspur auf Strasse') ||
+                    compareString(keyword, 'Hexe hängt in Baum'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 if(help.slice(-3) == 114)
@@ -652,20 +663,22 @@ function main() {
                     alertFhz(dl, 1, 'DL', false);
                 }
             }
-            else if(keyword == 'Person in Baugrube')
+            else if(compareString(keyword, 'Person in Baugrube'))
             {
                 alertFhz(lf, 1, 'LF', false);
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Straße unter Wasser') {
+            else if(compareString(keyword, 'Straße unter Wasser') ||
+                    compareString(keyword, 'Strasse unter Wasser'))
+			{
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 if(help.slice(-3) == 173)
                 {
                     alertFhz(fustw, 2, 'FuStW', false);
                 }
             }
-            else if(keyword == 'Verletzte Person auf Baugerüst')
+            else if(compareString(keyword, 'Verletzte Person auf Baugerüst'))
             {
                 alertFhz(elw1, 1, 'ELW1', false, 'THL');
                 alertFhz(lf, 1, 'LF', false);
@@ -673,8 +686,8 @@ function main() {
                 alertFhz(gwh, 1, 'GW-H', false);
                 alertFhz(dl, 1, 'DL', false);
             }
-            else if(keyword == 'Verletzte Person auf Hochspannungsmast' ||
-                    keyword == 'Abgestürzter Kletterer')
+            else if(compareString(keyword, 'Verletzte Person auf Hochspannungsmast') ||
+                    compareString(keyword, 'Abgestürzter Kletterer'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -691,7 +704,7 @@ function main() {
                     alertFhz(nef, 1, 'NEF', false);
                 }
             }
-            else if(keyword == 'Bewusstloser Kranführer')
+            else if(compareString(keyword, 'Bewusstloser Kranführer'))
             {
                 alertFhz(nef, 1, 'NEF', false, 'RD');
                 alertFhz(lf, 1, 'LF', false, 'THL');
@@ -700,7 +713,7 @@ function main() {
                 alertFhz(gwh, 1, 'GW-H', false);
                 alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Fassadenteile drohen zu fallen')
+            else if(compareString(keyword, 'Fassadenteile drohen zu fallen'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -708,17 +721,18 @@ function main() {
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(gwh, 1, 'GW-H', false);
             }
-            else if(keyword == 'Person im Aufzug')
+            else if(compareString(keyword, 'Person im Aufzug'))
             {
                 alertFhz(ruest, 1, 'RÜST', false, 'THL');
                 alertFhz(rtw, 1, 'RTW', false);
             }
-            else if(keyword == 'Große Ölspur')
+            else if(compareString(keyword, 'Große Ölspur') ||
+                    compareString(keyword, 'Grosse Ölspur'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(oel, 1, 'GW-ÖL', false);
             }
-            else if(keyword == 'Parkdeck voll Wasser gelaufen')
+            else if(compareString(keyword, 'Parkdeck voll Wasser gelaufen'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(oel, 1, 'GW-ÖL', false);
@@ -730,8 +744,8 @@ function main() {
                     alertFhz(fustw, 2, 'FuStW', false);
                 }
             }
-            else if(keyword == 'Person unter Baum eingeklemmt' ||
-                    keyword == 'Reitunfall mit Pkw')
+            else if(compareString(keyword, 'Person unter Baum eingeklemmt') ||
+                    compareString(keyword, 'Reitunfall mit Pkw'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(fustw, 1, 'FuStW', false);
@@ -739,48 +753,48 @@ function main() {
                 if(anz_Driving_rtw < 1 && anz_onSite_rtw < 1)
                     alertFhz(rtw, 1, 'RTW', false);
             }
-            else if(keyword == 'Person hinter Tür' ||
-                    keyword == 'Motorradunfall')
+            else if(compareString(keyword, 'Person hinter Tür') ||
+                    compareString(keyword, 'Motorradunfall'))
             {
                 alertFhz(lf, 1, 'LF', false, 'THL');
                 alertFhz(rtw, 1, 'RTW', false);
                 alertFhz(fustw, 1, 'FuStW', false);
                 alertFhz(nef, 1, 'NEF', false);
             }
-            else if(keyword == 'Baum auf Gleisen' ||
-                    keyword == 'Baum auf PKW')
+            else if(compareString(keyword, 'Baum auf Gleisen') ||
+                    compareString(keyword, 'Baum auf PKW'))
             {
                 alertFhz(fustw, 1, 'FuStW', false);
                 alertFhz(lf, 1, 'LF', false, 'THL');
             }
-            else if(keyword == 'Gartenlaubenbrand' ||
-                    keyword == 'Brennender LKW' ||
-                    keyword == 'Kleiner Feldbrand' ||
-                    keyword == 'Kleiner Feldbrand durch Feuerwerkskörper' ||
-                    keyword == 'Wohnwagenbrand' ||
-                    keyword == 'Küchenbrand' ||
-                    keyword == 'Garagenbrand' ||
-                    keyword == 'Mähdrescher Brand' ||
-                    keyword == 'Brennendes Gras' ||
-                    keyword == 'Eierkocherbrand' ||
-                    keyword == 'Carportbrand' ||
-                    keyword == 'Brennender Müllwagen' ||
-                    keyword == 'Brennendes Kürbisfeld')
+            else if(compareString(keyword, 'Gartenlaubenbrand') ||
+                    compareString(keyword, 'Brennender LKW') ||
+                    compareString(keyword, 'Kleiner Feldbrand') ||
+                    compareString(keyword, 'Kleiner Feldbrand durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Wohnwagenbrand') ||
+                    compareString(keyword, 'Küchenbrand') ||
+                    compareString(keyword, 'Garagenbrand') ||
+                    compareString(keyword, 'Mähdrescher Brand') ||
+                    compareString(keyword, 'Brennendes Gras') ||
+                    compareString(keyword, 'Eierkocherbrand') ||
+                    compareString(keyword, 'Carportbrand') ||
+                    compareString(keyword, 'Brennender Müllwagen') ||
+                    compareString(keyword, 'Brennendes Kürbisfeld'))
             {
                 if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                     alertFhz(fustw, 1, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false, 'B');
             }
-            else if(keyword == 'Geplatzte Wasserleitung' ||
-                    keyword == 'Kürbissuppe übergekocht')
+            else if(compareString(keyword, 'Geplatzte Wasserleitung') ||
+                    compareString(keyword, 'Kürbissuppe übergekocht'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Mitarbeiter unter PKW eingeklemmt' ||
-                    keyword == 'Person in Baumaschine eingeklemmt' ||
-                    keyword == 'Dehnfugenbrand')
-            {                
+            else if(compareString(keyword, 'Mitarbeiter unter PKW eingeklemmt') ||
+                    compareString(keyword, 'Person in Baumaschine eingeklemmt') ||
+                    compareString(keyword, 'Dehnfugenbrand'))
+            {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
@@ -790,38 +804,38 @@ function main() {
                     alertFhz(fustw, 1, 'FuStW', false);
                 }
             }
-            else if(keyword == 'Feuer auf Balkon' ||
-                    keyword == 'Feuer auf Balkon durch Feuerwerkskörper' ||
-                    keyword == 'Zimmerbrand' ||
-                    keyword == 'Verunglückter Fallschirmspringer')
+            else if(compareString(keyword, 'Feuer auf Balkon') ||
+                    compareString(keyword, 'Feuer auf Balkon durch Feuerwerkskörper') ||
+                    compareString(keyword, 'Zimmerbrand') ||
+                    compareString(keyword, 'Verunglückter Fallschirmspringer'))
             {
                 alertFhz(lf, 2, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
                 if(help.slice(-3) == 101)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Beschädigter Dachbereich')
+            else if(compareString(keyword, 'Beschädigter Dachbereich'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Verletzte Person auf Hochspannungsmast')
+            else if(compareString(keyword, 'Verletzte Person auf Hochspannungsmast'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(gwh, 1, 'GW-H', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Brennende Trafostation')
+            else if(compareString(keyword, 'Brennende Trafostation'))
             {
                 alertFhz(lf, 2, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 if(help.slice(-3) == 193)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'LKW in Supermarkt')
+            else if(compareString(keyword, 'LKW in Supermarkt'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false, 'THL');
@@ -833,7 +847,7 @@ function main() {
                 alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(mzkw, 1, 'MzKW', false);
             }
-            else if(keyword == 'Verkehrsunfall mit Linienbus')
+            else if(compareString(keyword, 'Verkehrsunfall mit Linienbus'))
             {
                 if(help.slice(-3) == 238)
                 {
@@ -855,7 +869,7 @@ function main() {
                         alertFhz(kdowlna, 1, 'LNA', false);
                 }
             }
-            else if(keyword == 'LKW umgestürzt')
+            else if(compareString(keyword, 'LKW umgestürzt'))
             {
                 if(help.slice(-3) == 121)
                 {
@@ -866,14 +880,14 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fwk, 1, 'FwK', false);
             }
-            else if(keyword == 'Verkehrsunfall mit Zug')
+            else if(compareString(keyword, 'Verkehrsunfall mit Zug'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Verkehrsunfall mit Linienbus')
+            else if(compareString(keyword, 'Verkehrsunfall mit Linienbus'))
             {
                 if(help.slice(-3) == 238)
                 {
@@ -893,64 +907,65 @@ function main() {
                     alertFhz(fwk, 1, 'FwK', false);
                 }
             }
-            else if(keyword == 'Pfefferspray in Schule')
+            else if(compareString(keyword, 'Pfefferspray in Schule'))
             {
                 alertFhz(lf, 2, 'LF', false);
                 alertFhz(fustw, 3, 'FuStW', false, 'POL');
                 alertFhz(gwm, 1, 'GW-M', false);
             }
-            else if(keyword == 'Feuer in Schnellrestaurant')
+            else if(compareString(keyword, 'Feuer in Schnellrestaurant'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
             }
-            else if (keyword == 'Brandsicherheitswache bei Volksfest')
+            else if (compareString(keyword, 'Brandsicherheitswache bei Volksfest'))
             {
                 alertFhz(lf, 3, 'LF', false);
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
             }
-            else if(keyword == 'Großer Waldbrand ')
+            else if(compareString(keyword, 'Großer Waldbrand ') ||
+                    compareString(keyword, 'Grosser Waldbrand '))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Brand im Supermarkt')
+            else if(compareString(keyword, 'Brand im Supermarkt'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Baum auf Oberleitung')
+            else if(compareString(keyword, 'Baum auf Oberleitung'))
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Gasunfall in Werkstatt')
+            else if(compareString(keyword, 'Gasunfall in Werkstatt'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Kellerbrand' ||
-                    keyword == 'Kellerbrand durch Feuerwerkskörper')
+            else if(compareString(keyword, 'Kellerbrand') ||
+                    compareString(keyword, 'Kellerbrand durch Feuerwerkskörper'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Maschinenbrand')
+            else if(compareString(keyword, 'Maschinenbrand'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(gwa, 1, 'GW-A', false);
                 alertFhz(gws, 1, 'GW-S', false);
             }
-            else if(keyword == 'Dachstuhlbrand' ||
-                    keyword == 'Feuer in Einfamilienhaus' ||
-                    keyword == 'Schornsteinbrand' ||
-                    keyword == 'Kaminbrand')
+            else if(compareString(keyword, 'Dachstuhlbrand') ||
+                    compareString(keyword, 'Feuer in Einfamilienhaus') ||
+                    compareString(keyword, 'Schornsteinbrand') ||
+                    compareString(keyword, 'Kaminbrand'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
@@ -958,8 +973,8 @@ function main() {
                 if(help.slice(-3) == 103 || help.slice(-3) == 105)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Rauchentwicklung in Museum' ||
-                    keyword == 'Saunabrand')
+            else if(compareString(keyword, 'Rauchentwicklung in Museum') ||
+                    compareString(keyword, 'Saunabrand'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'B');
@@ -967,7 +982,7 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(gwa, 1, 'GW-A', false);
             }
-            else if(keyword == 'Gasgeruch')
+            else if(compareString(keyword, 'Gasgeruch'))
             {
                 alertFhz(fustw, 1, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'B');
@@ -976,26 +991,26 @@ function main() {
                 alertFhz(gwm, 1, 'GW-M', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
             }
-            else if(keyword == 'Kleinflugzeug abgestürzt')
+            else if(compareString(keyword, 'Kleinflugzeug abgestürzt'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Aufgerissener Öltank')
+            else if(compareString(keyword, 'Aufgerissener Öltank'))
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
             }
-            else if(keyword == 'LKW Auffahrunfall')
+            else if(compareString(keyword, 'LKW Auffahrunfall'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Gefahrgut-LKW verunglückt ')
+            else if(compareString(keyword, 'Gefahrgut-LKW verunglückt '))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 3, 'LF', false, 'THL');
@@ -1005,8 +1020,9 @@ function main() {
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(gwm, 1, 'GW-M', false);
             }
-            else if(keyword == 'Mittlerer Feldbrand' ||
-                    keyword == 'Großer Feldbrand')
+            else if(compareString(keyword, 'Mittlerer Feldbrand') ||
+                    compareString(keyword, 'Großer Feldbrand') ||
+                    compareString(keyword, 'Grosser Feldbrand'))
             {
                 alertFhz(lf, 5, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -1014,7 +1030,7 @@ function main() {
                 if(help.slice(-3) == 133)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Tankstellenbrand')
+            else if(compareString(keyword, 'Tankstellenbrand'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -1022,21 +1038,21 @@ function main() {
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(gwm, 1, 'GW-M', false);
             }
-            else if(keyword == 'Brand in Werkstatt')
+            else if(compareString(keyword, 'Brand in Werkstatt'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(gwm, 1, 'GW-M', false);
             }
-            else if(keyword == 'Feuer im Krankenhaus' ||
-                    keyword == 'Scheunenbrand')
+            else if(compareString(keyword, 'Feuer im Krankenhaus') ||
+                    compareString(keyword, 'Scheunenbrand'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Brennende Lok')
+            else if(compareString(keyword, 'Brennende Lok'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(gwa, 1, 'GW-A', false);
@@ -1044,7 +1060,7 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(gws, 1, 'GW-S', false);
             }
-            else if(keyword == 'Flächenbrand')
+            else if(compareString(keyword, 'Flächenbrand'))
             {
                 if(help.slice(-3) == 139 || help.slice(-3) == 141)
                 {
@@ -1060,8 +1076,8 @@ function main() {
                 if(help.slice(-3) == 140 || help.slice(-3) == 141)
                     alertFhz(fustw, 2, 'FuStW', false);
             }
-            else if(keyword == 'Brennendes Reetdachhaus' ||
-                    keyword == 'Brennendes Reetdachhaus durch Feuerwerkskörper')
+            else if(compareString(keyword, 'Brennendes Reetdachhaus') ||
+                    compareString(keyword, 'Brennendes Reetdachhaus durch Feuerwerkskörper'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 5, 'LF', false, 'B');
@@ -1069,7 +1085,7 @@ function main() {
                 alertFhz(gwa, 1, 'GW-A', false);
                 alertFhz(elw1, 1, 'ELW1', false);
             }
-            else if(keyword == 'Strohballen qualmen in Scheune')
+            else if(compareString(keyword, 'Strohballen qualmen in Scheune'))
             {
                 alertFhz(lf, 5, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
@@ -1077,7 +1093,7 @@ function main() {
                 alertFhz(gwa, 1, 'GW-A', false);
                 alertFhz(gws, 1, 'GW-S', false);
             }
-            else if(keyword == 'Brennender Bus')
+            else if(compareString(keyword, 'Brennender Bus'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 5, 'LF', false, 'B');
@@ -1085,7 +1101,8 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(keyword == 'Großbrand')
+            else if(compareString(keyword, 'Großbrand') ||
+                    compareString(keyword, 'Grossbrand'))
             {
                 alertFhz(lf, 6, 'LF', false, 'B');
                 alertFhz(elw2, 1, 'ELW2', false);
@@ -1094,7 +1111,7 @@ function main() {
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(gwa, 1, 'GW-A', false);
             }
-            else if(keyword == 'Bürobrand')
+            else if(compareString(keyword, 'Bürobrand'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 6, 'LF', false, 'B');
@@ -1109,7 +1126,8 @@ function main() {
                     alertFhz(elw1, 2, 'ELW1', false);
                 }
             }
-            else if(keyword == 'Bürobrand (Groß)')
+            else if(compareString(keyword, 'Bürobrand (Groß)') ||
+                    compareString(keyword, 'Bürobrand (Gross)'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 10, 'LF', false, 'B');
@@ -1124,14 +1142,14 @@ function main() {
                     alertFhz(elw1seg, 1, 'ELW1-SEG', false);
                 }
             }
-            else if(keyword == 'Ausgedehnte Ölspur')
+            else if(compareString(keyword, 'Ausgedehnte Ölspur'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 6, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
             }
-            else if(keyword == 'Baumaschine umgestürzt')
+            else if(compareString(keyword, 'Baumaschine umgestürzt'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 4, 'LF', false, 'THL');
@@ -1141,7 +1159,7 @@ function main() {
                 alertFhz(oel, 1, 'GW-ÖL', false);
                 alertFhz(fwk, 1, 'FwK', false);
             }
-            else if(keyword == 'Chlorgasaustritt')
+            else if(compareString(keyword, 'Chlorgasaustritt'))
             {
                 alertFhz(fustw, 4, 'FuStW', false);
                 alertFhz(lf, 7, 'LF', false, 'THL');
@@ -1151,7 +1169,7 @@ function main() {
                 alertFhz(gwm, 1, 'GW-M', false);
                 alertFhz(gwg, 1, 'GW-G', false);
             }
-            else if(keyword == 'Sporthallenbrand')
+            else if(compareString(keyword, 'Sporthallenbrand'))
             {
                 alertFhz(lf, 7, 'LF', false, 'B');
                 alertFhz(dl, 2, 'DL', false);
@@ -1159,7 +1177,7 @@ function main() {
                 alertFhz(gwa, 1, 'GW-A', false);
                 alertFhz(gws, 1, 'GW-S', false);
             }
-            else if(keyword == 'Leck in Chemikalientank')
+            else if(compareString(keyword, 'Leck in Chemikalientank'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(lf, 8, 'LF', false, 'B');
@@ -1172,7 +1190,7 @@ function main() {
                 alertFhz(oel, 1, 'GW-ÖL', false);
                 alertFhz(ruest, 2, 'RÜST', false);
             }
-            else if(keyword == 'Feuer auf Bauernhof - Mittel')
+            else if(compareString(keyword, 'Feuer auf Bauernhof - Mittel'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 7, 'LF', false, 'B');
@@ -1181,7 +1199,8 @@ function main() {
                 alertFhz(dl, 2, 'DL', false);
                 alertFhz(gws, 1, 'GW-S', false);
             }
-            else if(keyword == 'Feuer auf Bauernhof - Groß')
+            else if(compareString(keyword, 'Feuer auf Bauernhof - Groß') ||
+                    compareString(keyword, 'Feuer auf Bauernhof - Gross'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 15, 'LF', false, 'B');
@@ -1196,14 +1215,15 @@ function main() {
                 alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(mzkw, 1, 'MzKW', false);
             }
-            else if(keyword == 'Brennender Güterwaggon')
+            else if(compareString(keyword, 'Brennender Güterwaggon'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 2, 'RÜST', false);
                 alertFhz(dl, 1, 'DL', false);
             }
-            else if(keyword == 'Großer Waldbrand')
+            else if(compareString(keyword, 'Großer Waldbrand') ||
+                    compareString(keyword, 'Grosser Waldbrand'))
             {
                 alertFhz(lf, 3, 'LF', false, 'B');
                 alertFhz(gws, 1, 'GW-S', false);
@@ -1211,7 +1231,8 @@ function main() {
                 if(help.slice(-3) == 135)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Großfeuer im Wald')
+            else if(compareString(keyword, 'Großfeuer im Wald') ||
+                    compareString(keyword, 'Grossfeuer im Wald'))
             {
                 if(help.slice(-3) == 136)
                 {
@@ -1232,7 +1253,7 @@ function main() {
                 alertFhz(gwm, 1, 'GW-M', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
             }
-            else if(keyword == 'Beschädigter Kesselwagen')
+            else if(compareString(keyword, 'Beschädigter Kesselwagen'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 10, 'LF', false);
@@ -1244,7 +1265,7 @@ function main() {
                 alertFhz(gkw, 1, 'GKW', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
             }
-            else if(keyword == 'Gasexplosion')
+            else if(compareString(keyword, 'Gasexplosion'))
             {
                 alertFhz(fustw, 4, 'FuStW', false);
                 alertFhz(lf, 20, 'LF', false);
@@ -1264,13 +1285,13 @@ function main() {
                 alertFhz(lkwk9, 1, 'LKW K 9', false);
                 alertFhz(anhdle, 1, 'Anh DLE', false);
             }
-            else if(keyword == 'Feuer im Lagerraum')
+            else if(compareString(keyword, 'Feuer im Lagerraum'))
             {
                 alertFhz(lf, 2, 'LF', false, 'B');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(dl, 1, 'DL', false);
             }
-            else if(keyword == 'Lagerhallenbrand')
+            else if(compareString(keyword, 'Lagerhallenbrand'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(gkw, 1, 'GKW', false);
@@ -1288,7 +1309,7 @@ function main() {
                 alertFhz(gwa, 1, 'GW-A', false);
                 alertFhz(gkw, 1, 'GKW', false);
             }
-            else if(keyword == 'Verkehrsunfall')
+            else if(compareString(keyword, 'Verkehrsunfall'))
             {
                 if(help.slice(-3) == 124 || help.slice(-3) == 126)
                 {
@@ -1311,9 +1332,9 @@ function main() {
                     alertFhz(fustw, 2, 'FuStW', false);
                 }
             }
-            else if(keyword == 'Person in Wasser' ||
-                    keyword == 'Hilflose Person auf Wasser' ||
-                    keyword == 'Tauchunfall')
+            else if(compareString(keyword, 'Person in Wasser') ||
+                    compareString(keyword, 'Hilflose Person auf Wasser') ||
+                    compareString(keyword, 'Tauchunfall'))
             {
                 alertFhz(boot, 1, 'Boot', false, 'RD');
                 alertFhz(rtw, 1, 'RTW', false);
@@ -1332,7 +1353,7 @@ function main() {
                     alertFhz(gwt, 1, 'GW-T', false);
                 }
             }
-            else if(keyword == 'Gewässerverschmutzung durch Öl')
+            else if(compareString(keyword, 'Gewässerverschmutzung durch Öl'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(boot, 1, 'Boot', false);
@@ -1340,7 +1361,7 @@ function main() {
                 alertFhz(oel, 1, 'GW-ÖL', false);
                 alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(keyword == 'Pkw in Wasser')
+            else if(compareString(keyword, 'Pkw in Wasser'))
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(boot, 2, 'Boot', false);
@@ -1348,8 +1369,8 @@ function main() {
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(gwt, 2, 'GW-T', false);
             }
-            else if(keyword == 'LKW in Wasser' ||
-                    keyword == 'Bus in Wasser')
+            else if(compareString(keyword, 'LKW in Wasser') ||
+                    compareString(keyword, 'Bus in Wasser'))
             {
                 alertFhz(lf, 5, 'LF', false, 'THL');
                 alertFhz(boot, 3, 'Boot', false);
@@ -1357,17 +1378,7 @@ function main() {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(gwt, 3, 'GW-T', false);
             }
-            else if(keyword == 'Fußball Bundesliga-Risikospiel')
-            {
-                alertFhz(lebefkw, 9, 'leBefKw', false, 'BePo');
-                alertFhz(grukw, 27, 'GruKW', false);
-                alertFhz(gefkw, 1, 'GefKW', false);
-                alertFhz(fuekw, 2, 'FüKW', false);
-                alertFhz(fustw, 5, 'FuStW', false);
-                alertFhz(rtw, 4, 'RTW', false);
-                alertFhz(lf, 2, 'LF', false);
-            }
-            else if(keyword == 'Brennendes Kleinflugzeug')
+            else if(compareString(keyword, 'Brennendes Kleinflugzeug'))
             {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(lf, 8, 'LF', false);
@@ -1377,7 +1388,7 @@ function main() {
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(oel, 1, 'GW-ÖL', false);
             }
-            else if(keyword == 'Chemieunfall an Schule')
+            else if(compareString(keyword, 'Chemieunfall an Schule'))
             {
                 alertFhz(lf, 8, 'LF', false);
                 alertFhz(elw2, 1, 'ELW2', false);
@@ -1388,7 +1399,7 @@ function main() {
                 alertFhz(gwm, 1, 'GW-M', false);
                 alertFhz(gwg, 2, 'GW-G', false);
             }
-            else if(keyword == 'Unbekannte Substanz')
+            else if(compareString(keyword, 'Unbekannte Substanz'))
             {
                 alertFhz(lf, 12, 'LF', false);
                 alertFhz(elw2, 1, 'ELW2', false);
@@ -1399,7 +1410,7 @@ function main() {
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(fustw, 4, 'FuStW', false);
             }
-            else if(keyword == 'Brand in Baumarkt')
+            else if(compareString(keyword, 'Brand in Baumarkt'))
             {
                 alertFhz(lf, 15, 'LF', false);
                 alertFhz(dl, 3, 'DL', false);
@@ -1411,15 +1422,16 @@ function main() {
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(fwk, 1, 'FwK', false);
                 alertFhz(ruest, 1, 'RÜST', false);
-                alertFhz(fustw, 5, 'FuStW', false);                 
+                alertFhz(fustw, 5, 'FuStW', false);
                 alertFhz(gkw, 2, 'GKW', false, 'THW');
                 alertFhz(mtwtz, 2, 'MTW-TZ', false);
                 alertFhz(brmgr, 2, 'BRmG R', false);
                 alertFhz(lkwk9, 2, 'LKW K 9', false);
-                alertFhz(mzkw, 2, 'MzKW', false); 
+                alertFhz(mzkw, 2, 'MzKW', false);
                 alertFhz(mlw5, 1, 'MLW-5', false);
             }
-            else if(keyword == 'Großfeuer im Krankenhaus')
+            else if(compareString(keyword, 'Großfeuer im Krankenhaus') ||
+                    compareString(keyword, 'Grossfeuer im Krankenhaus'))
             {
                 alertFhz(lf, 20, 'LF', false);
                 alertFhz(dl, 5, 'DL', false);
@@ -1432,7 +1444,7 @@ function main() {
                 alertFhz(gws, 2, 'GW-S', false);
                 alertFhz(gwh, 1, 'GW-H', false);
                 alertFhz(ruest, 2, 'RÜST', false);
-                alertFhz(fustw, 6, 'FuStW', false);                 
+                alertFhz(fustw, 6, 'FuStW', false);
                 alertFhz(gkw, 1, 'GKW', false, 'THW');
                 alertFhz(mtwtz, 1, 'MTW-TZ', false);
                 alertFhz(brmgr, 1, 'BRmG R', false);
@@ -2306,6 +2318,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 }
             }
         }
+        var fahrzeug2;
         if (checked === 0 && desc == 'ELW1'){
             desc_orig = desc;
             desc='ELW2';
@@ -2320,7 +2333,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //if vehice is found
                         if (z == fhz[l] && checked < toAlarm) {
                             //click the vehicle
-                            var fahrzeug2 = x[k].children[0];
+                            fahrzeug2 = x[k].children[0];
 
                             if (fahrzeug2.getAttribute("clicked") != 'yes')
                             {
@@ -2339,17 +2352,17 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             desc_orig = desc;
             desc='LF';
             fhz = lf;
-            for (k=0;k<x.length;k++) {
+            for (var m=0;m<x.length;m++) {
                 //get vehicle_type_id attribute
-                z = x[k].getAttribute('vehicle_type_id');
+                var zz = x[m].getAttribute('vehicle_type_id');
                 //check if element has the proper attribute
-                if (z !== null) {
+                if (zz !== null) {
                     //check the Vehicle array for the vehicle_type_id
-                    for (var l=0;l<fhz.length;l++) {
+                    for (var n=0;n<fhz.length;n++) {
                         //if vehice is found
-                        if (z == fhz[l] && checked < toAlarm) {
+                        if (zz == fhz[n] && checked < toAlarm) {
                             //click the vehicle
-                            fahrzeug2 = x[k].children[0];
+                            fahrzeug2 = x[m].children[0];
 
                             if (fahrzeug2.getAttribute("clicked") != 'yes')
                             {
