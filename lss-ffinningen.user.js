@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.3
+// @version     0.3.4.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -639,7 +639,8 @@ function main() {
                     compareString(keyword, 'Brennendes Osternest') ||
                     compareString(keyword, 'Brennende Vogelscheuche') ||
                     compareString(keyword, 'Ausgelöster Heimrauchmelder') ||
-                    compareString(keyword, 'Brennendes Kürbisfeld'))
+                    compareString(keyword, 'Brennendes Kürbisfeld') ||
+		    compareString(keyword, 'Brennender Tannenbaum'))
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
