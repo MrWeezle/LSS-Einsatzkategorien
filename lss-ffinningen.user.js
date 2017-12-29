@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.4
+// @version     0.3.4.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -295,6 +295,7 @@ function main() {
                 alertFhz(rtw, 2, 'RTW', false);
             }
             keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
+            keyword = keyword.replace(' (BRANDMELDEANLAGE)','').trim();
 
             if (!compareString(keyword, 'Krankentransport'))
             {
@@ -455,6 +456,9 @@ function main() {
                 alertFhz(fustw, 10, 'FuStW', false, 'POL');
                 alertFhz(ph, 1, 'PH', false);
             }
+            else if(compareString(keyword, 'Absicherung Radrennen'))
+            {
+            }
             /************************************************************************************* BEPO ************************************************************************************/
             else if(compareString(keyword, 'Schwerpunkteinsatz Tageswohnungseinbrüche'))
             {
@@ -556,6 +560,7 @@ function main() {
                 alertFhz(fuekw, 1, 'FüKW', false);
                 alertFhz(ph, 1, 'PH', false);
                 alertFhz(wawe, 3, 'WaWe', false);
+                alertFhz(gefkw, 1, 'GefKW', false);
             }
             /************************************************************************************* THW *************************************************************************************/
             else if(compareString(keyword, 'LKW in Hauswand'))
