@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.6
+// @version     0.3.4.7
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -537,7 +537,7 @@ function main() {
                     alertFhz(fustw, 3, 'FuStW', false);
                 }
             }
-	    else if(compareString(keyword, 'Absicherung Castor-Transport')
+	    else if(compareString(keyword, 'Absicherung Castor-Transport'))
 	    {
 		alertFhz(grukw, 18, 'GruKW', false);
                 alertFhz(lebefkw, 6, 'leBefKw', false);
