@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.5
+// @version     0.3.4.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -348,7 +348,8 @@ function main() {
                     compareString(keyword, 'Bluthochdruck') ||
                     compareString(keyword, 'Vaginale Blutung') ||
                     compareString(keyword, 'Unterzuckerung') ||
-                    compareString(keyword, 'Harnleiterblutung'))
+                    compareString(keyword, 'Harnleiterblutung') ||
+		    compareString(keyword, 'Handverletzung durch Feuerwerkskörper'))
             {
                 if (patients_anzahl > 0)
                 {
@@ -536,6 +537,16 @@ function main() {
                     alertFhz(fustw, 3, 'FuStW', false);
                 }
             }
+	    else if(compareString(keyword, 'Absicherung Castor-Transport')
+	    {
+		alertFhz(grukw, 18, 'GruKW', false);
+                alertFhz(lebefkw, 6, 'leBefKw', false);
+                alertFhz(fuekw, 2, 'FüKW', false);
+                alertFhz(fustw, 10, 'FuStW', false);
+                alertFhz(rtw, 2, 'RTW', false);
+                alertFhz(ph, 1, 'PH', false);
+                alertFhz(wawe, 2, 'WaWe', false);
+	    }
             else if(compareString(keyword, 'Fußball Bundesliga-Risikospiel') ||
                     compareString(keyword, 'Fussball Bundesliga-Risikospiel'))
             {
