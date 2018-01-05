@@ -1128,6 +1128,16 @@ function main() {
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(gwa, 1, 'GW-A', false);
             }
+	    else if(compareString(keyword, 'Tiefgaragenbrand'))
+	    {
+		alertFhz(lf, 6, 'LF', false, 'B');
+                alertFhz(dl, 2, 'DL', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(gwa, 2, 'GW-A', false);
+                alertFhz(gwm, 1, 'GW-M', false);
+                alertFhz(oel, 1, 'GW-ÖL', false);
+                alertFhz(fustw, 1, 'FuStW', false);
+	    }
             else if(compareString(keyword, 'Bürobrand'))
             {
                 alertFhz(fustw, 2, 'FuStW', false);
