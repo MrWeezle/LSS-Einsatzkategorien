@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     0.3.4.8
+// @version     0.4.0.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -48,6 +48,8 @@ var gws      = [11, 13, 14, 15, 16, 62];
 var gwh      = [33];
 var mtw      = [36];
 var fwk      = [57];
+var flf      = [75];
+var rt       = [76];
 
 
 //RETTUNGSDIENST
@@ -57,6 +59,8 @@ var nef      = [29];
 var kdoworgl = [56];
 var kdowlna  = [55];
 var rth      = [31];
+var grtw     = [73];
+var naw      = [74];
 
 //POLIZEI
 var fustw    = [32];
@@ -626,6 +630,63 @@ function main() {
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
+		
+	    /************************************************************************************ FLFW *************************************************************************************/
+	    else if(comapreString(keyword, 'Rauch in Kabine'))
+	    {
+		alertFhz(lf, 2, 'LF', false);
+		if(help.slice(-3) == 238)
+                {
+		    alertFhz(flf, 1, 'FLF', false);
+		    alertFhz(rt, 1, 'RT', false);
+		}
+	    }
+	    else if(comapreString(keyword, 'Absicherung Betankung'))
+	    {
+		alertFhz(lf, 1, 'LF', false);
+		alertFhz(flf, 2, 'FLF', false);
+	    }
+	    else if(comapreString(keyword, 'Überhitzte Bremsen'))
+	    {
+		alertFhz(lf, 1, 'LF', false);
+		alertFhz(flf, 1, 'FLF', false);
+		alertFhz(rt, 1, 'RT', false);
+		alertFhz(elw1, 1, 'ELW1', false);
+	    }
+	    else if(comapreString(keyword, 'Flugzeugzusammenstoß am Boden'))
+	    {
+		alertFhz(lf, 1, 'LF', false);
+		alertFhz(flf, 2, 'FLF', false);
+		alertFhz(rt, 1, 'RT', false);
+		alertFhz(ruest, 2, 'RÜST', false);
+		alertFhz(elw2, 1, 'ELW2', false);
+		alertFhz(elw1, 2, 'ELW1', false);
+	    }
+	    else if(comapreString(keyword, 'Triebwerksbrand'))
+	    {
+		alertFhz(flf, 4, 'FLF', false);
+		alertFhz(ruest, 1, 'RÜST', false);
+		alertFhz(lf, 2, 'LF', false);
+		alertFhz(elw1, 1, 'ELW1', false);
+	    }
+	    else if(comapreString(keyword, 'Brennendes Kleinflugzeug'))
+	    {
+		alertFhz(lf, 8, 'LF', false);
+		alertFhz(dl, 1, 'DL', false);
+		alertFhz(gws, 1, 'GW-S', false);
+		alertFhz(ruest, 1, 'RÜST', false);
+		alertFhz(elw2, 1, 'ELW2', false);
+		alertFhz(elw1, 2, 'ELW1', false);
+	    }
+	    else if(comapreString(keyword, 'Flugzeugbrand'))
+	    {
+		alertFhz(lf, 10, 'LF', false);
+		alertFhz(flf, 4, 'FLF', false);
+		alertFhz(rt, 1, 'RT', false);
+		alertFhz(ruest, 3, 'RÜST', false);
+		alertFhz(elw2, 1, 'ELW2', false);
+		alertFhz(elw1, 2, 'ELW1', false);
+	    }
             /************************************************************************************* FW **************************************************************************************/
             else if(compareString(keyword, 'Mülleimerbrand') ||
                     compareString(keyword, 'Containerbrand') ||
@@ -1608,6 +1669,18 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
+            for (j=0;j<flf.length;j++) {
+                if (fhz_id == flf[j]) {
+                    anz_onSite_flf++;
+                    break;
+                }
+            }
+            for (j=0;j<rt.length;j++) {
+                if (fhz_id == rt[j]) {
+                    anz_onSite_rt++;
+                    break;
+                }
+            }
             for (j=0;j<rtw.length;j++) {
                 if (fhz_id == rtw[j]) {
                     anz_onSite_rtw++;
@@ -1865,6 +1938,18 @@ function checkDrivingVehicles() {
             for (j=0;j<fwk.length;j++) {
                 if (fhz_id == fwk[j]) {
                     anz_Driving_fwk++;
+                    break;
+                }
+            }
+            for (j=0;j<flf.length;j++) {
+                if (fhz_id == flf[j]) {
+                    anz_Driving_flf++;
+                    break;
+                }
+            }
+            for (j=0;j<rt.length;j++) {
+                if (fhz_id == rt[j]) {
+                    anz_Driving_rt++;
                     break;
                 }
             }
@@ -2128,6 +2213,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = toAlarm - (anz_onSite_fwk + anz_Driving_fwk);
                 else
                     toAlarm = 0;
+                break;
+            case "flf":
+                toAlarm = toAlarm - (anz_onSite_flf + anz_Driving_flf);
+                break;
+            case "rt":
+                toAlarm = toAlarm - (anz_onSite_rt + anz_Driving_rt);
                 break;
             case "rtw":
                 if((anz_onSite_lf > 0 || anz_onSite_fustw > 0 || anz_onSite_gkw > 0 || anz_onSite_boot > 0) && patients_anzahl === 0)
@@ -2465,6 +2556,14 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             anz_Driving_fwk = anz_Driving_fwk+checked;
             color = color_fw;
             break;
+        case "flf":
+            anz_Driving_flf = anz_Driving_flf+checked;
+            color = color_fw;
+            break;
+        case "rt":
+            anz_Driving_rt = anz_Driving_rt+checked;
+            color = color_fw;
+            break;
         case "rtw":
             anz_Driving_rtw = anz_Driving_rtw+checked;
             color = color_rd;
@@ -2772,6 +2871,12 @@ function additionalFHZ() {
                             break;
                         case "Wasserwerfer":
                             alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+                        case "Flugfeldlöschefahrzeug":
+                            alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+			    break;
+                        case "Flugfeldlöschfahrzeug":
+                            alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+			    break;
                     }
                 }
             }
