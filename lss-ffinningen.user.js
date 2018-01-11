@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.0.0
+// @version     1.0.0.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -632,7 +632,7 @@ function main() {
             }
 		
 	    /************************************************************************************ FLFW *************************************************************************************/
-	    else if(comapreString(keyword, 'Rauch in Kabine'))
+	    else if(compareString(keyword, 'Rauch in Kabine'))
 	    {
 		alertFhz(lf, 2, 'LF', false);
 		if(help.slice(-3) == 238)
@@ -641,19 +641,19 @@ function main() {
 		    alertFhz(rt, 1, 'RT', false);
 		}
 	    }
-	    else if(comapreString(keyword, 'Absicherung Betankung'))
+	    else if(compareString(keyword, 'Absicherung Betankung'))
 	    {
 		alertFhz(lf, 1, 'LF', false);
 		alertFhz(flf, 2, 'FLF', false);
 	    }
-	    else if(comapreString(keyword, 'Überhitzte Bremsen'))
+	    else if(compareString(keyword, 'Überhitzte Bremsen'))
 	    {
 		alertFhz(lf, 1, 'LF', false);
 		alertFhz(flf, 1, 'FLF', false);
 		alertFhz(rt, 1, 'RT', false);
 		alertFhz(elw1, 1, 'ELW1', false);
 	    }
-	    else if(comapreString(keyword, 'Flugzeugzusammenstoß am Boden'))
+	    else if(compareString(keyword, 'Flugzeugzusammenstoß am Boden'))
 	    {
 		alertFhz(lf, 1, 'LF', false);
 		alertFhz(flf, 2, 'FLF', false);
@@ -662,14 +662,14 @@ function main() {
 		alertFhz(elw2, 1, 'ELW2', false);
 		alertFhz(elw1, 2, 'ELW1', false);
 	    }
-	    else if(comapreString(keyword, 'Triebwerksbrand'))
+	    else if(compareString(keyword, 'Triebwerksbrand'))
 	    {
 		alertFhz(flf, 4, 'FLF', false);
 		alertFhz(ruest, 1, 'RÜST', false);
 		alertFhz(lf, 2, 'LF', false);
 		alertFhz(elw1, 1, 'ELW1', false);
 	    }
-	    else if(comapreString(keyword, 'Brennendes Kleinflugzeug'))
+	    else if(compareString(keyword, 'Brennendes Kleinflugzeug'))
 	    {
 		alertFhz(lf, 8, 'LF', false);
 		alertFhz(dl, 1, 'DL', false);
@@ -678,7 +678,7 @@ function main() {
 		alertFhz(elw2, 1, 'ELW2', false);
 		alertFhz(elw1, 2, 'ELW1', false);
 	    }
-	    else if(comapreString(keyword, 'Flugzeugbrand'))
+	    else if(compareString(keyword, 'Flugzeugbrand'))
 	    {
 		alertFhz(lf, 10, 'LF', false);
 		alertFhz(flf, 4, 'FLF', false);
