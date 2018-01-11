@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.0.1
+// @version     1.0.1.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -184,10 +184,14 @@ var anz_onSite_gws = 0;
 var anz_onSite_gwh = 0;
 var anz_onSite_mtw = 0;
 var anz_onSite_fwk = 0;
+var anz_onSite_flf = 0;
+var anz_onSite_rt = 0;
 var anz_onSite_rtw = 0;
 var anz_onSite_ktw = 0;
 var anz_onSite_nef = 0;
 var anz_onSite_rth = 0;
+var anz_onSite_grtw = 0;
+var anz_onSite_naw = 0;
 var anz_onSite_kdoworgl = 0;
 var anz_onSite_kdowlna = 0;
 var anz_onSite_fustw = 0;
@@ -226,10 +230,14 @@ var anz_Driving_gws = 0;
 var anz_Driving_gwh = 0;
 var anz_Driving_mtw = 0;
 var anz_Driving_fwk = 0;
+var anz_Driving_flf = 0;
+var anz_Driving_rt = 0;
 var anz_Driving_rtw = 0;
 var anz_Driving_ktw = 0;
 var anz_Driving_nef = 0;
 var anz_Driving_rth = 0;
+var anz_Driving_grtw = 0;
+var anz_Driving_naw = 0;
 var anz_Driving_kdoworgl = 0;
 var anz_Driving_kdowlna = 0;
 var anz_Driving_fustw = 0;
