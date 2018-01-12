@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.0
+// @version     1.0.1.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2879,11 +2879,12 @@ function additionalFHZ() {
                             break;
                         case "Wasserwerfer":
                             alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+			    break;
                         case "Flugfeldlöschefahrzeug":
-                            alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+                            alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
 			    break;
                         case "Flugfeldlöschfahrzeug":
-                            alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
+                            alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
 			    break;
                     }
                 }
