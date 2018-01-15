@@ -661,7 +661,8 @@ function main() {
 		alertFhz(rt, 1, 'RT', false);
 		alertFhz(elw1, 1, 'ELW1', false);
 	    }
-	    else if(compareString(keyword, 'Flugzeugzusammenstoß am Boden'))
+	    else if(compareString(keyword, 'Flugzeugzusammenstoss am Boden') ||
+		    compareString(keyword, 'Flugzeugzusammenstoß am Boden'))
 	    {
 		alertFhz(lf, 1, 'LF', false);
 		alertFhz(flf, 2, 'FLF', false);
