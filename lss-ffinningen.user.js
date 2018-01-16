@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.3
+// @version     1.0.1.4
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -643,7 +643,7 @@ function main() {
 	    else if(compareString(keyword, 'Rauch in Kabine'))
 	    {
 		alertFhz(lf, 2, 'LF', false);
-		if(help.slice(-3) == 238)
+		if(help.slice(-3) == 328)
                 {
 		    alertFhz(flf, 1, 'FLF', false);
 		    alertFhz(rt, 1, 'RT', false);
@@ -1736,6 +1736,12 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
+            for (j=0;j<ph.length;j++) {
+                if (fhz_id == ph[j]) {
+                    anz_onSite_ph++;
+                    break;
+                }
+            }
             for (j=0;j<lebefkw.length;j++) {
                 if (fhz_id == lebefkw[j]) {
                     anz_onSite_lebefkw++;
@@ -1751,12 +1757,6 @@ function checkOnSiteVehicles() {
             for (j=0;j<gefkw.length;j++) {
                 if (fhz_id == gefkw[j]) {
                     anz_onSite_gefkw++;
-                    break;
-                }
-            }
-            for (j=0;j<ph.length;j++) {
-                if (fhz_id == ph[j]) {
-                    anz_onSite_ph++;
                     break;
                 }
             }
@@ -2008,6 +2008,12 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
+            for (j=0;j<ph.length;j++) {
+                if (fhz_id == ph[j]) {
+                    anz_Driving_ph++;
+                    break;
+                }
+            }
             for (j=0;j<lebefkw.length;j++) {
                 if (fhz_id == lebefkw[j]) {
                     anz_Driving_lebefkw++;
@@ -2023,12 +2029,6 @@ function checkDrivingVehicles() {
             for (j=0;j<gefkw.length;j++) {
                 if (fhz_id == gefkw[j]) {
                     anz_Driving_gefkw++;
-                    break;
-                }
-            }
-            for (j=0;j<ph.length;j++) {
-                if (fhz_id == ph[j]) {
-                    anz_Driving_ph++;
                     break;
                 }
             }
@@ -2271,6 +2271,12 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 else
                     toAlarm = 0;
                 break;
+            case "ph":
+                if (anzahl_ph >= 1)
+                    toAlarm = toAlarm - (anz_onSite_ph + anz_Driving_ph);
+                else
+                    toAlarm = 0;
+                break;
             case "lebefkw":
                 if (anzahl_bepo >= 1)
                     toAlarm = toAlarm - (anz_onSite_lebefkw + anz_Driving_lebefkw);
@@ -2289,12 +2295,6 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                 else
                     toAlarm = 0;
                 break;
-            case "ph":
-                if (anzahl_ph >= 1)
-                    toAlarm = toAlarm - (anz_onSite_ph + anz_Driving_ph);
-                else
-                    toAlarm = 0;
-                break;
             case "fükw":
                 if (anzahl_bepo >= 1)
                     toAlarm = toAlarm - (anz_onSite_fuekw + anz_Driving_fuekw);
@@ -2308,7 +2308,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = 0;
                 break;
             case "gkw":
-                if (anzahl_bepo >= 1)
+                if (anzahl_thw >= 1)
                     toAlarm = toAlarm - (anz_onSite_gkw + anz_Driving_gkw);
                 else
                     toAlarm = 0;
