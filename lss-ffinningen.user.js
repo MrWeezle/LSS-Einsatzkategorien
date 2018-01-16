@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.2
+// @version     1.0.1.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1133,11 +1133,14 @@ function main() {
                 alertFhz(gwm, 1, 'GW-M', false);
             }
             else if(compareString(keyword, 'Feuer im Krankenhaus') ||
-                    compareString(keyword, 'Scheunenbrand'))
+                    compareString(keyword, 'Scheunenbrand') ||
+		    compareString(keyword, 'Mehrere brennender Fahrzeuge'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(elw1, 1, 'ELW1', false);
+                if(help.slice(-3) == 344)
+		    alertFhz(ruest, 1, 'RÜST', false);
             }
             else if(compareString(keyword, 'Brennende Lok'))
             {
