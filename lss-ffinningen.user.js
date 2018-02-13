@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.4
+// @version     1.0.1.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -637,8 +637,7 @@ function main() {
                 alertFhz(fwk, 1, 'FwK', false);
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(ruest, 1, 'RÜST', false);
-            }
-		
+            }		
 	    /************************************************************************************ FLFW *************************************************************************************/
 	    else if(compareString(keyword, 'Rauch in Kabine'))
 	    {
@@ -908,12 +907,18 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(compareString(keyword, 'Verletzte Person auf Hochspannungsmast'))
+            else if(compareString(keyword, 'Verletzte Person auf Hochspannungsmast') ||
+		    compareString(keyword, 'Höhenrettung am Fahrgeschäft'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(gwh, 1, 'GW-H', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 1, 'FuStW', false);
+		if(help.slice(-3) == 345)
+		{		    
+                    alertFhz(dl, 1, 'DL', false);
+                    alertFhz(ruest, 1, 'RÜST', false);
+		}
             }
             else if(compareString(keyword, 'Brennende Trafostation'))
             {
@@ -1477,6 +1482,18 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(gwt, 3, 'GW-T', false);
+            }
+            else if(compareString(keyword, 'Helikopter in Baum')
+            {
+                alertFhz(lf, 6, 'LF', false, 'THL');
+                alertFhz(dl, 1, 'DL', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false, 'B');
+                alertFhz(ruest, 2, 'RÜST', false);
+                alertFhz(oel, 1, 'GW-ÖL', false);
+                alertFhz(gwh, 1, 'GW-H', false);
+                alertFhz(fustw, 3, 'FuStW', false);
+                alertFhz(fwk, 1, 'FwK', false);
             }
             else if(compareString(keyword, 'Brennendes Kleinflugzeug'))
             {
