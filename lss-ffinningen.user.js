@@ -1483,7 +1483,7 @@ function main() {
                 alertFhz(fustw, 3, 'FuStW', false);
                 alertFhz(gwt, 3, 'GW-T', false);
             }
-            else if(compareString(keyword, 'Helikopter in Baum')
+            else if(compareString(keyword, 'Helikopter in Baum'))
             {
                 alertFhz(lf, 6, 'LF', false, 'THL');
                 alertFhz(dl, 1, 'DL', false);
