@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.5
+// @version     1.0.1.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -42,7 +42,7 @@ var gwa      = [5, 48];
 var ruest    = [4, 30, 47];
 var oel      = [10, 49];
 var dekonp   = [53, 54];
-var gwg      = [27];
+var gwg      = [27, 77];
 var gwm      = [12];
 var gws      = [11, 13, 14, 15, 16, 62];
 var gwh      = [33];
@@ -1532,7 +1532,7 @@ function main() {
                 alertFhz(lf, 15, 'LF', false);
                 alertFhz(dl, 3, 'DL', false);
                 alertFhz(elw2, 2, 'ELW2', false);
-                alertFhz(elw1, 4, 'ELW1', false, 'B');
+                alertFhz(elw1, 4, 'ELW1', false);
                 alertFhz(gwa, 2, 'GW-A', false);
                 alertFhz(gwm, 2, 'GW-M', false);
                 alertFhz(gwg, 1, 'GW-G', false);
@@ -1540,20 +1540,39 @@ function main() {
                 alertFhz(fwk, 1, 'FwK', false);
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(fustw, 5, 'FuStW', false);
-                alertFhz(gkw, 2, 'GKW', false, 'THW');
+                alertFhz(gkw, 2, 'GKW', false);
                 alertFhz(mtwtz, 2, 'MTW-TZ', false);
                 alertFhz(brmgr, 2, 'BRmG R', false);
                 alertFhz(lkwk9, 2, 'LKW K 9', false);
                 alertFhz(mzkw, 2, 'MzKW', false);
                 alertFhz(mlw5, 1, 'MLW-5', false);
             }
+	    else if(compareString(keyword, 'Explosion in Biogasanlage'))
+	    {
+		alertFhz(lf, 20, 'LF', false);
+                alertFhz(dl, 2, 'DL', false);
+                alertFhz(ruest, 4, 'RÜST', false);
+                alertFhz(gwa, 2, 'GW-A', false);
+                alertFhz(gwm, 1, 'GW-M', false);
+                alertFhz(oel, 1, 'GW-ÖL', false);
+                alertFhz(gws, 1, 'GW-S', false);
+                alertFhz(elw2, 2, 'ELW2', false);
+                alertFhz(elw1, 4, 'ELW1', false);
+                alertFhz(fustw, 3, 'FuStW', false);
+                alertFhz(brmgr, 1, 'BRmG R', false);
+                alertFhz(lkwk9, 1, 'LKW K 9', false);
+                alertFhz(mzkw, 1, 'MzKW', false);
+                alertFhz(gkw, 1, 'GKW', false);
+                alertFhz(mtwtz, 1, 'MTW-TZ', false);
+                alertFhz(mlw5, 1, 'MLW-5', false);
+	    }
             else if(compareString(keyword, 'Großfeuer im Krankenhaus') ||
                     compareString(keyword, 'Grossfeuer im Krankenhaus'))
             {
                 alertFhz(lf, 20, 'LF', false);
                 alertFhz(dl, 5, 'DL', false);
                 alertFhz(elw2, 4, 'ELW2', false);
-                alertFhz(elw1, 6, 'ELW1', false, 'B');
+                alertFhz(elw1, 6, 'ELW1', false);
                 alertFhz(gwa, 3, 'GW-A', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
                 alertFhz(gwm, 3, 'GW-M', false);
@@ -2429,7 +2448,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //click the vehicle
                         var fahrzeug = x[i].children[0];
                         //If AB/Anh is needed, check if a WLF/Zugfahrzeug is present
-                        if((y >= 43 && y <= 44) || (y >= 47 && y <= 49) || y == 54 || y == 62 || (y >= 66 && y <= 68) || (y >= 70 && y <= 71))
+                        if((y >= 43 && y <= 44) || (y >= 47 && y <= 49) || y == 54 || y == 62 || (y >= 66 && y <= 68) || (y >= 70 && y <= 71) || y == 77)
                         {
                             var noZugfahrzeug = fahrzeug.children[1];
                             if (noZugfahrzeug.style.display == 'none')
