@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.7
+// @version     1.0.1.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2914,9 +2914,21 @@ function additionalFHZ() {
                         case "Radlader":
                             alertFhz(brmgr, fhz[ab]-anz_Driving_brmgr, 'BRmG R', true);
                             break;
+			case "THW-Einsatzleitung":
+                            alertFhz(mtwtz, fhz[ab]-anz_Driving_mtwtz, 'MTW-TZ', true);
+                            break;
+			case "THW-Mehrzweckkraftwagen":
+                            alertFhz(mzkw, fhz[ab]-anz_Driving_mzkw, 'MzKW', true);
+                            break;				    
                         case "GW-Taucher":
                             alertFhz(gwt, fhz[ab]-anz_Driving_gwt, 'GW-T', true);
                             break;
+                        case "GruKw":
+                            alertFhz(grukw, fhz[ab]-anz_Driving_grukw, 'GruKW', true);
+			    break;
+                        case "leBefKw":
+                            alertFhz(lebefkw, fhz[ab]-anz_Driving_lebefkw, 'leBefKw', true);
+			    break;
                         case "Wasserwerfer":
                             alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
 			    break;
