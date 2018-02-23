@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.0.1.8
+// @version     1.0.1.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -900,7 +900,8 @@ function main() {
                 if(help.slice(-3) == 101)
                     alertFhz(fustw, 1, 'FuStW', false);
             }
-            else if(compareString(keyword, 'Beschädigter Dachbereich'))
+            else if(compareString(keyword, 'Beschädigter Dachbereich') ||
+		    compareString(keyword, 'Brandgeruch'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(dl, 1, 'DL', false);
