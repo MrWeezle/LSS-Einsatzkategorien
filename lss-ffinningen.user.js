@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.5
+// @version     1.2.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1833,6 +1833,7 @@ function checkOnSiteVehicles() {
             for (j=0;j<naw.length;j++) {
                 if (fhz_id == naw[j]) {
                     anz_onSite_rtw++;
+                    anz_onSite_nef++;
                     anz_onSite_naw++;
                     break;
                 }
@@ -2146,6 +2147,7 @@ function checkDrivingVehicles() {
             for (j=0;j<naw.length;j++) {
                 if (fhz_id == naw[j]) {
                     anz_Driving_rtw++;
+                    anz_Driving_nef++;
                     anz_Driving_naw++;
                     break;
                 }
