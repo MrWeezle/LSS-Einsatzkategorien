@@ -37,7 +37,7 @@ var patients_anzahl = 0;
 var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37];
 var dl       = [2];
 var elw1     = [3];
-var elw2     = [34];
+var elw2     = [34, 78];
 var gwa      = [5, 48];
 var ruest    = [4, 30, 47];
 var oel      = [10, 49];
@@ -70,6 +70,10 @@ var gefkw    = [52];
 var ph       = [61];
 var fuekw    = [51];
 var wawe     = [72];
+var sekzf    = [79];
+var sekmtf   = [80];
+var mekzf    = [81];
+var mekmtf   = [82];
 
 //THW
 var gkw      = [39];
@@ -201,6 +205,10 @@ var anz_onSite_gefkw = 0;
 var anz_onSite_ph = 0;
 var anz_onSite_fuekw = 0;
 var anz_onSite_wawe = 0;
+var anz_onSite_sekzf = 0;
+var anz_onSite_sekmtf = 0;
+var anz_onSite_mekzf = 0;
+var anz_onSite_mekmtf = 0;
 var anz_onSite_gkw = 0;
 var anz_onSite_mzkw = 0;
 var anz_onSite_mtwtz = 0;
@@ -247,6 +255,10 @@ var anz_Driving_gefkw = 0;
 var anz_Driving_ph = 0;
 var anz_Driving_fuekw = 0;
 var anz_Driving_wawe = 0;
+var anz_Driving_sekzf = 0;
+var anz_Driving_sekmtf = 0;
+var anz_Driving_mekzf = 0;
+var anz_Driving_mekmtf = 0;
 var anz_Driving_gkw = 0;
 var anz_Driving_mzkw = 0;
 var anz_Driving_mtwtz = 0;
@@ -331,7 +343,8 @@ function main() {
                     compareString(keyword, 'Unterzuckerung') ||
                     compareString(keyword, 'Harnleiterblutung') ||
                     compareString(keyword, 'Handverletzung durch Feuerwerkskörper') ||
-                    compareString(keyword, 'Stromschlag'))
+                    compareString(keyword, 'Stromschlag') ||
+		    compareString(keyword, 'Grillunfall'))
                 {
                     if (patients_anzahl > 0)
                     {
@@ -435,7 +448,8 @@ function main() {
                     compareString(keyword, 'Häusliche Gewalt') ||
                     compareString(keyword, 'Absicherung Musikumzug') ||
                     compareString(keyword, 'Verkehrsüberwachung') ||
-                    compareString(keyword, 'Tiere auf der Fahrbahn'))
+                    compareString(keyword, 'Tiere auf der Fahrbahn') ||
+		    compareString(keyword, 'Bank: Stiller Alarm'))
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
             }
@@ -480,17 +494,10 @@ function main() {
             {
             }
             /************************************************************************************* BEPO ************************************************************************************/
-            else if(compareString(keyword, 'Schwerpunkteinsatz Tageswohnungseinbrüche'))
-            {
-                alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
-                alertFhz(grukw, 3, 'GruKW', false);
-            }
-            else if(compareString(keyword, 'Schwerpunkteinsatz Verkehrsüberwachung'))
-            {
-                alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
-                alertFhz(grukw, 3, 'GruKW', false);
-            }
-            else if(compareString(keyword, 'Präsenzeinsatz Volksfest'))
+            else if(compareString(keyword, 'Schwerpunkteinsatz Verkehrsüberwachung') ||
+		    compareString(keyword, 'Präsenzeinsatz Volksfest') ||
+		    compareString(keyword, 'Schwerpunkteinsatz Tageswohnungseinbrüche') ||
+		    compareString(keyword, 'Geländedurchsuchung nach Beweismittel'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
@@ -501,10 +508,11 @@ function main() {
                 alertFhz(grukw, 3, 'GruKW', false);
                 alertFhz(fustw, 2, 'FuStW', false);
             }
-            else if(compareString(keyword, 'Geländedurchsuchung nach Beweismittel'))
+            else if(compareString(keyword, 'Großkontrolle Betäubungsmittel'))
             {
                 alertFhz(lebefkw, 1, 'leBefKw', false, 'BP');
                 alertFhz(grukw, 3, 'GruKW', false);
+                alertFhz(fustw, 3, 'FuStW', false);
             }
             else if(compareString(keyword, 'Geplante Razzia'))
             {
@@ -592,6 +600,40 @@ function main() {
                 alertFhz(wawe, 3, 'WaWe', false);
                 alertFhz(gefkw, 1, 'GefKW', false);
             }
+	    /********************************************************************************** SEK / MEK **********************************************************************************/
+            else if(compareString(keyword, 'Waffenentzug'))
+            {
+                alertFhz(mekzf, 3, 'MEK ZF', false);                
+                alertFhz(mekmtf, 1, 'MEK MTF', false);
+                alertFhz(fustw, 4, 'FuStW', false);
+                alertFhz(fuekw, 1, 'FüKW', false);
+            }
+	    else if(compareString(keyword, 'Geplante Razzia - Verdächtiger flüchtig'))
+            {
+                alertFhz(mekzf, 3, 'MEK ZF', false);                
+                alertFhz(mekmtf, 1, 'MEK MTF', false);
+                alertFhz(fustw, 5, 'FuStW', false);
+                alertFhz(fuekw, 1, 'FüKW', false);
+                alertFhz(ph, 1, 'PH', false);
+		alertFhz(grukw, 6, 'GruKW', false);
+                alertFhz(lebefkw, 2, 'leBefKw', false);
+                alertFhz(gefkw, 1, 'GefKW', false);
+            }
+	    else if(compareString(keyword, 'Häusliche Gewalt - eskaliert'))
+            {
+                alertFhz(sekzf, 3, 'MEK ZF', false);                
+                alertFhz(sekmtf, 1, 'MEK MTF', false);
+                alertFhz(fustw, 4, 'FuStW', false);
+                alertFhz(fuekw, 1, 'FüKW', false);
+            }
+	    else if(compareString(keyword, 'Banküberfall'))
+            {
+                alertFhz(sekzf, 3, 'MEK ZF', false);                
+                alertFhz(sekmtf, 1, 'MEK MTF', false);
+                alertFhz(fustw, 8, 'FuStW', false);
+                alertFhz(fuekw, 1, 'FüKW', false);
+                alertFhz(ph, 1, 'PH', false);
+            }	    
             /************************************************************************************* THW *************************************************************************************/
             else if(compareString(keyword, 'LKW in Hauswand'))
             {
@@ -1547,6 +1589,18 @@ function main() {
                 alertFhz(gwg, 1, 'GW-G', false);
                 alertFhz(fustw, 4, 'FuStW', false);
             }
+	    else if(compareString(keyword, 'Brand in Mehrfamilienhaus'))
+	    {
+		alertFhz(lf, 12, 'LF', false);
+                alertFhz(dl, 3, 'DL', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 3, 'ELW1', false, 'B');
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(gws, 1, 'GW-S', false);
+                alertFhz(gwm, 2, 'GW-M', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(fustw, 4, 'FuStW', false);
+	    }
             else if(compareString(keyword, 'Brand in Baumarkt'))
             {
                 alertFhz(lf, 15, 'LF', false);
@@ -1843,9 +1897,33 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
-            for (j=0;j<gkw.length;j++) {
-                if (fhz_id == gkw[j]) {
-                    anz_onSite_gkw++;
+            for (j=0;j<wawe.length;j++) {
+                if (fhz_id == wawe[j]) {
+                    anz_onSite_wawe++;
+                    break;
+                }
+            }
+            for (j=0;j<sekzf.length;j++) {
+                if (fhz_id == sekzf[j]) {
+                    anz_onSite_sekzf++;
+                    break;
+                }
+            }
+            for (j=0;j<sekmtf.length;j++) {
+                if (fhz_id == sekmtf[j]) {
+                    anz_onSite_sekmtf++;
+                    break;
+                }
+            }
+            for (j=0;j<mekzf.length;j++) {
+                if (fhz_id == mekzf[j]) {
+                    anz_onSite_mekzf++;
+                    break;
+                }
+            }
+            for (j=0;j<mekmtf.length;j++) {
+                if (fhz_id == mekmtf[j]) {
+                    anz_onSite_mekmtf++;
                     break;
                 }
             }
@@ -2131,6 +2209,30 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
+            for (j=0;j<sekzf.length;j++) {
+                if (fhz_id == sekzf[j]) {
+                    anz_Driving_sekzf++;
+                    break;
+                }
+            }
+            for (j=0;j<sekmtf.length;j++) {
+                if (fhz_id == sekmtf[j]) {
+                    anz_Driving_sekmtf++;
+                    break;
+                }
+            }
+            for (j=0;j<mekzf.length;j++) {
+                if (fhz_id == mekzf[j]) {
+                    anz_Driving_mekzf++;
+                    break;
+                }
+            }
+            for (j=0;j<mekmtf.length;j++) {
+                if (fhz_id == mekmtf[j]) {
+                    anz_Driving_mekmtf++;
+                    break;
+                }
+            }
             for (j=0;j<gkw.length;j++) {
                 if (fhz_id == gkw[j]) {
                     anz_Driving_gkw++;
@@ -2400,6 +2502,30 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             case "wawe":
                 if (anzahl_bepo >= 1)
                     toAlarm = toAlarm - (anz_onSite_wawe + anz_Driving_wawe);
+                else
+                    toAlarm = 0;
+                break;			
+            case "sek zf":
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_sekzf + anz_Driving_sekzf);
+                else
+                    toAlarm = 0;
+                break;			
+            case "sek mtf":
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_sekmtf + anz_Driving_sekmtf);
+                else
+                    toAlarm = 0;
+                break;			
+            case "mek zf":
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_mekzf + anz_Driving_mekzf);
+                else
+                    toAlarm = 0;
+                break;			
+            case "mek mtf":
+                if (anzahl_bepo >= 1)
+                    toAlarm = toAlarm - (anz_onSite_mekmtf + anz_Driving_mekmtf);
                 else
                     toAlarm = 0;
                 break;
@@ -2732,6 +2858,22 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "wawe":
             anz_Driving_wawe = anz_Driving_wawe+checked;
+            color = color_pol;
+            break;
+        case "sekzf":
+            anz_Driving_sekzf = anz_Driving_sekzf+checked;
+            color = color_pol;
+            break;
+        case "sekmtf":
+            anz_Driving_sekmtf = anz_Driving_sekmtf+checked;
+            color = color_pol;
+            break;
+        case "mekzf":
+            anz_Driving_mekzf = anz_Driving_mekzf+checked;
+            color = color_pol;
+            break;
+        case "mekmtf":
+            anz_Driving_mekmtf = anz_Driving_mekmtf+checked;
             color = color_pol;
             break;
         case "gkw":
