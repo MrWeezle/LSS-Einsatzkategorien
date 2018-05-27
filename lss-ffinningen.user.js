@@ -621,19 +621,30 @@ function main() {
             }
 	    else if(compareString(keyword, 'Häusliche Gewalt - eskaliert'))
             {
-                alertFhz(sekzf, 3, 'MEK ZF', false);                
-                alertFhz(sekmtf, 1, 'MEK MTF', false);
+                alertFhz(sekzf, 3, 'SEK ZF', false);                
+                alertFhz(sekmtf, 1, 'SEK MTF', false);
                 alertFhz(fustw, 4, 'FuStW', false);
                 alertFhz(fuekw, 1, 'FüKW', false);
             }
 	    else if(compareString(keyword, 'Banküberfall'))
             {
-                alertFhz(sekzf, 3, 'MEK ZF', false);                
-                alertFhz(sekmtf, 1, 'MEK MTF', false);
+                alertFhz(sekzf, 3, 'SEK ZF', false);                
+                alertFhz(sekmtf, 1, 'SEK MTF', false);
                 alertFhz(fustw, 8, 'FuStW', false);
                 alertFhz(fuekw, 1, 'FüKW', false);
                 alertFhz(ph, 1, 'PH', false);
             }	    
+	    else if(compareString(keyword, 'Vollstreckung Haftbefehl'))
+	    {
+		alertFhz(fustw, 2, 'FuStW', false);
+	    }    
+	    else if(compareString(keyword, 'Vollstreckung Haftbefehl - eskaliert'))
+	    {
+		alertFhz(fustw, 6, 'FuStW', false);
+                alertFhz(fuekw, 1, 'FüKW', false);
+                alertFhz(sekzf, 3, 'SEK ZF', false);                
+                alertFhz(sekmtf, 1, 'SEK MTF', false);
+	    }
             /************************************************************************************* THW *************************************************************************************/
             else if(compareString(keyword, 'LKW in Hauswand'))
             {
@@ -774,7 +785,9 @@ function main() {
                     compareString(keyword, 'Brennende Vogelscheuche') ||
                     compareString(keyword, 'Ausgelöster Heimrauchmelder') ||
                     compareString(keyword, 'Brennendes Kürbisfeld') ||
-		    compareString(keyword, 'Brennender Tannenbaum'))
+		    compareString(keyword, 'Brennender Tannenbaum') ||
+		    compareString(keyword, 'Brennender Blumenstrauß') ||
+		    compareString(keyword, 'Brennender Blumenstrauss'))
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
@@ -1432,6 +1445,24 @@ function main() {
                 alertFhz(gkw, 1, 'GKW', false);
                 alertFhz(dekonp, 1, 'Dekon-P', false);
             }
+	    else if(compareString(keyword, 'Brennende Kirche'))
+	    {
+		alertFhz(lf, 15, 'LF', false);
+		alertFhz(dl, 3, 'DL', false);
+                alertFhz(gws, 2, 'GW-S', false);
+                alertFhz(gwa, 2, 'GW-A', false);
+                alertFhz(ruest, 4, 'RÜST', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 3, 'ELW1', false);                
+		alertFhz(gwm, 1, 'GW-M', false);
+                alertFhz(gkw, 1, 'GKW', false);
+                alertFhz(mzkw, 1, 'MzKW', false);
+                alertFhz(mtwtz, 1, 'MTW-TZ', false);
+                alertFhz(brmgr, 1, 'BRmG R', false);
+                alertFhz(lkwk9, 1, 'LKW K 9', false);
+                alertFhz(anhdle, 1, 'Anh DLE', false);
+                alertFhz(mlw5, 1, 'MLW-5', false);
+	    }
             else if(compareString(keyword, 'Gasexplosion'))
             {
                 alertFhz(fustw, 4, 'FuStW', false);
@@ -3087,6 +3118,23 @@ function additionalFHZ() {
                             break;
                         case "FuStW":
                             alertFhz(fustw, fhz[ab]-anz_Driving_fustw, 'FuStW', true);
+                            break;
+                        case "FüKw":
+                            alertFhz(fuekw, fhz[ab]-anz_Driving_fuekw, 'FüKW', true);
+                            break;
+                        case "SEK-Fahrzeuge":
+			    if(fhz[ab] < 5) {
+                            	alertFhz(sekmtf, 1, 'SEK MTF', true);
+                            	alertFhz(sekzf, 3, 'SEK ZF', true);
+			    }
+			    else if(fhz[ab] > 5) {
+				alertFhz(sekmtf, 2, 'SEK MTF', true);
+                            	alertFhz(sekzf, 6, 'SEK ZF', true);
+			    }
+                            break;
+                        case "SEK-Fahrzeug":
+                            alertFhz(sekzf, fhz[ab]-anz_Driving_sekzf-anz_Driving_sekmtf, 'SEK ZF', true);
+                            alertFhz(sekmtf, fhz[ab]-anz_Driving_sekmtf-anz_Driving_sekzf, 'SEK MTF', true);
                             break;
                         case "GW-A":
                             alertFhz(gwa, fhz[ab]-anz_Driving_gwa, 'GW-A', true);
