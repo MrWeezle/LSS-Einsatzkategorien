@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.9
+// @version     1.2.10
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -434,7 +434,8 @@ function main() {
                     compareString(keyword, 'Pinsel aus Werkstatt entwendet') ||
                     compareString(keyword, 'Angefahrener Osterhase') ||
                     compareString(keyword, 'Tankbetrug') ||
-                    compareString(keyword, 'Auffahrunfall'))
+                    compareString(keyword, 'Auffahrunfall') ||
+		    compareString(keyword, 'Herrenloses Gepäckstück'))
             {
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
             }
@@ -957,6 +958,12 @@ function main() {
                     alertFhz(dl, 1, 'DL', false);
                     alertFhz(fustw, 1, 'FuStW', false);
                 }
+		    if(help.slice(-3) == 393)
+		    {
+			 alertFhz(dl, 1, 'DL', false);
+                    	 alertFhz(fustw, 1, 'FuStW', false);  
+                    	 alertFhz(gkw, 1, 'GKW', false);   
+		    }
             }
             else if(compareString(keyword, 'Feuer auf Balkon') ||
                     compareString(keyword, 'Feuer auf Balkon durch Feuerwerkskörper') ||
@@ -1244,8 +1251,10 @@ function main() {
                     alertFhz(lf, 2, 'LF', false, 'B');
                 }
 
-                if(help.slice(-3) == 140 || help.slice(-3) == 141)
-                    alertFhz(fustw, 2, 'FuStW', false);
+                if(help.slice(-3) == 141)
+		{    
+		    alertFhz(fustw, 2, 'FuStW', false);
+		}
             }
             else if(compareString(keyword, 'Brennendes Reetdachhaus') ||
                     compareString(keyword, 'Brennendes Reetdachhaus durch Feuerwerkskörper'))
@@ -3220,7 +3229,7 @@ function additionalFHZ() {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen LNA.')>=0) {
             count_lna = 1;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen ein NEF.')>=0) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen: NEF')>=0) {
             count_nef++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW.')>=0 && !seg_alerted) {
@@ -3229,7 +3238,7 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen OrgL.')>=0) {
             count_orgl = 1;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigten einen RTH.')>=0) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigten: RTH')>=0) {
             count_rth++;
         }
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen einen RTW oder KTW Typ B.')>=0 && anz_onSite_kdoworgl < 1 && anz_Driving_kdoworgl < 1) {
