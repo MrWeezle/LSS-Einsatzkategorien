@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.10
+// @version     1.2.11
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -435,7 +435,8 @@ function main() {
                     compareString(keyword, 'Angefahrener Osterhase') ||
                     compareString(keyword, 'Tankbetrug') ||
                     compareString(keyword, 'Auffahrunfall') ||
-		    compareString(keyword, 'Herrenloses Gepäckstück'))
+		    compareString(keyword, 'Herrenloses Gepäckstück') ||
+		    compareString(keyword, 'Kind in PKW eingeschlossen'))
             {
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
             }
@@ -948,7 +949,8 @@ function main() {
             }
             else if(compareString(keyword, 'Mitarbeiter unter PKW eingeklemmt') ||
                     compareString(keyword, 'Person in Baumaschine eingeklemmt') ||
-                    compareString(keyword, 'Dehnfugenbrand'))
+                    compareString(keyword, 'Dehnfugenbrand') ||
+                    compareString(keyword, 'Einsturzgefährdeter Balkon'))
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
@@ -958,12 +960,12 @@ function main() {
                     alertFhz(dl, 1, 'DL', false);
                     alertFhz(fustw, 1, 'FuStW', false);
                 }
-		    if(help.slice(-3) == 393)
-		    {
-			 alertFhz(dl, 1, 'DL', false);
-                    	 alertFhz(fustw, 1, 'FuStW', false);  
-                    	 alertFhz(gkw, 1, 'GKW', false);   
-		    }
+		if(help.slice(-3) == 393)
+		{
+			alertFhz(dl, 1, 'DL', false);
+			alertFhz(fustw, 1, 'FuStW', false);  
+			alertFhz(gkw, 1, 'GKW', false);   
+		}
             }
             else if(compareString(keyword, 'Feuer auf Balkon') ||
                     compareString(keyword, 'Feuer auf Balkon durch Feuerwerkskörper') ||
