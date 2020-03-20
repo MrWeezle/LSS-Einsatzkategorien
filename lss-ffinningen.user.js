@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.8
+// @version     1.2.9
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -480,6 +480,12 @@ function main() {
             else if(compareString(keyword, 'Massenschlägerei'))
             {
                 alertFhz(fustw, 5, 'FuStW', false, 'POL');
+            }
+            else if(compareString(keyword, 'Gesprengter Geldautomat'))
+            {
+                alertFhz(fustw, 2, 'FuStW', false, 'POL');
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(ruest, 1, 'RÜST', false);
             }
             else if(compareString(keyword, 'Tankstellenüberfall'))
             {
@@ -1229,7 +1235,7 @@ function main() {
             {
                 if(help.slice(-3) == 139 || help.slice(-3) == 141)
                 {
-                    alertFhz(lf, 4, 'LF', false, 'B');
+                    alertFhz(lf, 7, 'LF', false, 'B');
                     alertFhz(gws, 1, 'GW-S', false);
                     alertFhz(elw1, 1, 'ELW1', false);
                 }
@@ -3100,7 +3106,7 @@ function additionalFHZ() {
     var count_mtw = 0;
     for (var i = 0;i<additionalfhz.length;i++) {
         if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Zusätzlich benötigte Fahrzeuge:')>=0) {
-            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2').replace('Anhänger','');
+            var additionalfhzInnerText = additionalfhz[i].innerText.replace(/\s\([a-zA-Z\s0-9]*\)/ig,'').replace('Zusätzlich benötigte Fahrzeuge: ','').replace(/[,\.]/ig,'').replace('ELW 2','ELW2').replace('ELW 1','ELW1').replace('1 ELW1 1 ELW2', '1 ELW2').replace('Anhänger','');
             var fhz = additionalfhzInnerText.split(' ');
             for (var ab=0;ab<fhz.length;ab++) {
                 if((ab % 2) === 0) {
