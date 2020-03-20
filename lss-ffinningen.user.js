@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.7
+// @version     1.2.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1100,11 +1100,16 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(compareString(keyword, 'Gasunfall in Werkstatt'))
+            else if(compareString(keyword, 'Gasunfall in Werkstatt') || 
+		    compareString(keyword, 'PKW im Gleisbett'))
             {
-                alertFhz(lf, 3, 'LF', false, 'B');
+                alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
+		    
+		if(help.slice(-3) == 385) {
+                	alertFhz(fustw, 1, 'FuStW', false);
+		}
             }
             else if(compareString(keyword, 'Kellerbrand') ||
                     compareString(keyword, 'Kellerbrand durch Feuerwerkskörper'))
