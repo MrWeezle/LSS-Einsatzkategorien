@@ -9,4 +9,4 @@
 // @run-at      document-idle
 // ==/UserScript==
 
-$("head").append('<script id="lss_manager_js" src="https://github.com/MrWeezle/LSS-Einsatzkategorien/raw/master/lss-ffinningen.user.js"  type="text/javascript"></script>');
+$("head").append('<script id="lss-mrweezle" src="https://github.com/MrWeezle/LSS-Einsatzkategorien/raw/master/lss-ffinningen.user.js"  type="text/javascript"></script>');
