@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.18
+// @version     1.3.0
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1032,7 +1032,8 @@ function main() {
                     compareString(keyword, 'Eierkocherbrand') ||
                     compareString(keyword, 'Carportbrand') ||
                     compareString(keyword, 'Brennender Müllwagen') ||
-                    compareString(keyword, 'Brennendes Kürbisfeld'))
+                    compareString(keyword, 'Brennendes Kürbisfeld') ||
+                    compareString(keyword, 'Brennende Ballenpresse'))
             {
                 if(help.slice(-3) == 100 || help.slice(-3) == 101 || help.slice(-3) == 103 || help.slice(-3) == 105)
                     alertFhz(fustw, 1, 'FuStW', false);
@@ -1374,6 +1375,22 @@ function main() {
                 if(help.slice(-3) == 344)
                     alertFhz(ruest, 1, 'RÜST', false);
             }
+            else if(compareString(keyword, 'Damm droht zu brechen'))
+            {
+                alertFhz(lf, 4, 'LF', false);
+                alertFhz(gws, 3, 'GW-S', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(gkw, 2, 'GKW', false, 'THW');
+                alertFhz(mzkw, 1, 'MzKW', false);
+                alertFhz(mtwtz, 1, 'MTW-TZ', false);
+                alertFhz(brmgr, 1, 'BRmG R', false);
+                alertFhz(mlw5, 1, 'MLW-5', false);
+                alertFhz(lkwk9, 1, 'LKW K 9', false);
+                alertFhz(fustw, 1, 'FuStW', false);
+                alertFhz(ph, 1, 'PH', false);
+            }
             else if(compareString(keyword, 'Brennende Lok'))
             {
                 alertFhz(lf, 4, 'LF', false, 'B');
@@ -1381,6 +1398,16 @@ function main() {
                 alertFhz(ruest, 1, 'RÜST', false);
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(gws, 1, 'GW-S', false);
+            }
+            else if(compareString(keyword, 'Verpuffung'))
+            {
+                alertFhz(lf, 6, 'LF', false, 'B');
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(gws, 1, 'GW-S', false);
+                alertFhz(ulf, 1, 'ULF', false);
+                alertFhz(tm50, 1, 'TM50', false);
             }
             else if(compareString(keyword, 'Flächenbrand'))
             {
@@ -1705,6 +1732,21 @@ function main() {
                 alertFhz(lf, 10, 'LF', false, 'THL 4');
                 alertFhz(ruest, 5, 'RÜST', false);
                 alertFhz(oel, 3, 'GW-ÖL', false);
+            }
+            else if(compareString(keyword, 'Brand in Eloxalanlage'))
+            {
+                alertFhz(lf, 12, 'LF', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 3, 'ELW1', false, 'B');
+                alertFhz(ruest, 4, 'RÜST', false);
+                alertFhz(gwm, 1, 'GW-M', false);
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(gwg, 1, 'GW-G', false);
+                alertFhz(dekonp, 1, 'Dekon-P', false);
+                alertFhz(ulf, 1, 'ULF', false);
+                alertFhz(tm50, 1, 'TM50', false);
+                alertFhz(fustw, 3, 'FuStW', false);
+                alertFhz(gwwerk, 1, 'GWWerk', false);
             }
             else if(compareString(keyword, 'Großbrand Müllverbrennungsanlage'))
             {
@@ -3333,19 +3375,19 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             break;
         case "ulf":
             anz_Driving_ulf = anz_Driving_ulf+checked;
-            color = fw;
+            color = color_fw;
             break;
         case "turbo":
             anz_Driving_turbo = anz_Driving_turbo+checked;
-            color = fw;
+            color = color_fw;
             break;
         case "gwwerk":
             anz_Driving_gwwerk = anz_Driving_gwwerk+checked;
-            color = fw;
+            color = color_fw;
             break;
         case "tm50":
             anz_Driving_tm50 = anz_Driving_tm50+checked;
-            color = fw;
+            color = color_fw;
             break;
     }
     if (checked < toAlarm && desc.toLowerCase() != 'ktw-b' && desc.toLowerCase() != 'naw') {
