@@ -2008,8 +2008,9 @@ function main() {
             }
 
             additionalFHZ();
-                //var title_bar = document.getElementsByClassName('mission_header_info');
-                //title_bar[0].scrollIntoView(true);
+            var title_bar = document.getElementsByClassName('mission_header_info');
+            title_bar[0].scrollIntoView(true);
+	    
                 //if (document.getElementById('amount_of_people') !== null)
                 //    document.getElementById('amount_of_people').scrollIntoView(true);
 
