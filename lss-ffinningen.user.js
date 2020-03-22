@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.14
+// @version     1.2.15
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -34,7 +34,7 @@ var seg_alerted = false;
 var patients_anzahl = 0;
 
 //FEUERWEHR
-var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37];
+var lf       = [0, 1, 6, 7, 8, 9, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30, 37, 87, 88, 89];
 var dl       = [2];
 var elw1     = [3];
 var elw2     = [34, 78];
@@ -50,6 +50,10 @@ var mtw      = [36];
 var fwk      = [57];
 var flf      = [75];
 var rt       = [76];
+var turbo    = [86];
+var ulf      = [84];
+var gwwerk   = [83];
+var tm50     = [85];
 
 
 //RETTUNGSDIENST
@@ -223,6 +227,10 @@ var anz_onSite_ktwb = 0;
 var anz_onSite_gwt = 0;
 var anz_onSite_gww = 0;
 var anz_onSite_boot = 0;
+var anz_onSite_turbo = 0;
+var anz_onSite_gwwerk = 0;
+var anz_onSite_tm50 = 0;
+var anz_onSite_ulf = 0;
 
 var anz_Driving_lf = 0;
 var anz_Driving_dl = 0;
@@ -273,6 +281,10 @@ var anz_Driving_ktwb = 0;
 var anz_Driving_gwt = 0;
 var anz_Driving_gww = 0;
 var anz_Driving_boot = 0;
+var anz_Driving_turbo = 0;
+var anz_Driving_gwwerk = 0;
+var anz_Driving_tm50 = 0;
+var anz_Driving_ulf = 0;
 
 var anzahl_fhz     = 0;
 var addedMissingFhzInformation = false;
@@ -288,7 +300,7 @@ var title_orig = document.getElementById('missionH1');
 
 var title = title_orig;
 
-main();
+setTimeout(main(), timeout);
 
 function compareString(string1, string2) {
     string2 = string2.replace('ß','ss');
@@ -306,7 +318,7 @@ function main() {
         title.innerHTML = origInner;
         keyword = orig;
 
-        setTimeout(function(){
+        //setTimeout(function(){
             debugger;
             var help_el = document.getElementById('mission_help');
             var help = "";
@@ -351,7 +363,8 @@ function main() {
                     compareString(keyword, 'Stromschlag') ||
                     compareString(keyword, 'Grillunfall') ||
                     compareString(keyword, 'LKW auf Stauende') ||
-                    compareString(keyword, 'Flugzeugreifenplatzer'))
+                    compareString(keyword, 'Flugzeugreifenplatzer') ||
+                    compareString(keyword, 'Transportunfall mit Strahler'))
                 {
                     if (patients_anzahl > 0)
                     {
@@ -471,7 +484,8 @@ function main() {
                     compareString(keyword, 'Verkehrsüberwachung') ||
                     compareString(keyword, 'Tiere auf der Fahrbahn') ||
                     compareString(keyword, 'Bank: Stiller Alarm') ||
-                    compareString(keyword, 'Taxi - Stiller Alarm'))
+                    compareString(keyword, 'Taxi - Stiller Alarm') ||
+                    compareString(keyword, 'Zwangseinweisung'))
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
             }
@@ -696,6 +710,18 @@ function main() {
                 alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(mzkw, 1, 'MzKW', false);
                 alertFhz(fwk, 1, 'FwK', false);
+            }
+            else if(compareString(keyword, 'Eingestürzter Funkmast'))
+            {
+                alertFhz(gkw, 1, 'GKW', false, 'THW');
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(mtwtz, 1, 'MTW-TZ', false);
+                alertFhz(mlw5, 1, 'MLW-5', false);
+                alertFhz(mzkw, 1, 'MzKW', false);
+                alertFhz(fwk, 1, 'FwK', false);
+                alertFhz(fustw, 3, 'FuStW', false);
             }
             else if(compareString(keyword, 'Erdrutsch') ||
                     compareString(keyword, 'Eingestürzter Hasenbau'))
@@ -1052,8 +1078,16 @@ function main() {
                     alertFhz(gkw, 1, 'GKW', false);
                     alertFhz(mtwtz, 1, 'MTW-TZ', false);
                     alertFhz(mlw5, 1, 'MLW-5', false);
-                    alertFhz(mzkw, 1, 'MzKW', false); 
+                    alertFhz(mzkw, 1, 'MzKW', false);
                 }
+            }
+            else if(compareString(keyword, 'PKW in Supermarkt'))
+            {
+                alertFhz(lf, 2, 'LF', false, 'THL');
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(dl, 1, 'DL', false);
+                alertFhz(fustw, 2, 'FuStW', false);
             }
             else if(compareString(keyword, 'Feuer auf Balkon') ||
                     compareString(keyword, 'Feuer auf Balkon durch Feuerwerkskörper') ||
@@ -1209,14 +1243,20 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
-            else if(compareString(keyword, 'Gasunfall in Werkstatt') || 
-		    compareString(keyword, 'PKW im Gleisbett'))
+            else if(compareString(keyword, 'Gasunfall in Werkstatt') ||
+                    compareString(keyword, 'PKW im Gleisbett') ||
+                    compareString(keyword, 'Transportunfall mit Strahler'))
             {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
                 if(help.slice(-3) == 385) {
                     alertFhz(fustw, 1, 'FuStW', false);
+                }
+                if(help.slice(-3) == 484) {
+                    alertFhz(fustw, 2, 'FuStW', false);
+                    alertFhz(gwm, 1, 'GW-M', false);
+                    alertFhz(gwa, 1, 'GW-A', false);
                 }
             }
             else if(compareString(keyword, 'Kellerbrand') ||
@@ -1483,6 +1523,16 @@ function main() {
                     alertFhz(kdoworgl, 1, 'OrgL', false);
                     alertFhz(elw1seg, 1, 'ELW1-SEG', false);
                 }
+            }
+            else if(compareString(keyword, 'Brand in Betreuungseinrichtung'))
+            {
+                 alertFhz(fustw, 4, 'FuStW', false);
+                alertFhz(lf, 10, 'LF', false, 'B');
+                alertFhz(dl, 4, 'DL', false);
+                alertFhz(elw2, 1, 'ELW2', false);
+                alertFhz(elw1, 2, 'ELW1', false);
+                alertFhz(gwa, 1, 'GW-A', false);
+                alertFhz(gws, 1, 'GW-S', false);
             }
             else if(compareString(keyword, 'Ausgedehnte Ölspur'))
             {
@@ -1950,7 +2000,7 @@ function main() {
                 if(done.length > 0)
                     done[0].style.color = 'green';
             }
-        }, timeout);
+        //}, timeout);
     }
 }
 
@@ -3453,7 +3503,7 @@ function additionalFHZ() {
         else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen: RTW oder KTW Typ B')>=0 && anz_onSite_kdoworgl < 1 && anz_Driving_kdoworgl < 1) {
             count_ktw++;
         }
-        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen eine Tragehilfe')>=0) {
+        else if (additionalfhz.length > 0 && additionalfhz[i].innerText.search('Wir benötigen: Tragehilfe')>=0) {
             count_mtw = 1;
         }
     }
@@ -3490,7 +3540,7 @@ function additionalFHZ() {
 function addMissingFhzInfo() {
     if (addedMissingFhzInformation) {
         var missing_vehicles_load = document.getElementsByClassName('missing_vehicles_load');
-        if(missing_vehicles_load.length > 0) {
+        if(missing_vehicles_load.length > 0 && missing_vehicles_load[0].text !== 'Lade...') {
             missing_vehicles_load[0].click();
             addedMissingFhzInformation = false;
             main();
