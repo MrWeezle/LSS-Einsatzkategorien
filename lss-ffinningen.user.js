@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.17
+// @version     1.2.18
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
