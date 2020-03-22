@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.15
+// @version     1.2.16
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2314,6 +2314,30 @@ function checkOnSiteVehicles() {
                     break;
                 }
             }
+            for (j=0;j<ulf.length;j++) {
+                if (fhz_id == ulf[j]) {
+                    anz_onSite_ulf++;
+                    break;
+                }
+            }
+            for (j=0;j<turbo.length;j++) {
+                if (fhz_id == turbo[j]) {
+                    anz_onSite_turbo++;
+                    break;
+                }
+            }
+            for (j=0;j<gwwerk.length;j++) {
+                if (fhz_id == gwwerk[j]) {
+                    anz_onSite_gwwerk++;
+                    break;
+                }
+            }
+            for (j=0;j<tm50.length;j++) {
+                if (fhz_id == tm50[j]) {
+                    anz_onSite_tm50++;
+                    break;
+                }
+            }
         }
     }
 }
@@ -2627,6 +2651,30 @@ function checkDrivingVehicles() {
                     break;
                 }
             }
+            for (j=0;j<ulf.length;j++) {
+                if (fhz_id == ulf[j]) {
+                    anz_Driving_ulf++;
+                    break;
+                }
+            }
+            for (j=0;j<turbo.length;j++) {
+                if (fhz_id == turbo[j]) {
+                    anz_Driving_turbo++;
+                    break;
+                }
+            }
+            for (j=0;j<gwwerk.length;j++) {
+                if (fhz_id == gwwerk[j]) {
+                    anz_Driving_gwwerk++;
+                    break;
+                }
+            }
+            for (j=0;j<tm50.length;j++) {
+                if (fhz_id == tm50[j]) {
+                    anz_Driving_tm50++;
+                    break;
+                }
+            }
         }
     }
 }
@@ -2921,6 +2969,18 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = toAlarm - (anz_onSite_boot + anz_Driving_boot);
                 else
                     toAlarm = 0;
+                break;
+            case "ulf":
+                toAlarm = toAlarm - (anz_onSite_ulf + anz_Driving_ulf);
+                break;
+            case "turbo":
+                toAlarm = toAlarm - (anz_onSite_turbo + anz_Driving_turbo);
+                break;
+            case "gwwerk":
+                toAlarm = toAlarm - (anz_onSite_gwwerk + anz_Driving_gwwerk);
+                break;
+            case "tm50":
+                toAlarm = toAlarm - (anz_onSite_tm50 + anz_Driving_tm50);
                 break;
         }
     }
@@ -3240,6 +3300,22 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
         case "boot":
             anz_Driving_boot = anz_Driving_boot+checked;
             color = color_wr;
+            break;
+        case "ulf":
+            anz_Driving_ulf = anz_Driving_ulf+checked;
+            color = fw;
+            break;
+        case "turbo":
+            anz_Driving_turbo = anz_Driving_turbo+checked;
+            color = fw;
+            break;
+        case "gwwerk":
+            anz_Driving_gwwerk = anz_Driving_gwwerk+checked;
+            color = fw;
+            break;
+        case "tm50":
+            anz_Driving_tm50 = anz_Driving_tm50+checked;
+            color = fw;
             break;
     }
     if (checked < toAlarm && desc.toLowerCase() != 'ktw-b' && desc.toLowerCase() != 'naw') {
