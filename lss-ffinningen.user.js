@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.2.16
+// @version     1.2.17
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -509,7 +509,8 @@ function main() {
             }
             else if(compareString(keyword, 'Monster ausgebrochen') ||
                     compareString(keyword, 'Schwertransport') ||
-                    compareString(keyword, 'Geplante Autobahnsperrung'))
+                    compareString(keyword, 'Geplante Autobahnsperrung') ||
+                    compareString(keyword, 'Geisterfahrer'))
             {
                 alertFhz(fustw, 4, 'FuStW', false, 'POL');
             }
@@ -877,7 +878,8 @@ function main() {
                     compareString(keyword, 'Brennendes Kürbisfeld') ||
                     compareString(keyword, 'Brennender Tannenbaum') ||
                     compareString(keyword, 'Brennender Blumenstrauß') ||
-                    compareString(keyword, 'Brennender Blumenstrauss'))
+                    compareString(keyword, 'Brennender Blumenstrauss') ||
+                    compareString(keyword, 'Rauchentwicklung an Förderband'))
             {
                 alertFhz(lf, 1, 'LF', false, 'B');
             }
@@ -1526,7 +1528,7 @@ function main() {
             }
             else if(compareString(keyword, 'Brand in Betreuungseinrichtung'))
             {
-                 alertFhz(fustw, 4, 'FuStW', false);
+                alertFhz(fustw, 4, 'FuStW', false);
                 alertFhz(lf, 10, 'LF', false, 'B');
                 alertFhz(dl, 4, 'DL', false);
                 alertFhz(elw2, 1, 'ELW2', false);
@@ -3597,7 +3599,7 @@ function additionalFHZ() {
     }
     if (count_ktw > 0)
     {
-        alertFhz(ktwb, count_ktw-anz_Driving_ktw, 'KTW-B', true);
+        alertFhz(ktwb, count_ktw-anz_Driving_ktw-anz_Driving_rtw, 'KTW-B', true);
     }
     if (count_orgl > 0)
     {
