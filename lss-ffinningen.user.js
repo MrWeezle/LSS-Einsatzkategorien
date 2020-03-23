@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.0
+// @version     1.3.1
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -331,7 +331,7 @@ function main() {
 
             if(includesString(keyword, 'Brandmeldeanlage'))
             {
-                alertFhz(rtw, 2, 'RTW', false);
+                alertFhz(rtw, 1, 'RTW', false);
             }
             keyword = keyword.replace(' (Brandmeldeanlage)','').trim();
             keyword = keyword.replace(' (BRANDMELDEANLAGE)','').trim();
@@ -485,7 +485,8 @@ function main() {
                     compareString(keyword, 'Tiere auf der Fahrbahn') ||
                     compareString(keyword, 'Bank: Stiller Alarm') ||
                     compareString(keyword, 'Taxi - Stiller Alarm') ||
-                    compareString(keyword, 'Zwangseinweisung'))
+                    compareString(keyword, 'Zwangseinweisung') ||
+                    compareString(keyword, 'Hundeangriff'))
             {
                 alertFhz(fustw, 2, 'FuStW', false, 'POL');
             }
@@ -763,7 +764,7 @@ function main() {
                 alertFhz(mlw5, 1, 'MLW-5', false);
                 alertFhz(lf, 4, 'LF', false);
                 alertFhz(fwk, 1, 'FwK', false);
-                alertFhz(dl, 2, 'DL', false);
+                alertFhz(dl, 1, 'DL', false);
                 alertFhz(ruest, 2, 'RÜST', false);
             }
             else if(compareString(keyword, 'Hausdach eingestürzt'))
@@ -913,6 +914,12 @@ function main() {
             {
                 alertFhz(lf, 1, 'LF', false);
                 alertFhz(dl, 1, 'DL', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+            }
+            else if(compareString(keyword, 'Brennende Waldhütte'))
+            {
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
             else if(compareString(keyword, 'Straße unter Wasser') ||
@@ -1067,6 +1074,11 @@ function main() {
                     alertFhz(dl, 1, 'DL', false);
                     alertFhz(fustw, 1, 'FuStW', false);
                 }
+                if(help.slice(-3) == 317)
+                {
+                    alertFhz(rtw, 1, 'RTW', false);
+                    alertFhz(nef, 1, 'NEF', false);
+                }
                 if(help.slice(-3) == 393)
                 {
                     alertFhz(dl, 1, 'DL', false);
@@ -1101,8 +1113,11 @@ function main() {
                 alertFhz(dl, 1, 'DL', false);
                 if(help.slice(-3) == 101)
                     alertFhz(fustw, 1, 'FuStW', false);
-                if(help.slice(-3) == 312)
+                if(help.slice(-3) == 312 || help.slice(-3) == 313)
+                {
                     alertFhz(nef, 1, 'NEF', false);
+                    alertFhz(rtw, 1, 'RTW', false);
+                }
                 if(help.slice(-3) == 314)
                 {
                     alertFhz(lf, 1, 'LF', false, '');
@@ -1246,6 +1261,14 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
+            else if(compareString(keyword, 'Entgleiste Stadtbahn'))
+            {
+                alertFhz(lf, 3, 'LF', false, 'THL');
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(fustw, 2, 'FuStW', false);
+                alertFhz(fwk, 2, 'FwK', false);
+            }
             else if(compareString(keyword, 'Gasunfall in Werkstatt') ||
                     compareString(keyword, 'PKW im Gleisbett') ||
                     compareString(keyword, 'Transportunfall mit Strahler'))
@@ -1253,7 +1276,7 @@ function main() {
                 alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(ruest, 1, 'RÜST', false);
-                if(help.slice(-3) == 385) {
+                if(help.slice(-3) == 379 || help.slice(-3) == 385) {
                     alertFhz(fustw, 1, 'FuStW', false);
                 }
                 if(help.slice(-3) == 484) {
@@ -1274,6 +1297,14 @@ function main() {
                 alertFhz(elw1, 1, 'ELW1', false);
                 alertFhz(fustw, 2, 'FuStW', false);
                 alertFhz(ruest, 1, 'RÜST', false);
+            }
+            else if(compareString(keyword, 'PKW in Zapfsäule'))
+            {
+                alertFhz(lf, 3, 'LF', false, 'B');
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(fustw, 2, 'FuStW', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(oel, 1, 'GW-ÖL', false);
             }
             else if(compareString(keyword, 'Maschinenbrand'))
             {
@@ -1408,6 +1439,7 @@ function main() {
                 alertFhz(gws, 1, 'GW-S', false);
                 alertFhz(ulf, 1, 'ULF', false);
                 alertFhz(tm50, 1, 'TM50', false);
+                alertFhz(gwwerk, 1, 'GWWerk', false);
             }
             else if(compareString(keyword, 'Flächenbrand'))
             {
@@ -3691,7 +3723,7 @@ function addMissingFhzInfo() {
         if(missing_vehicles_load.length > 0 && missing_vehicles_load[0].text !== 'Lade...') {
             missing_vehicles_load[0].click();
             addedMissingFhzInformation = false;
-            main();
+            setTimeout(main(), timeout);
         }
         else
         {
