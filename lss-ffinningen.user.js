@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.5
+// @version     1.3.6
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -364,7 +364,10 @@ function main() {
                     compareString(keyword, 'Grillunfall') ||
                     compareString(keyword, 'LKW auf Stauende') ||
                     compareString(keyword, 'Flugzeugreifenplatzer') ||
-                    compareString(keyword, 'Transportunfall mit Strahler'))
+                    compareString(keyword, 'Transportunfall mit Strahler') ||
+                    compareString(keyword, 'Pkw in Wasser') ||
+                    compareString(keyword, 'Akute Atemnot') ||
+                    compareString(keyword, 'Herzkreislaufprobleme'))
                 {
                     if (patients_anzahl > 0)
                     {
