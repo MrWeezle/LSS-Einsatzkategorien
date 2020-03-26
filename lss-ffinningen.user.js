@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.1
+// @version     1.3.2
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -916,6 +916,14 @@ function main() {
                 alertFhz(dl, 1, 'DL', false);
                 alertFhz(ruest, 1, 'RÜST', false);
             }
+            else if(compareString(keyword, 'Person in Schacht'))
+            {
+                alertFhz(lf, 1, 'LF', false);
+                alertFhz(dl, 1, 'DL', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(gwh, 1, 'GW-H', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+            }
             else if(compareString(keyword, 'Brennende Waldhütte'))
             {
                 alertFhz(lf, 1, 'LF', false);
@@ -923,9 +931,14 @@ function main() {
                 alertFhz(ruest, 1, 'RÜST', false);
             }
             else if(compareString(keyword, 'Straße unter Wasser') ||
-                    compareString(keyword, 'Strasse unter Wasser'))
+                    compareString(keyword, 'Strasse unter Wasser') ||
+                    compareString(keyword, 'Verschmutzte Fahrbahn'))
 			{
                 alertFhz(lf, 1, 'LF', false, 'THL');
+                if(help.slice(-3) == 436)
+                {
+                    alertFhz(fustw, 1, 'FuStW', false);
+                }
                 if(help.slice(-3) == 173)
                 {
                     alertFhz(fustw, 2, 'FuStW', false);
