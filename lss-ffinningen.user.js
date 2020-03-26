@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.4
+// @version     1.3.5
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -464,10 +464,11 @@ function main() {
                     compareString(keyword, 'Ermittlungen nach Unfallflucht') ||
                     compareString(keyword, 'Sachbeschädigung an PKW') ||
                     compareString(keyword, 'Beschädigte Radarfalle') ||
-                    compareString(keyword, 'Absicherung Pannen-LKW'))
+                    compareString(keyword, 'Absicherung Pannen-LKW') ||
+                    compareString(keyword, 'Angefahrener Radfahrer'))
             {
                 alertFhz(fustw, 1, 'FuStW', false, 'POL');
-                if(help.slice(-3) == 383)
+                if(help.slice(-3) == 383 || help.slice(-3) == 476)
                 {
                     alertFhz(rtw, 1, 'RTW', false, '');
                 }
@@ -815,12 +816,16 @@ function main() {
             }
             else if(compareString(keyword, 'Flugzeugreifenplatzer'))
             {
-                alertFhz(flf, 2, 'FLF', false, 'THL');
                 alertFhz(ruest, 1, 'RÜST', false);
-                alertFhz(lf, 3, 'LF', false);
+                alertFhz(lf, 3, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
-                alertFhz(rt, 1, 'RT', false);
                 alertFhz(fustw, 2, 'FuStW', false);
+
+                if(help.slice(-3) == 482 || help.slice(-3) == 483)
+                {
+                    alertFhz(flf, 2, 'FLF', false, 'THL');
+                    alertFhz(rt, 1, 'RT', false);
+                }
             }
             else if(compareString(keyword, 'Triebwerksbrand'))
             {
