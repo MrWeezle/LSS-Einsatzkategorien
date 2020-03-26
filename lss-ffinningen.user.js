@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.2
+// @version     1.3.3
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1064,6 +1064,13 @@ function main() {
             {
                 alertFhz(lf, 2, 'LF', false, 'THL');
                 alertFhz(elw1, 1, 'ELW1', false);
+            }
+            else if(compareString(keyword, 'PKW in Gebäude'))
+            {
+                alertFhz(lf, 2, 'LF', false, 'THL');
+                alertFhz(elw1, 1, 'ELW1', false);
+                alertFhz(ruest, 1, 'RÜST', false);
+                alertFhz(fustw, 2, 'FuStW', false);
             }
             else if(compareString(keyword, 'Person durch Hubmaschine eingeklemmt'))
             {
