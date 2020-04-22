@@ -1486,7 +1486,7 @@ function main() {
     {
         if(help.slice(-3) == 139 || help.slice(-3) == 141)
         {
-            alertFhz(lf, 7, 'LF', false, 'B');
+            alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
