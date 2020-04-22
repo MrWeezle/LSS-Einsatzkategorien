@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.7
+// @version     1.3.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1346,6 +1346,13 @@ function main() {
         alertFhz(fustw, 2, 'FuStW', false);
         alertFhz(ruest, 1, 'RÜST', false);
         alertFhz(oel, 1, 'GW-ÖL', false);
+    }
+    else if(compareString(keyword, 'Hüpfburgunfall'))
+    {
+		alertFhz(lf, 3, 'LF', false);
+        alertFhz(elw1, 1, 'ELW1', false);
+		alertFhz(ruest, 1, 'RÜST', false);
+		alertFhz(fustw, 1, 'FuStW', false);
     }
     else if(compareString(keyword, 'Maschinenbrand'))
     {
