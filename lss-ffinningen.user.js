@@ -2095,6 +2095,15 @@ function main() {
                 alertFhz(lkwk9, 1, 'LKW K 9', false);
                 alertFhz(mzkw, 1, 'MzKW', false);
             }
+	    else if(compareString(keyword, 'Hüpfburgunfall') ||
+            {
+		alertFhz(lf, 3, 'LF', false);
+                alertFhz(elw1, 1, 'ELW1', false);
+		alertFhz(ruest, 1, 'RÜST', false);
+		alertFhz(fustw, 1, 'FuStW', false);
+		alertFhz(rtw, 3, 'RTW', false);
+		alertFhz(nef, 1, 'NEF', false);
+            }
             else
             {
                 if(addedMissingFhzInformation)
