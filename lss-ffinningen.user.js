@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.7
+// @version     1.3.8
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -1347,6 +1347,13 @@ function main() {
         alertFhz(ruest, 1, 'RÜST', false);
         alertFhz(oel, 1, 'GW-ÖL', false);
     }
+    else if(compareString(keyword, 'Hüpfburgunfall'))
+    {
+		alertFhz(lf, 3, 'LF', false);
+        alertFhz(elw1, 1, 'ELW1', false);
+		alertFhz(ruest, 1, 'RÜST', false);
+		alertFhz(fustw, 1, 'FuStW', false);
+    }
     else if(compareString(keyword, 'Maschinenbrand'))
     {
         alertFhz(lf, 3, 'LF', false, 'B');
@@ -1486,7 +1493,7 @@ function main() {
     {
         if(help.slice(-3) == 139 || help.slice(-3) == 141)
         {
-            alertFhz(lf, 7, 'LF', false, 'B');
+            alertFhz(lf, 5, 'LF', false, 'B');
             alertFhz(gws, 1, 'GW-S', false);
             alertFhz(elw1, 1, 'ELW1', false);
         }
@@ -1521,6 +1528,22 @@ function main() {
         alertFhz(brmgr, 1, 'BRmG R', false);
         alertFhz(mlw5, 1, 'MLW-5', false);
         alertFhz(lkwk9, 1, 'LKW K 9', false);
+    }
+    else if (compareString(keyword, 'Schwimmbaddach eingestürzt'))
+    {
+        alertFhz(lf, 6, 'LF', false);
+        alertFhz(elw1, 2, 'ELW1', false);
+        alertFhz(ruest, 2, 'RÜST', false);
+        alertFhz(dl, 1, 'DL', false);
+        alertFhz(fwk, 1, 'FwK', false);
+        alertFhz(gkw, 3, 'GKW', false, 'THW');
+        alertFhz(mtwtz, 1, 'MTW-TZ', false);
+        alertFhz(mlw5, 1, 'MLW-5', false);
+        alertFhz(fustw, 4, 'FuStW', false);
+        alertFhz(mzkw, 2, 'MzKW', false);
+        alertFhz(brmgr, 1, 'BRmG R', false);
+        alertFhz(lkwk9, 1, 'LKW K 9', false);
+        alertFhz(anhdle, 1, 'Anh DLE', false);
     }
     else if(compareString(keyword, 'Brennendes Reetdachhaus') ||
             compareString(keyword, 'Brennendes Reetdachhaus durch Feuerwerkskörper'))
@@ -3147,7 +3170,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     //If AB/Anh is needed, check if a WLF/Zugfahrzeug is present
                     if((vehicleId >= 43 && vehicleId <= 44) || (vehicleId >= 47 && vehicleId <= 49) || vehicleId == 54 || vehicleId == 62 || (vehicleId >= 66 && vehicleId <= 68) || (vehicleId >= 70 && vehicleId <= 71) || vehicleId == 77)
                     {
-                        var noZugfahrzeug = fahrzeug.children[1];
+                        var noZugfahrzeug = fahrzeug.children[0].children[1];
                         if (noZugfahrzeug.style.display == 'none')
                         {
                             if (fahrzeug.getAttribute("clicked") != 'yes')
@@ -3226,7 +3249,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                         //if vehice is found
                         if (vehicleId3 == fhz[n] && checked < toAlarm) {
                             //click the vehicle
-                            fahrzeug2 = x[m].children[0];
+                            fahrzeug2 = allVehicles[m].children[0];
 
                             if (fahrzeug2.getAttribute("clicked") != 'yes')
                             {
