@@ -380,7 +380,8 @@ function main() {
            compareString(keyword, 'Transportunfall mit Strahler') ||
            compareString(keyword, 'Pkw in Wasser') ||
            compareString(keyword, 'Akute Atemnot') ||
-           compareString(keyword, 'Herzkreislaufprobleme'))
+           compareString(keyword, 'Herzkreislaufprobleme') ||
+           compareString(keyword, 'Vergiftung'))
         {
             if (patients_anzahl > 0)
             {
@@ -816,6 +817,10 @@ function main() {
     else if(compareString(keyword, 'Absicherung Betankung'))
     {
         alertFhz(lf, 1, 'LF', false);
+        alertFhz(flf, 2, 'FLF', false);
+    }
+    else if(compareString(keyword, 'Flugzeug Erstlandung'))
+    {
         alertFhz(flf, 2, 'FLF', false);
     }
     else if(compareString(keyword, 'Überhitzte Bremsen'))
