@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.10
+// @version     1.3.11
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -2972,6 +2972,9 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                     toAlarm = toAlarm - (anz_onSite_rtw + anz_Driving_rtw);
                 break;
             case "grtw":
+                if ((patients_anzahl - anz_Driving_rtw) < 5) {
+                    toAlarm = 0;
+                }
                 toAlarm = toAlarm - (anz_onSite_grtw + anz_Driving_grtw);
                 break;
             case "ktw":
