@@ -1426,15 +1426,19 @@ function main() {
         alertFhz(gwg, 1, 'GW-G', false);
         alertFhz(gwm, 1, 'GW-M', false);
     }
-    else if(compareString(keyword, 'Mittlerer Feldbrand') ||
-            compareString(keyword, 'Großer Feldbrand') ||
-            compareString(keyword, 'Grosser Feldbrand'))
+    else if(compareString(keyword, 'Mittlerer Feldbrand'))
     {
         alertFhz(lf, 5, 'LF', false, 'B');
         alertFhz(elw1, 1, 'ELW1', false);
         alertFhz(gws, 1, 'GW-S', false);
-        if(help.slice(-3) == 133)
-            alertFhz(fustw, 1, 'FuStW', false);
+    }
+    else if(compareString(keyword, 'Großer Feldbrand') ||
+            compareString(keyword, 'Grosser Feldbrand'))
+    {
+	alertFhz(lf, 7, 'LF', false, 'B');
+	alertFhz(elw1, 1, 'ELW1', false);
+        alertFhz(gws, 1, 'GW-S', false);
+	alertFhz(fustw, 1, 'FuStW', false);
     }
     else if(compareString(keyword, 'Tankstellenbrand'))
     {
