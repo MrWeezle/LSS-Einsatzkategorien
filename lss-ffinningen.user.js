@@ -2139,7 +2139,7 @@ function main() {
         alertFhz(elw1, 1, 'ELW1', false);
       
         if(help.slice(-3) == 344) {
-            alertFhz(ruest, 1, 'RÜST', false);
+            alertFhz(fustw, 1, 'FuStW', false);
         }
     }
     else if(compareString(keyword, 'Brennender Stall'))
