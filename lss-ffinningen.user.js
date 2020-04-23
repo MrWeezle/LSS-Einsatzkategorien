@@ -2131,6 +2131,28 @@ function main() {
         alertFhz(lkwk9, 1, 'LKW K 9', false);
         alertFhz(mzkw, 1, 'MzKW', false);
     }
+    else if(compareString(keyword, 'Scheunenbrand'))
+    {
+        alertFhz(lf, 9, 'LF', false);
+        alertFhz(dl, 1, 'DL', false);
+        alertFhz(gwa, 1, 'GW-A', false);
+        alertFhz(gws, 1, 'GW-S', false);
+        alertFhz(elw1, 1, 'ELW1', false);
+      
+        if(help.slice(-3) == 344) {
+            alertFhz(fustw, 1, 'FuStW', false);
+        }
+    }
+    else if(compareString(keyword, 'Brennender Stall'))
+    {
+        alertFhz(lf, 6, 'LF', false);
+        alertFhz(dl, 2, 'DL', false);
+        alertFhz(gwa, 1, 'GW-A', false);
+        alertFhz(gws, 1, 'GW-S', false);
+        alertFhz(elw2, 1, 'ELW2', false);
+        alertFhz(elw1, 2, 'ELW1', false);
+        alertFhz(fustw, 2, 'FuStW', false);
+    }
     else
     {
         if(addedMissingFhzInformation)
