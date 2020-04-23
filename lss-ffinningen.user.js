@@ -3764,10 +3764,8 @@ function additionalFHZ() {
                         case "Wasserwerfer":
                             alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
                             break;
-                        case "Flugfeldlöschefahrzeug":
-                            alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
-                            break;
                         case "Flugfeldlöschfahrzeug":
+                        case "Flugfeldlöschfahrzeuge":
                             alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
                             break;
                         case "Polizeihubschrauber":
