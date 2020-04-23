@@ -495,6 +495,11 @@ function main() {
         alertFhz(fustw, 1, 'FuStW', false, 'POL');
         alertFhz(rtw, 1, 'RTW', false);
     }
+    else if(compareString(keyword, 'Beweismittelsuche im Wasser')) {
+        alertFhz(fustw, 1, 'FuStW', false, 'POL');
+        alertFhz(boot, 1, 'Boot', false)
+        alertFhz(gwt, 1, 'GW-T', false);
+    }
     else if(compareString(keyword, 'Randalierende Person') ||
             compareString(keyword, 'Häusliche Gewalt') ||
             compareString(keyword, 'Absicherung Musikumzug') ||
@@ -1281,12 +1286,14 @@ function main() {
         alertFhz(lf, 3, 'LF', false);
         alertFhz(fustw, 1, 'FuStW', false, 'POL');
     }
-    else if(compareString(keyword, 'Großer Waldbrand ') ||
-            compareString(keyword, 'Grosser Waldbrand '))
+    else if(compareString(keyword, 'Großer Waldbrand') ||
+            compareString(keyword, 'Grosser Waldbrand'))
     {
-        alertFhz(lf, 3, 'LF', false, 'B');
+        alertFhz(lf, 5, 'LF', false, 'B');
         alertFhz(gws, 1, 'GW-S', false);
         alertFhz(elw1, 1, 'ELW1', false);
+        if(help.slice(-3) == 135)
+            alertFhz(fustw, 1, 'FuStW', false);
     }
     else if(compareString(keyword, 'Brand im Supermarkt'))
     {
@@ -1445,6 +1452,7 @@ function main() {
         alertFhz(gwm, 1, 'GW-M', false);
     }
     else if(compareString(keyword, 'Feuer im Krankenhaus') ||
+            compareString(keyword, 'Scheunenbrand') ||
             compareString(keyword, 'Mehrere brennende Fahrzeuge'))
     {
         alertFhz(lf, 4, 'LF', false);
@@ -1452,6 +1460,8 @@ function main() {
         alertFhz(elw1, 1, 'ELW1', false);
         if(help.slice(-3) == 344)
             alertFhz(ruest, 1, 'RÜST', false);
+        if(help.slice(-3) == 204)
+            alertFhz(lf, 9, 'LF', false);
     }
     else if(compareString(keyword, 'Damm droht zu brechen'))
     {
@@ -1766,15 +1776,6 @@ function main() {
         alertFhz(elw1, 1, 'ELW1', false);
         alertFhz(ruest, 1, 'RÜST', false);
         alertFhz(fustw, 2, 'FuStW', false);
-    }
-    else if(compareString(keyword, 'Großer Waldbrand') ||
-            compareString(keyword, 'Grosser Waldbrand'))
-    {
-        alertFhz(lf, 3, 'LF', false, 'B');
-        alertFhz(gws, 1, 'GW-S', false);
-        alertFhz(elw1, 1, 'ELW1', false);
-        if(help.slice(-3) == 135)
-            alertFhz(fustw, 1, 'FuStW', false);
     }
     else if(compareString(keyword, 'Großfeuer im Wald') ||
             compareString(keyword, 'Grossfeuer im Wald'))
@@ -3215,6 +3216,18 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
                             {
                                 nef_rth++;
                             }
+                            if(vehicleId == 73) {
+                                var mode = fahrzeug.children[2].children[0].getAttribute("checked");
+                                if (mode == "checked")
+                                {
+                                    patients_anzahl -= 7;
+                                    anz_Driving_rtw += 7;
+                                } else {
+                                    patients_anzahl -= 3;
+                                    anz_Driving_rtw += 3;
+                                    anz_Driving_nef += 3;
+                                }
+                            }
                             label.click();
                             fahrzeug.setAttribute("clicked", "yes");
                             //and count how many are clicked
@@ -3505,7 +3518,7 @@ function alertFhz(fhz, anzahl, desc, additional, aao_key) {
             color = color_fw;
             break;
     }
-    if (checked < toAlarm && desc.toLowerCase() != 'ktw-b' && desc.toLowerCase() != 'naw') {
+    if (checked < toAlarm && desc.toLowerCase() != 'ktw-b' && desc.toLowerCase() != 'naw' && desc.toLowerCase() != 'grtw') {
         var regex = new RegExp('(, \\d ' + desc + ')', 'ig');
         var matches = 0;
         if (missingFhzText.match(regex) !== null)
@@ -3553,7 +3566,12 @@ function RTW(keyword_rtw) {
 
         if(patients_anzahl >= 5)
         {
+            var tmp_Patients = patients_anzahl;
             alertFhz(grtw, 1, 'GRTW', false);
+            if (patients_anzahl > 0) {
+                alertFhz(rtw, patients_anzahl, 'RTW', false);
+            }
+            patients_anzahl = tmp_Patients;
             if (anzahl_seg > 0) {
                 alertFhz(elw1seg, 1, 'ELW1-SEG', false, 'SEG');
                 alertFhz(gwsan, 1, 'GW-SAN', false);
