@@ -819,10 +819,6 @@ function main() {
         alertFhz(lf, 1, 'LF', false);
         alertFhz(flf, 2, 'FLF', false);
     }
-    else if(compareString(keyword, 'Flugzeug Erstlandung'))
-    {
-        alertFhz(flf, 2, 'FLF', false);
-    }
     else if(compareString(keyword, 'Überhitzte Bremsen'))
     {
         alertFhz(lf, 1, 'LF', false);
