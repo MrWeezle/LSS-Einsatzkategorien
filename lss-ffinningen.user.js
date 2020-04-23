@@ -952,7 +952,7 @@ function main() {
     }
     else if(compareString(keyword, 'Brennende Waldhütte'))
     {
-        alertFhz(lf, 1, 'LF', false);
+        alertFhz(lf, 3, 'LF', false);
         alertFhz(elw1, 1, 'ELW1', false);
         alertFhz(ruest, 1, 'RÜST', false);
     }
