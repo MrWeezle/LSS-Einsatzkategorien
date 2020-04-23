@@ -1445,7 +1445,6 @@ function main() {
         alertFhz(gwm, 1, 'GW-M', false);
     }
     else if(compareString(keyword, 'Feuer im Krankenhaus') ||
-            compareString(keyword, 'Scheunenbrand') ||
             compareString(keyword, 'Mehrere brennende Fahrzeuge'))
     {
         alertFhz(lf, 4, 'LF', false);
