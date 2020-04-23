@@ -2,7 +2,7 @@
 // @name        Einsatzkategorien
 // @namespace   Leitstellenspiel
 // @include     http*://www.leitstellenspiel.de/*
-// @version     1.3.11
+// @version     1.3.12
 // @author      FFInningen
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -380,7 +380,8 @@ function main() {
            compareString(keyword, 'Transportunfall mit Strahler') ||
            compareString(keyword, 'Pkw in Wasser') ||
            compareString(keyword, 'Akute Atemnot') ||
-           compareString(keyword, 'Herzkreislaufprobleme'))
+           compareString(keyword, 'Herzkreislaufprobleme') ||
+           compareString(keyword, 'Vergiftung'))
         {
             if (patients_anzahl > 0)
             {
@@ -952,7 +953,7 @@ function main() {
     }
     else if(compareString(keyword, 'Brennende Waldhütte'))
     {
-        alertFhz(lf, 1, 'LF', false);
+        alertFhz(lf, 3, 'LF', false);
         alertFhz(elw1, 1, 'ELW1', false);
         alertFhz(ruest, 1, 'RÜST', false);
     }
@@ -1426,15 +1427,19 @@ function main() {
         alertFhz(gwg, 1, 'GW-G', false);
         alertFhz(gwm, 1, 'GW-M', false);
     }
-    else if(compareString(keyword, 'Mittlerer Feldbrand') ||
-            compareString(keyword, 'Großer Feldbrand') ||
-            compareString(keyword, 'Grosser Feldbrand'))
+    else if(compareString(keyword, 'Mittlerer Feldbrand'))
     {
         alertFhz(lf, 5, 'LF', false, 'B');
         alertFhz(elw1, 1, 'ELW1', false);
         alertFhz(gws, 1, 'GW-S', false);
-        if(help.slice(-3) == 133)
-            alertFhz(fustw, 1, 'FuStW', false);
+    }
+    else if(compareString(keyword, 'Großer Feldbrand') ||
+            compareString(keyword, 'Grosser Feldbrand'))
+    {
+	alertFhz(lf, 7, 'LF', false, 'B');
+	alertFhz(elw1, 1, 'ELW1', false);
+        alertFhz(gws, 1, 'GW-S', false);
+	alertFhz(fustw, 1, 'FuStW', false);
     }
     else if(compareString(keyword, 'Tankstellenbrand'))
     {
@@ -3755,10 +3760,8 @@ function additionalFHZ() {
                         case "Wasserwerfer":
                             alertFhz(wawe, fhz[ab]-anz_Driving_wawe, 'WaWe', true);
                             break;
-                        case "Flugfeldlöschefahrzeug":
-                            alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
-                            break;
                         case "Flugfeldlöschfahrzeug":
+                        case "Flugfeldlöschfahrzeuge":
                             alertFhz(flf, fhz[ab]-anz_Driving_flf, 'FLF', true);
                             break;
                         case "Polizeihubschrauber":
