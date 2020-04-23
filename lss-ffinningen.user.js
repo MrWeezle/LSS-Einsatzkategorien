@@ -1445,7 +1445,6 @@ function main() {
         alertFhz(gwm, 1, 'GW-M', false);
     }
     else if(compareString(keyword, 'Feuer im Krankenhaus') ||
-            compareString(keyword, 'Scheunenbrand') ||
             compareString(keyword, 'Mehrere brennende Fahrzeuge'))
     {
         alertFhz(lf, 4, 'LF', false);
@@ -2130,6 +2129,14 @@ function main() {
         alertFhz(mlw5, 1, 'MLW-5', false);
         alertFhz(lkwk9, 1, 'LKW K 9', false);
         alertFhz(mzkw, 1, 'MzKW', false);
+    }
+    else if(compareString(keyword, 'Scheunenbrand'))
+    {
+        alertFhz(lf, 9, 'LF', false);
+        alertFhz(dl, 1, 'DL', false);
+        alertFhz(gwa, 1, 'GW-A', false);
+        alertFhz(gws, 1, 'GW-S', false);
+        alertFhz(elw1, 1, 'ELW1', false);
     }
     else
     {
