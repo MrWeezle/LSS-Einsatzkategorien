@@ -509,6 +509,7 @@ function main() {
             compareString(keyword, 'Bank: Stiller Alarm') ||
             compareString(keyword, 'Taxi - Stiller Alarm') ||
             compareString(keyword, 'Zwangseinweisung') ||
+	    compareString(keyword, 'Unbefugtes Betreten einer Gleisanlage') ||
             compareString(keyword, 'Hundeangriff'))
     {
         alertFhz(fustw, 2, 'FuStW', false, 'POL');
